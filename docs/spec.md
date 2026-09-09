@@ -14,7 +14,9 @@ For example, Morgan asks for a password-reset help page. The agent reads the sou
 
 The distributable object is `skills/do-the-thing`: a self-contained skill with referenced templates and a Python validator. The host agent supplies reasoning, execution tools, and authenticated Linear access. The skill controls the procedure through instructions, not a deterministic execution scheduler.
 
-The validator checks completion-record structure and coverage. It rejects missing or failing checks, duplicate Mini IDs, wrong or stale parent references, missing Big coverage, and absent aggregate verification. It does not authenticate sources, inspect artifacts, fetch current revisions, or enforce concurrency. Human and agent review must establish evidence truth and current inputs.
+The validator checks completion-record structure and coverage. It rejects missing or failing checks, duplicate Mini IDs, wrong or stale parent references, missing Big coverage, and absent aggregate verification. Separately it warns, without failing the record, when a record still carries the sample's `fictional` flag or placeholder evidence. It does not authenticate sources, inspect artifacts, fetch current revisions, or enforce concurrency. Human and agent review must establish evidence truth and current inputs.
+
+One coverage rule is weaker than it looks. A Mini declares which Big criteria it serves, and the checks it must pass are its own; nothing ties an individual Mini check to an individual parent criterion. A Mini may therefore claim several Big criteria while passing one check of its own. The aggregate `big_checks` exist because of that gap, and they are themselves self-declared. Treat both as bookkeeping, not proof.
 
 ## Big and Mini contracts
 
@@ -65,6 +67,6 @@ A future service could enforce leases, event deduplication, webhook verification
 
 ## Verification and open work
 
-Automated tests cover completion validation, including rejecting Mini-only closure and stale parent revisions. They do not prove that an agent follows the skill or that Linear writes work.
+Automated tests cover completion validation, including rejecting Mini-only closure and stale parent revisions. Each test asserts the specific error its guard must produce, because a test that only asserts "some error appeared" still passes when its guard is deleted and an unrelated guard fires on the same fixture. Deleting any one of the validator's eighteen guards fails at least one test. They still do not prove that an agent follows the skill or that Linear writes work.
 
 Before claiming live integration success, run a permitted trial: interview, store Big/Mini, execute an actual task, stop/resume, inspect evidence, and read back Linear results. Keep the issue ID, artifact revision, and actual observations. Hosted executor selection, OAuth, event recovery, retention, and any automatic deployment remain open decisions.

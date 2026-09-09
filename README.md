@@ -18,7 +18,7 @@ cp -R do-the-thing/skills/do-the-thing ~/.codex/skills/
 
 If that destination already exists, compare it before replacing your installed copy. Other agents that support `SKILL.md` can use the same self-contained folder in their own skills directory.
 
-Connect Linear through your agent's supported connector, MCP, or API client. The skill discovers the available operations; it does not bundle credentials or assume a specific tool name. Python 3.10+ is needed only for the optional record validator.
+Connect Linear through your agent's supported connector, MCP, or API client. The skill discovers the available operations; it does not bundle credentials or assume a specific tool name. Python 3.9+ is needed only for the optional record validator; it is tested on 3.9 and 3.13.
 
 ## Use
 
@@ -35,7 +35,7 @@ in the same work context so we can resume later.
 ## The workflow
 
 ```text
-Sources → Interview → Big Painless Spec → Plan and critique → Split tasks
+Sources → Interview (grilling) → Big Painless Spec → Plan and critique → Split tasks
   For each task:
   Mini Painless Spec → Focused follow-up interview → Plan and critique
     → Execute → Verify Mini → Checkpoint → Next task
@@ -48,7 +48,7 @@ Sources → Interview → Big Painless Spec → Plan and critique → Split task
 | Big Painless Spec | Overall user outcome, scope, shared rules, exceptions, and acceptance criteria |
 | Mini Painless Spec | One verifiable task, its behavior and evidence, linked to the Big revision and criteria |
 
-An interview is an explicit step. Reuse answers already present in sources and conversation; ask only questions that change the work. A Mini inherits shared rules instead of asking the whole interview again. If a task uncovers a change to the overall promise, revise the Big and review affected work.
+An interview is an explicit step. Reuse answers already present in sources and conversation; ask only questions that change the work. The Big interview delegates to [Matt Pocock's `grilling` skill](https://github.com/mattpocock/skills) when it is installed, which asks each round of settled-prerequisite questions together; install it with `npx skills add https://github.com/mattpocock/skills --skill grilling`. It is optional — without it the skill runs the same batch under its own rules — and it belongs after the source read, not before, because it requires the agent to look facts up rather than ask for them. A Mini inherits shared rules instead of asking the whole interview again. If a task uncovers a change to the overall promise, revise the Big and review affected work.
 
 All Minis passing does not mean the Big passes. Verify the complete user journey before closing the work. A completed agent session is not a completed Linear issue.
 
@@ -61,7 +61,7 @@ python3 -m unittest discover -s tests -v
 
 Local tests are available; GitHub Actions is not configured in this initial publication.
 
-The example is **fictional**. The validator checks coverage, declared revisions, and evidence fields; it cannot prove that the evidence is true. It never contacts Linear or changes an issue's state.
+The example is **fictional**. The validator checks coverage, declared revisions, and evidence fields; it cannot prove that the evidence is true. It never contacts Linear or changes an issue's state. It does warn when a record still carries the example's `fictional` flag or placeholder evidence, but a warning does not fail the record: read the warnings before trusting a pass.
 
 ## Read more
 

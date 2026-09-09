@@ -89,17 +89,44 @@ def validate(record):
     return errors
 
 
+def advisories(record):
+    """Non-blocking notices about placeholder content. Structure is checked by validate()."""
+    notes = []
+    if not isinstance(record, dict):
+        return notes
+    if record.get('fictional') is True:
+        notes.append('Record is flagged fictional; replace every check with an actual observation.')
+    groups = [record.get('big_checks')]
+    minis = record.get('minis')
+    if isinstance(minis, list):
+        groups.extend(mini.get('checks') for mini in minis if isinstance(mini, dict))
+    placeholder = 0
+    for group in groups:
+        if not isinstance(group, list):
+            continue
+        for check in group:
+            if isinstance(check, dict) and any(
+                isinstance(check.get(key), str) and 'fictional' in check[key].lower()
+                for key in ('evidence', 'artifact_revision', 'method')
+            ):
+                placeholder += 1
+    if placeholder:
+        notes.append(f'{placeholder} check(s) cite placeholder evidence naming "fictional".')
+    return notes
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('record', help='Completion record JSON file')
     args = parser.parse_args()
     try:
         with open(args.record, encoding='utf-8') as source:
-            errors = validate(json.load(source))
+            record = json.load(source)
     except (OSError, ValueError) as error:
         print(f'Cannot read record: {error}', file=sys.stderr)
         return 2
-    print(json.dumps({'valid': not errors, 'errors': errors,
+    errors = validate(record)
+    print(json.dumps({'valid': not errors, 'errors': errors, 'warnings': advisories(record),
                       'notice': 'Coverage only; independently inspect evidence and current source revisions.'}, indent=2))
     return 1 if errors else 0
 
