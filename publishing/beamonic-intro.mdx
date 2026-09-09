@@ -1,0 +1,31 @@
+---
+title: "Do the Thing: from a Linear issue to verified work"
+description: "An agent skill for interviews, Big and Mini Painless Specs, task execution, and evidence-based recovery."
+tags: ["AI", "Linear", "Open source"]
+featured: false
+draft: true
+schemaType: BlogPosting
+audience: human
+sidebar: false
+tableOfContents: false
+---
+
+Giving an AI a task often starts another task: supplying context, answering questions, checking progress, and reconstructing what happened after a session ends.
+
+Do the Thing puts that work into a reusable workflow around a Linear issue. The first package is an English agent skill with templates and a local completion-record validator. It uses the agent's existing Linear connection; it is not a hosted service.
+
+## Interview, specify, execute
+
+Start with sources and an explicit interview. Reuse existing answers and ask about decisions that would change the result. Write a Big Painless Spec for the overall user outcome, then critique the plan and split it into task-level Mini Painless Specs.
+
+Each Mini references the Big's revision and acceptance criteria. Ask focused follow-up questions where a task reveals new uncertainty. Execute ready work, verify its results, and leave a checkpoint for recovery.
+
+Completing every Mini is not enough. Check the full Big user journey before declaring the work complete.
+
+## What is available
+
+The package includes the skill, specification templates, a Linear interaction contract, and a Python validator. The validator catches missing coverage and stale declared revisions. It does not prove that evidence is true or contact Linear.
+
+Painless Functional Specifications informs the user-centered writing. Gajae Code inspires interviews, plan critique, persistent goals, and recovery. Big/Mini is this project's convention; neither runtime is bundled.
+
+Find the package and installation instructions on [GitHub](https://github.com/beamonic/do-the-thing). Live Linear execution remains to be validated. Future progress reports will distinguish local tests, fictional examples, and actual integration evidence.

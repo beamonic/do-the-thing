@@ -1,0 +1,10 @@
+.private/
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+.DS_Store
+
+__pycache__/
+*.pyc

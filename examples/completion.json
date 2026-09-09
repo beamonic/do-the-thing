@@ -1,0 +1,44 @@
+{
+  "fictional": true,
+  "big": {
+    "id": "BIG-001",
+    "revision": 1,
+    "criteria": [
+      "BIG-AC-01"
+    ]
+  },
+  "minis": [
+    {
+      "id": "MINI-001",
+      "revision": 1,
+      "criteria": [
+        "MINI-AC-01"
+      ],
+      "parent_id": "BIG-001",
+      "parent_revision": 1,
+      "parent_criteria": [
+        "BIG-AC-01"
+      ],
+      "checks": [
+        {
+          "criterion": "MINI-AC-01",
+          "revision": 1,
+          "result": "pass",
+          "method": "Fictional demonstration only",
+          "evidence": "fictional://demo/check",
+          "artifact_revision": "fictional-v1"
+        }
+      ]
+    }
+  ],
+  "big_checks": [
+    {
+      "criterion": "BIG-AC-01",
+      "revision": 1,
+      "result": "pass",
+      "method": "Fictional demonstration only",
+      "evidence": "fictional://demo/check",
+      "artifact_revision": "fictional-v1"
+    }
+  ]
+}
