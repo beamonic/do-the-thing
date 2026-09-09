@@ -5,7 +5,6 @@
 - Status: Draft
 - Owner: Unassigned
 - Big: BIG-001, revision 1
-- Parent acceptance IDs: BIG-AC-01
 - Linear task: <URL>
 - Dependencies: <IDs or none>
 
@@ -18,6 +17,8 @@ Reference inherited Big rules. Describe task-specific behavior and non-goals.
 Reuse existing Big answers. Record only new questions, answers, evidence, and affected criteria.
 
 ## Acceptance criteria
+Every row names the one Big criterion it serves. That link, not a separate list, is what makes the parent criterion covered.
+
 | ID | Observable outcome | Verification method | Parent acceptance ID |
 |---|---|---|---|
 | MINI-AC-01 | | | BIG-AC-01 |

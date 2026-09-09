@@ -20,8 +20,9 @@ def base():
     return {
         'big': {'id': 'BIG-001', 'revision': 1, 'criteria': ['BIG-AC-01']},
         'minis': [{
-            'id': 'MINI-001', 'revision': 1, 'criteria': ['MINI-AC-01'],
-            'parent_id': 'BIG-001', 'parent_revision': 1, 'parent_criteria': ['BIG-AC-01'],
+            'id': 'MINI-001', 'revision': 1,
+            'criteria': [{'id': 'MINI-AC-01', 'parent': 'BIG-AC-01'}],
+            'parent_id': 'BIG-001', 'parent_revision': 1,
             'checks': [{'criterion': 'MINI-AC-01', 'revision': 1, 'result': 'pass',
                         'method': 'Ran the page check', 'evidence': 'reports/mini-001.txt',
                         'artifact_revision': 'a1b2c3d'}],
@@ -56,11 +57,41 @@ class GuardTests(unittest.TestCase):
         record['minis'][0]['parent_revision'] = 99
         self.assertRaisesError(record, 'stale Big revision')
 
-    def test_big_criterion_without_a_responsible_mini(self):
+    def test_big_criterion_no_mini_criterion_passed_for(self):
         record = base()
         record['big']['criteria'].append('BIG-AC-02')
         record['big_checks'].append(dict(record['big_checks'][0], criterion='BIG-AC-02'))
-        self.assertRaisesError(record, 'no responsible Mini')
+        self.assertRaisesError(record, 'No Mini criterion passed for BIG-AC-02')
+
+    def test_failed_mini_criterion_does_not_cover_its_parent(self):
+        record = base()
+        record['minis'][0]['checks'][0]['result'] = 'fail'
+        self.assertRaisesError(record, 'No Mini criterion passed for BIG-AC-01')
+
+    def test_missing_evidence_does_not_cover_its_parent(self):
+        record = base()
+        record['minis'][0]['checks'][0]['evidence'] = ''
+        self.assertRaisesError(record, 'No Mini criterion passed for BIG-AC-01')
+
+    def test_pre_0_7_bare_id_list_is_rejected(self):
+        record = base()
+        record['minis'][0]['criteria'] = ['MINI-AC-01']
+        self.assertRaisesError(record, 'pre-0.7 format')
+
+    def test_leftover_parent_criteria_is_rejected(self):
+        record = base()
+        record['minis'][0]['parent_criteria'] = ['BIG-AC-01']
+        self.assertRaisesError(record, 'parent_criteria was replaced')
+
+    def test_mini_criterion_needs_an_id(self):
+        record = base()
+        record['minis'][0]['criteria'][0]['id'] = '   '
+        self.assertRaisesError(record, 'nonempty criterion id required')
+
+    def test_mini_criterion_needs_a_parent_from_the_big(self):
+        record = base()
+        record['minis'][0]['criteria'][0]['parent'] = 'NOT-A-BIG-CRITERION'
+        self.assertRaisesError(record, 'needs a parent drawn from the Big')
 
     def test_duplicate_mini_id(self):
         record = base()
@@ -86,7 +117,7 @@ class GuardTests(unittest.TestCase):
 
     def test_criterion_without_a_check(self):
         record = base()
-        record['minis'][0]['criteria'].append('MINI-AC-02')
+        record['minis'][0]['criteria'].append({'id': 'MINI-AC-02', 'parent': 'BIG-AC-01'})
         self.assertRaisesError(record, 'missing check for MINI-AC-02')
 
     def test_check_against_unknown_criterion(self):
@@ -96,7 +127,12 @@ class GuardTests(unittest.TestCase):
 
     def test_duplicate_criterion_ids(self):
         record = base()
-        record['minis'][0]['criteria'].append('MINI-AC-01')
+        record['big']['criteria'].append('BIG-AC-01')
+        self.assertRaisesError(record, 'duplicate criterion IDs')
+
+    def test_duplicate_mini_criterion_ids(self):
+        record = base()
+        record['minis'][0]['criteria'].append({'id': 'MINI-AC-01', 'parent': 'BIG-AC-01'})
         self.assertRaisesError(record, 'duplicate criterion IDs')
 
     def test_duplicate_check_for_one_criterion(self):
@@ -108,11 +144,6 @@ class GuardTests(unittest.TestCase):
         record = base()
         record['big_checks'] = []
         self.assertRaisesError(record, 'Big aggregate: missing check for BIG-AC-01')
-
-    def test_parent_criteria_must_exist_on_the_big(self):
-        record = base()
-        record['minis'][0]['parent_criteria'] = ['NOT-A-CRITERION']
-        self.assertRaisesError(record, 'valid parent criteria required')
 
     def test_empty_spec_id(self):
         record = base()
@@ -135,7 +166,8 @@ class GuardTests(unittest.TestCase):
         self.assertRaisesError(record, 'At least one Mini required')
 
     def test_malformed_input_does_not_crash(self):
-        for value in [None, [], {}, {'big': []}, {'big': base()['big'], 'minis': 'nope'}]:
+        for value in [None, [], {}, {'big': []}, {'big': base()['big'], 'minis': 'nope'},
+                      {'big': base()['big'], 'minis': [{'id': 'M', 'revision': 1, 'criteria': [None]}]}]:
             with self.subTest(value=value):
                 self.assertTrue(records.validate(value))
 
