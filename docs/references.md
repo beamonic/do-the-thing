@@ -6,6 +6,7 @@ These sources inform the design. They are not bundled dependencies or endorsemen
 - [Painless Functional Specifications, Part 4 — Joel Spolsky](https://www.joelonsoftware.com/2000/10/15/painless-functional-specifications-part-4-tips/)
 - [Cucumber Example Mapping](https://cucumber.io/docs/bdd/example-mapping/)
 - [Gajae Code](https://github.com/Yeachan-Heo/gajae-code)
+- [grilling skill — Matt Pocock](https://github.com/mattpocock/skills/blob/main/skills/productivity/grilling/SKILL.md) — MIT; called by name when installed, not bundled.
 - [Reviewed ultragoal revision](https://github.com/Yeachan-Heo/gajae-code/blob/f6b7c475d24fb81aefe9e6475a713c1f364f6e80/packages/coding-agent/src/defaults/gjc/skills/ultragoal/SKILL.md)
 - [Reviewed recovery documentation](https://github.com/Yeachan-Heo/gajae-code/blob/f6b7c475d24fb81aefe9e6475a713c1f364f6e80/docs/workflow-recovery-and-risk-proportional-validation.md)
 - [OpenAI Symphony](https://github.com/openai/symphony)
