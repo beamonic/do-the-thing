@@ -12,13 +12,13 @@
       "id": "MINI-001",
       "revision": 1,
       "criteria": [
-        "MINI-AC-01"
+        {
+          "id": "MINI-AC-01",
+          "parent": "BIG-AC-01"
+        }
       ],
       "parent_id": "BIG-001",
       "parent_revision": 1,
-      "parent_criteria": [
-        "BIG-AC-01"
-      ],
       "checks": [
         {
           "criterion": "MINI-AC-01",

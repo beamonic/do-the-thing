@@ -1,5 +1,13 @@
 # Release status
 
+## 0.7 — coverage runs through individual criteria
+
+Changed: a Mini's `criteria` are now objects that each name the Big criterion they serve, replacing the separate `parent_criteria` list. A Big criterion is covered only when a Mini criterion aimed at it passes a check, so a failed or unevidenced check uncovers its parent. The previous shape let one Mini claim several Big criteria while passing a single check of its own; that record now fails with a message naming the change.
+
+This breaks the completion-record format. The package has no released consumers, so no migration path is provided beyond the rejection message.
+
+Still not implemented: everything listed under 0.5. Live Linear execution remains untested, and CI is still unpublished — the GitHub token in use carries `gist`, `read:org` and `repo`, but not `workflow`.
+
 ## 0.6 — hardened checks and delegated interview
 
 Changed: tests assert the specific error each guard raises, verified by deleting each of the eighteen guards in turn; the validator now reports non-blocking warnings for `fictional` flags and placeholder evidence; the Big interview delegates to Matt Pocock's `grilling` skill when installed, with its completion condition narrowed and its rounds transcribed into stable question IDs. The documented Python floor moved from 3.10 to 3.9 after running the suite on 3.9.6; no 3.10-only syntax was in use.

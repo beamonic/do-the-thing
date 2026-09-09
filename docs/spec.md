@@ -16,7 +16,7 @@ The distributable object is `skills/do-the-thing`: a self-contained skill with r
 
 The validator checks completion-record structure and coverage. It rejects missing or failing checks, duplicate Mini IDs, wrong or stale parent references, missing Big coverage, and absent aggregate verification. Separately it warns, without failing the record, when a record still carries the sample's `fictional` flag or placeholder evidence. It does not authenticate sources, inspect artifacts, fetch current revisions, or enforce concurrency. Human and agent review must establish evidence truth and current inputs.
 
-One coverage rule is weaker than it looks. A Mini declares which Big criteria it serves, and the checks it must pass are its own; nothing ties an individual Mini check to an individual parent criterion. A Mini may therefore claim several Big criteria while passing one check of its own. The aggregate `big_checks` exist because of that gap, and they are themselves self-declared. Treat both as bookkeeping, not proof.
+Coverage runs through individual criteria, not declarations. Each Mini criterion names the Big criterion it serves, and a Big criterion counts as covered only when a Mini criterion pointing at it passes a check with evidence at the current revision. A failed check therefore uncovers its parent rather than merely reporting itself. What the validator still cannot do is judge whether the evidence is true; `big_checks` remain self-declared, and a passing record is bookkeeping, not proof.
 
 ## Big and Mini contracts
 
@@ -24,7 +24,7 @@ One coverage rule is weaker than it looks. A Mini declares which Big criteria it
 |---|---|---|
 | Unit | Overall work or project | Independently verifiable task |
 | Content | Full user scenario, common rules, scope/non-goals, exceptions, open decisions, acceptance IDs | Task scenario, inputs/outputs, inherited and local rules, exceptions, acceptance IDs and methods |
-| Parent link | Lists responsible Minis | Big ID, exact revision, parent acceptance IDs |
+| Parent link | Lists responsible Minis | Big ID, exact revision, and a parent acceptance ID on each of its own criteria |
 | Interview | Establish purpose, constraints, behavior, and success/failure examples | Reuse answers; ask only newly discovered material questions |
 | Completion | Whole-journey and all-criteria verification | Actual task evidence and checkpoint |
 

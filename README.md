@@ -61,7 +61,7 @@ python3 -m unittest discover -s tests -v
 
 Local tests are available; GitHub Actions is not configured in this initial publication.
 
-The example is **fictional**. The validator checks coverage, declared revisions, and evidence fields; it cannot prove that the evidence is true. It never contacts Linear or changes an issue's state. It does warn when a record still carries the example's `fictional` flag or placeholder evidence, but a warning does not fail the record: read the warnings before trusting a pass.
+The example is **fictional**. Each Mini criterion names the Big criterion it serves, and a Big criterion counts as covered only when a Mini criterion aimed at it actually passes. The validator checks coverage, declared revisions, and evidence fields; it cannot prove that the evidence is true. It never contacts Linear or changes an issue's state. It does warn when a record still carries the example's `fictional` flag or placeholder evidence, but a warning does not fail the record: read the warnings before trusting a pass.
 
 ## Read more
 
