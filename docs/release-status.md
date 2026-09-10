@@ -45,7 +45,7 @@ Adapted from Matt Pocock's `grilling` (MIT, Copyright (c) 2026 Matt Pocock) with
 
 Implemented: GitHub Actions on push and pull request, running the suite on Python 3.9 and 3.13 plus `scripts/check-mutations.py`, which deletes each of the twenty-three validator guards in turn and requires the suite to fail. The gate was itself verified by deleting one test, which left `unittest` green and the gate red, and by renaming a guard pattern, which the gate reports rather than skipping. The `workflow` token scope that blocked 0.5 was granted on 2026-09-10.
 
-Not implemented: live Linear execution is still untested. That remains the only claim in this repository with no evidence behind it.
+Not implemented: live Linear execution is still untested. That remains the only claim in this repository with no evidence behind it. (Corrected in 0.13: the 2026-09-09 ledger already held one live trial and two local runs when this was written.)
 
 ## 0.7 — coverage runs through individual criteria
 
