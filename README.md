@@ -4,7 +4,7 @@
 
 Do the Thing is an installable agent skill that connects source review, interviews, Big and Mini Painless Specs, plan critique, execution, and recovery. The name comes from the Korean phrase for “do some work.”
 
-**Available now:** an English skill package, spec/checkpoint templates, a local completion-record validator, and fictional examples. Use it with an agent that already has access to Linear. This is not a hosted app, OAuth integration, background worker, or autonomous webhook service. One live trial has run: the Linear write path, interview, Big/Mini storage, and per-Mini verification are validated; resume-from-record and Big closure are not yet. See [release status](docs/release-status.md).
+**Available now:** the skill package with its interview contract, Big/Mini/checkpoint templates, a completion-record validator whose suite is mutation-tested in CI, and fictional examples. Use it with an agent that already has access to Linear. This is not a hosted app, OAuth integration, background worker, or autonomous webhook service. Five runs so far, two of them on live Linear issues — one closed to Done with the whole journey verified and resume exercised, one still in progress. Native comment threads and crash-simulated resume are untested. See [release status](docs/release-status.md).
 
 ## Install
 
