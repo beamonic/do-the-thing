@@ -1,5 +1,12 @@
 # Release status
 
+## 0.12 — the Linear contract follows measured capability
+
+Changed: `references/linear.md` no longer assumes one shape of Linear access. It tells the agent to enumerate the host's tool list first, then names the capability each rule needs and the fallback when the host lacks it — a project-linked document or the parent issue body for a Big, a comment thread or the Big's interview table for questions, a parent reference or a shared project for grouping Minis. Rule 4 now prefers an anchored partial edit, since the official MCP's `patch` requires each anchor to match exactly once and therefore fails a save that would silently overwrite a concurrent change; the `do-the-thing: BIG-001` marker is that anchor. A closing paragraph covers hosts that route writes through a gateway with its own required labels, limits, or content scans: satisfy them, record that you did, and report a genuine block rather than switching to an unguarded path.
+
+Evidence: the official Linear MCP's tool list was enumerated rather than read about — 73 tools, `save_*` shaped, create and update in one call. A widely installed third-party skill still documents `create_comment`, `create_issue`, and `update_issue`, none of which exist. That is why the contract now says a tool list you did not enumerate yourself is a guess.
+
+
 ## 0.11 — a gate for not running this at all
 
 Changed: step 0 asks whether the issue needs a spec before anything else happens. An issue that is already clear, bounded, low-risk, and names its own change is done directly and recorded, with no Big and no Minis. Blockers are now classified before being acted on — resolvable by default, human-blocked only for a credential, manual step, external approval, or missing access — and an attempt whose blocker and evidence are unchanged across two consecutive tries is not repeated a third time. On resume, an unreadable or contradicted local record falls back to Linear and the artifacts instead of stopping, and a record holding interview answers, spec revisions, or evidence is never discarded without asking.

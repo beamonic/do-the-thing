@@ -8,7 +8,7 @@ license: MIT
 
 Run a source-first workflow inside the user's existing agent environment. Linear holds the work, questions, decisions, and results. Local records support recovery; they do not override current Linear instructions.
 
-Use the available Linear connector, MCP, or authenticated API client. Read [the Linear contract](references/linear.md) before interacting with Linear. If no connection is available, prepare local drafts and identify the exact connection needed; do not claim synchronization. This skill does not install an OAuth app or run a background worker.
+Use the available Linear connector, MCP, or authenticated API client. Read [the Linear contract](references/linear.md) before interacting with Linear, and enumerate the host's actual tool list before trusting any description of it — what the host can do decides how much of the contract you can honour. If no connection is available, prepare local drafts and identify the exact connection needed; do not claim synchronization. This skill does not install an OAuth app or run a background worker.
 
 ## 0. Decide whether this workflow applies
 

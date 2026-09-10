@@ -51,7 +51,7 @@ A material unresolved question blocks its dependent tasks, not every task. Inter
 
 A Big may live in a project-linked document or parent issue body. A Mini lives in its task issue body. A one-task trial can store separate Big and Mini sections in the same issue. Preserve stable spec IDs, source links, and actual Linear IDs in checkpoints.
 
-Read viewer/workspace and target identity before writes. Inspect existing records to avoid duplicate tasks. Preserve unrelated content and reread before editing. Read back successful changes. An uncertain response requires reconciliation before retrying. Use actual team states; never hard-code a status ID.
+Enumerate the host's Linear operations before choosing a storage or question path; a documented tool list is not a measured one. Read viewer/workspace and target identity before writes. Inspect existing records to avoid duplicate tasks. Preserve unrelated content and reread before editing. Read back successful changes. An uncertain response requires reconciliation before retrying. Use actual team states; never hard-code a status ID.
 
 ## Records and future runtime objects
 
