@@ -1,5 +1,10 @@
 # Release status
 
+## 0.14 — the description parses again
+
+0.13 moved the Korean triggers to the front of the description, which made the value begin with a double quote. To YAML that is a quoted scalar, and the English text after its closing quote is a parse error in any strict loader; the lenient loaders in use did not object, and the regex-based frontmatter test did not look. A one-word label now precedes the first quote so the value is a plain scalar, and the test asserts the three shapes a plain scalar cannot take: opening quote, colon-space, space-hash. The triggers still sit inside the first 60 characters.
+
+
 ## 0.13 — live trials, what they reached and what they did not
 
 Five runs to date. Three on 2026-09-09, recorded in the project's private trial ledger outside this repository: two local, and one on a live Linear issue that went from creation through a question and answer stored in the issue, Big/Mini storage, implementation, browser-verified acceptance criteria, an artifact hash, and a Done transition read back. One of the local runs exercised fresh-context resume from saved records. Two on 2026-09-10 on real work: one whose evidence stays in its own private ledger, and one on this project's own host, CAP-515 — step 0 admitted the task, six sources were measured, two interview rounds ran (one question rephrased when the user did not understand it; one chosen criterion found unmeasurable from the host's logs and re-grounded on another data source without re-asking), four Minis were written into the issue body under `do-the-thing:` markers, one was verified, one completed, one classified blocked with its dependency named, one left open. One gateway write was refused by the gateway's content scan and corrected rather than routed around.
