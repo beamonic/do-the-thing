@@ -55,6 +55,15 @@ class FrontmatterTests(unittest.TestCase):
         self.assertGreaterEqual(len(quoted), 4, 'one trigger per branch: delegate, spec, resume, verify')
         self.assertEqual(len(quoted), len(set(quoted)), 'a repeated trigger is one branch written twice')
 
+    def test_description_is_a_plain_yaml_scalar(self):
+        """A value that opens with a quote is a quoted scalar to YAML, and anything
+        after the closing quote is a parse error in a strict loader. Lenient skill
+        loaders accept it, which is how it shipped once. Keep the value plain."""
+        description = self.fields.get('description', '')
+        self.assertNotIn(description[:1], ('"', "'"), 'description must not open with a quote')
+        self.assertNotIn(': ', description, 'a colon-space inside a plain scalar starts a mapping')
+        self.assertNotIn(' #', description, 'space-hash inside a plain scalar starts a comment')
+
     def test_referenced_files_exist(self):
         body = SKILL.read_text(encoding='utf-8')
         for target in re.findall(r'\]\((?!https?://)([^)#]+)\)', body):
