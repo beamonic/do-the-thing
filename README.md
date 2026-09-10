@@ -35,7 +35,7 @@ in the same work context so we can resume later.
 ## The workflow
 
 ```text
-Sources → Interview (grilling) → Big Painless Spec → Plan and critique → Split tasks
+Sources → Interview → Big Painless Spec → Plan and critique → Split tasks
   For each task:
   Mini Painless Spec → Focused follow-up interview → Plan and critique
     → Execute → Verify Mini → Checkpoint → Next task
@@ -48,7 +48,7 @@ Sources → Interview (grilling) → Big Painless Spec → Plan and critique →
 | Big Painless Spec | Overall user outcome, scope, shared rules, exceptions, and acceptance criteria |
 | Mini Painless Spec | One verifiable task, its behavior and evidence, linked to the Big revision and criteria |
 
-An interview is an explicit step. Reuse answers already present in sources and conversation; ask only questions that change the work. The Big interview delegates to [Matt Pocock's `grilling` skill](https://github.com/mattpocock/skills) when it is installed, which asks each round of settled-prerequisite questions together; install it with `npx skills add https://github.com/mattpocock/skills --skill grilling`. It is optional — without it the skill runs the same batch under its own rules — and it belongs after the source read, not before, because it requires the agent to look facts up rather than ask for them. A Mini inherits shared rules instead of asking the whole interview again. If a task uncovers a change to the overall promise, revise the Big and review affected work.
+An interview is an explicit step, and [its contract](skills/do-the-thing/references/interview.md) ships with the skill. Questions are asked one frontier at a time — every decision whose prerequisites are already settled, together, each with the agent's recommended answer — and the round is transcribed into stable question IDs before anything is acted on. Facts the agent can look up are not interview questions. The interview may end with questions still open when they affect only individual tasks. That discipline is adapted from Matt Pocock's `grilling` skill; nothing needs to be installed alongside this one. A Mini inherits shared rules instead of asking the whole interview again. If a task uncovers a change to the overall promise, revise the Big and review affected work.
 
 All Minis passing does not mean the Big passes. Verify the complete user journey before closing the work. A completed agent session is not a completed Linear issue.
 
@@ -85,4 +85,4 @@ Run the tests above. For behavioral changes, include a realistic input, the expe
 
 ## License
 
-[MIT](LICENSE). This project is independently authored. It is not affiliated with Linear, OpenAI, or Gajae Code. No third-party skill implementation or runtime is bundled.
+[MIT](LICENSE). This project is independently authored. It is not affiliated with Linear, OpenAI, Gajae Code, or Matt Pocock. No third-party skill implementation or runtime is bundled or invoked. The interview contract adapts the frontier discipline of the `grilling` skill (MIT, Copyright (c) 2026 Matt Pocock), rewritten here; see [method and attribution](docs/method.md).
