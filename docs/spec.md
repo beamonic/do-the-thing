@@ -32,6 +32,7 @@ Keep mechanical actions as checklist items within a Mini. Do not create a new sp
 
 ## Workflow contract
 
+0. Judge suitability. An issue that is already clear, bounded, low-risk, and names its own change is done directly and recorded, without a Big or Minis. Anything whose scope, shared rules, or acceptance criteria are still being guessed at runs the workflow regardless of diff size.
 1. Read sources, revisions, authority, conflicts, and existing Linear records.
 2. Interview explicitly, one frontier of settled-prerequisite decisions per round, following `references/interview.md`. Preserve questions, answers, evidence, and dependent criteria under stable question IDs. Unknown behavior remains unknown.
 3. Write the Big with owner, revision, user scenario, shared rules, non-goals, exceptions, and acceptance IDs.
@@ -41,6 +42,8 @@ Keep mechanical actions as checklist items within a Mini. Do not create a new sp
 7. Verify the Mini, record output revisions and evidence, and checkpoint.
 8. Resume from current records and actual artifacts. Repeat only checks whose inputs or evidence changed.
 9. Verify the Big journey independently, deliver the results in Linear, and read them back.
+
+Blockers are classified before they are acted on, defaulting to resolvable; only a credential, manual step, external approval, or missing access is human-blocked. An attempt whose blocker and evidence are unchanged across two consecutive tries is not repeated a third time with the same inputs.
 
 A material unresolved question blocks its dependent tasks, not every task. Interview completion does not grant execution permission. Existing authorization remains usable within its scope. New shared-rule or scope decisions return to the Big; a Mini must not silently override them.
 

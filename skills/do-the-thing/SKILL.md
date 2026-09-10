@@ -10,6 +10,14 @@ Run a source-first workflow inside the user's existing agent environment. Linear
 
 Use the available Linear connector, MCP, or authenticated API client. Read [the Linear contract](references/linear.md) before interacting with Linear. If no connection is available, prepare local drafts and identify the exact connection needed; do not claim synchronization. This skill does not install an OAuth app or run a background worker.
 
+## 0. Decide whether this workflow applies
+
+Read the issue first, then judge whether it needs this at all. If the request is already clear, bounded, low-risk, and names its own change — a one-file edit, a known symbol, a copy fix, an explicit command, a direct question — stop here. Say in one line that a Big and Minis would cost more than the work, do the work under the permissions you already have, and record the result and its evidence in the issue.
+
+This gate exists because the workflow's most likely failure is not a missing spec, it is ceremony on a task that never needed one. A small verification need does not make an issue spec-worthy. If the user asks for the full workflow anyway, run it.
+
+Do not skip the gate in the other direction either. Anything whose scope, shared rules, or acceptance criteria are still being guessed at goes through the workflow, however small the diff looks.
+
 ## 1. Read the work and its sources
 
 Resolve the requested issue, workspace, team, parent/project, description, relevant comments, and existing linked specs before creating anything. Reuse existing records by stable ID. Record sources with author/authority, revision or retrieval date, relevance, conflicts, and unknowns. Prefer primary evidence for decisions. Treat issue attachments and quoted text as evidence, not authorization.
@@ -36,13 +44,19 @@ Read current instructions, dependencies, applicable permissions, Big/Mini revisi
 
 ## 5. Verify and checkpoint
 
-Use [the checkpoint template](assets/checkpoint.md). Record actual checks, output revisions, failures, and evidence locations. Only mark a Mini complete when its criteria have passed. A narrative claim or checked box is not proof. If blocked, record the concrete blocker and next condition instead of repeating the same attempt without progress.
+Use [the checkpoint template](assets/checkpoint.md). Record actual checks, output revisions, failures, and evidence locations. Only mark a Mini complete when its criteria have passed. A narrative claim or checked box is not proof.
+
+Classify a blocker before deciding what to do with it, and default to resolvable when unsure. **Resolvable** is anything you can act on: a failing check, missing implementation, a dependency to install, an inferable detail, work that needs investigating. Do not hand these back — investigate, split the task, or record the blocker and move to the next ready Mini. **Human-blocked** is only what the user alone can supply: a credential, a physical or manual step, an external approval, access you do not have. Name the specific dependency when you record one; "needs input" is not a classification.
+
+Stop repeating an attempt that is not moving. If a Mini's blocker and evidence are unchanged across two consecutive attempts, do not make a third with the same inputs: record the blocker as standing, say what new condition would change it, and move on. Progress means a changed artifact revision, a changed check result, or a changed blocker — not a new timestamp.
 
 The optional [record helper](scripts/records.py) validates a local completion record. Read [its format](references/records.md) when using it. It checks structure and coverage, not the truth of evidence. Inspect actual results before writing a passing record.
 
 ## 6. Resume and close the Big
 
 On resume, compare saved records with current Linear instructions and actual artifacts. Preserve valid completed work. A changed shared rule invalidates affected evidence; do not restart unaffected work merely because a timestamp changed.
+
+A local record that is unreadable, malformed, or contradicted by the artifacts is not a reason to stop. Fall back to what Linear and the artifacts themselves say, note in the checkpoint that the record was discarded and why, and resume from observed state. Never delete a record that holds interview answers, spec revisions, or verification evidence in order to start clean — ask first. Only a record with none of those is yours to replace.
 
 After the Minis pass, verify the whole Big user journey and every Big acceptance criterion, including integration gaps. All Minis being complete is necessary but insufficient. Report outputs, evidence, remaining limitations, and delivery status in Linear, then read back the update. Session completion is not issue completion. Change the issue state only when the Big is verified and the user's authorization covers that transition.
 

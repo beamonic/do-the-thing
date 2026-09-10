@@ -37,6 +37,8 @@ in the same work context so we can resume later.
 ## The workflow
 
 ```text
+Does this issue need a spec at all? → no: do the work, record it, stop
+  yes:
 Sources → Interview → Big Painless Spec → Plan and critique → Split tasks
   For each task:
   Mini Painless Spec → Focused follow-up interview → Plan and critique
@@ -49,6 +51,8 @@ Sources → Interview → Big Painless Spec → Plan and critique → Split task
 |---|---|
 | Big Painless Spec | Overall user outcome, scope, shared rules, exceptions, and acceptance criteria |
 | Mini Painless Spec | One verifiable task, its behavior and evidence, linked to the Big revision and criteria |
+
+The first step is deciding whether to run the rest. An issue that is already clear, bounded, low-risk, and names its own change gets done directly, with the result recorded in the issue — no Big, no Minis. The workflow's likeliest failure is ceremony on a task that never needed one, not a missing spec.
 
 An interview is an explicit step, and [its contract](skills/do-the-thing/references/interview.md) ships with the skill. Questions are asked one frontier at a time — every decision whose prerequisites are already settled, together, each with the agent's recommended answer — and the round is transcribed into stable question IDs before anything is acted on. Facts the agent can look up are not interview questions. The interview may end with questions still open when they affect only individual tasks. That discipline is adapted from Matt Pocock's `grilling` skill; nothing needs to be installed alongside this one. A Mini inherits shared rules instead of asking the whole interview again. If a task uncovers a change to the overall promise, revise the Big and review affected work.
 
