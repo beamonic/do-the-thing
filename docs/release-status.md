@@ -1,5 +1,12 @@
 # Release status
 
+## 0.11 — a gate for not running this at all
+
+Changed: step 0 asks whether the issue needs a spec before anything else happens. An issue that is already clear, bounded, low-risk, and names its own change is done directly and recorded, with no Big and no Minis. Blockers are now classified before being acted on — resolvable by default, human-blocked only for a credential, manual step, external approval, or missing access — and an attempt whose blocker and evidence are unchanged across two consecutive tries is not repeated a third time. On resume, an unreadable or contradicted local record falls back to Linear and the artifacts instead of stopping, and a record holding interview answers, spec revisions, or evidence is never discarded without asking.
+
+Adapted from Gajae Code's deep-interview suitability gate, ultragoal blocker triage, bounded zero-progress escalation, and safe-degradation property; see `docs/method.md`, which also records why its risk-proportional validation was reviewed and left out.
+
+
 ## 0.10 — triggers in the description, portability tested
 
 Changed: the description now carries one Korean trigger per branch the skill handles — delegating an issue, writing the spec, resuming stopped work, checking completion evidence — after the English sentence that already described it. The official field for trigger phrases is `when_to_use`, but that is a Claude Code extension and not among the six keys the Agent Skills spec allows, so using it would break the README's promise that any `SKILL.md` host can run this folder. `license: MIT` was added, which the spec does allow.

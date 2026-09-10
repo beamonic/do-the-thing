@@ -22,7 +22,11 @@ Joel Spolsky's essays inform user scenarios, non-goals, open issues, ownership, 
 
 Story/Rules/Examples/Questions and Given/When/Then belong to BDD and Cucumber-related practice, not Joel's original method. Spec IDs, Big/Mini references, and evidence linkage are our implementation choices.
 
-The reviewed Gajae Code material includes portions of the pinned ultragoal skill and its recovery documentation. No Gajae Code runtime or third-party skill code is copied or invoked by this package. Symphony is a reference for issue-driven execution, not a dependency.
+The reviewed Gajae Code material includes portions of the pinned ultragoal skill, its deep-interview skill, and its recovery documentation. No Gajae Code runtime or third-party skill code is copied or invoked by this package. Symphony is a reference for issue-driven execution, not a dependency.
+
+Four of its ideas are adapted here. Its deep-interview suitability gate, which stops the heavy workflow when the request is already small and clear, became step 0. Its blocker triage — resolvable by default, human-blocked only for what the user alone can supply — became the classification rule in step 5. Its bounded zero-progress escalation, which counts unchanged recovery attempts and forces a durable blocker at a threshold, became the two-attempt stall rule. Its safe-degradation property, where malformed durable state falls back instead of aborting, became the resume rule for unreadable records.
+
+Its risk-proportional validation was reviewed and deliberately not adapted. That policy exists to skip redundant heavyweight review lanes, and it is safe there because a runtime computes the reduction and model prose can never grant one. This package has no runtime to compute anything and no heavyweight lanes to skip, so importing the idea would only loosen the evidence rule it currently holds. Its counterpart here is the rule that already stands: a narrative claim or a checked box is not proof.
 
 The `grilling` skill by Matt Pocock (MIT, Copyright (c) 2026 Matt Pocock) is the source of the interview method in `references/interview.md`. Its design tree, its frontier of questions whose prerequisites are settled, its one-round-per-frontier discipline, and its rule that the agent finds facts while the user makes decisions are its ideas, not ours.
 
