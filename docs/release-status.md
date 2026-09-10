@@ -1,5 +1,12 @@
 # Release status
 
+## 0.13 — first live trial, partial
+
+Exercised on a real Linear workspace against a real task (a host truncating every skill description to its first 60 characters): step 0 admitted the task; step 1 gathered six measured sources; step 2 ran two interview rounds — the first question was rephrased once when the user did not understand it, and its chosen criterion was later found unmeasurable from the host's own logs and re-grounded on a different data source without re-asking; the Big and four Minis were written into the issue body under `do-the-thing:` markers; one Mini was executed, verified against its acceptance criterion, and checkpointed; one was completed as an artifact; one was classified blocked with its dependency and next condition named; one was left open as a task-level question. Every write went through the host's gateway, was read back, and one was refused by the gateway's content scan and corrected rather than routed around.
+
+Not exercised: resume from a saved record in a fresh session, whole-journey verification, and the issue state transition — two acceptance criteria wait on the host's quota. `records.py` was not run against this trial because the Big is not complete. The README's "live Linear execution has not been validated" now reads as above: the write path is validated; closure is not.
+
+
 ## 0.12 — the Linear contract follows measured capability
 
 Changed: `references/linear.md` no longer assumes one shape of Linear access. It tells the agent to enumerate the host's tool list first, then names the capability each rule needs and the fallback when the host lacks it — a project-linked document or the parent issue body for a Big, a comment thread or the Big's interview table for questions, a parent reference or a shared project for grouping Minis. Rule 4 now prefers an anchored partial edit, since the official MCP's `patch` requires each anchor to match exactly once and therefore fails a save that would silently overwrite a concurrent change; the `do-the-thing: BIG-001` marker is that anchor. A closing paragraph covers hosts that route writes through a gateway with its own required labels, limits, or content scans: satisfy them, record that you did, and report a genuine block rather than switching to an unguarded path.
