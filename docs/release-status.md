@@ -1,12 +1,18 @@
 # Release status
 
+## 0.8 — CI and a mutation gate
+
+Implemented: GitHub Actions on push and pull request, running the suite on Python 3.9 and 3.13 plus `scripts/check-mutations.py`, which deletes each of the twenty-three validator guards in turn and requires the suite to fail. The gate was itself verified by deleting one test, which left `unittest` green and the gate red, and by renaming a guard pattern, which the gate reports rather than skipping. The `workflow` token scope that blocked 0.5 was granted on 2026-09-10.
+
+Not implemented: live Linear execution is still untested. That remains the only claim in this repository with no evidence behind it.
+
 ## 0.7 — coverage runs through individual criteria
 
 Changed: a Mini's `criteria` are now objects that each name the Big criterion they serve, replacing the separate `parent_criteria` list. A Big criterion is covered only when a Mini criterion aimed at it passes a check, so a failed or unevidenced check uncovers its parent. The previous shape let one Mini claim several Big criteria while passing a single check of its own; that record now fails with a message naming the change.
 
 This breaks the completion-record format. The package has no released consumers, so no migration path is provided beyond the rejection message.
 
-Still not implemented: everything listed under 0.5. Live Linear execution remains untested, and CI is still unpublished — the GitHub token in use carries `gist`, `read:org` and `repo`, but not `workflow`.
+Still not implemented: everything listed under 0.5. Live Linear execution remains untested. CI arrived in 0.8.
 
 ## 0.6 — hardened checks and delegated interview
 

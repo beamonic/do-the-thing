@@ -67,6 +67,6 @@ A future service could enforce leases, event deduplication, webhook verification
 
 ## Verification and open work
 
-Automated tests cover completion validation, including rejecting Mini-only closure and stale parent revisions. Each test asserts the specific error its guard must produce, because a test that only asserts "some error appeared" still passes when its guard is deleted and an unrelated guard fires on the same fixture. Deleting any one of the validator's eighteen guards fails at least one test. They still do not prove that an agent follows the skill or that Linear writes work.
+Automated tests cover completion validation, including rejecting Mini-only closure and stale parent revisions. Each test asserts the specific error its guard must produce, because a test that only asserts "some error appeared" still passes when its guard is deleted and an unrelated guard fires on the same fixture. `scripts/check-mutations.py` enforces that in CI by deleting each of the twenty-three guards in turn and requiring a failure. They still do not prove that an agent follows the skill or that Linear writes work.
 
 Before claiming live integration success, run a permitted trial: interview, store Big/Mini, execute an actual task, stop/resume, inspect evidence, and read back Linear results. Keep the issue ID, artifact revision, and actual observations. Hosted executor selection, OAuth, event recovery, retention, and any automatic deployment remain open decisions.
