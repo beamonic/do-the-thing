@@ -59,7 +59,13 @@ python3 skills/do-the-thing/scripts/records.py examples/completion.json
 python3 -m unittest discover -s tests -v
 ```
 
-Local tests are available; GitHub Actions is not configured in this initial publication.
+GitHub Actions runs both on every push and pull request: the suite on Python 3.9 and 3.13, and a mutation gate.
+
+```sh
+python3 scripts/check-mutations.py
+```
+
+The gate deletes each of the validator's guards in turn and requires the suite to fail. A guard no test covers is a guard that can be removed without anyone noticing, which is what happened here before 0.6 — every test asserted only that some error appeared, so an unrelated guard firing on the same fixture covered for the missing one. `tests/mutations.json` lists the guards; renaming one without updating that list fails the gate rather than passing quietly.
 
 The example is **fictional**. Each Mini criterion names the Big criterion it serves, and a Big criterion counts as covered only when a Mini criterion aimed at it actually passes. The validator checks coverage, declared revisions, and evidence fields; it cannot prove that the evidence is true. It never contacts Linear or changes an issue's state. It does warn when a record still carries the example's `fictional` flag or placeholder evidence, but a warning does not fail the record: read the warnings before trusting a pass.
 
