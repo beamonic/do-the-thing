@@ -1,6 +1,6 @@
 ---
 name: do-the-thing
-description: Turn a Linear issue into an interviewed Big Painless Spec and task-level Mini Painless Specs, then execute, verify, checkpoint, and resume the work using available Linear tools. 한국어 트리거 "리니어 이슈 받아서 작업해", "이 일 스펙부터 써", "중단된 작업 이어서", "완료 증거 확인해".
+description: "리니어 이슈 받아서 작업해", "이 일 스펙부터 써", "중단된 작업 이어서", "완료 증거 확인해" — Linear issue to interviewed Big Painless Spec and task-level Mini Painless Specs, then execute, verify, checkpoint, resume.
 license: MIT
 ---
 
