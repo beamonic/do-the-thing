@@ -16,7 +16,9 @@ mkdir -p ~/.codex/skills
 cp -R do-the-thing/skills/do-the-thing ~/.codex/skills/
 ```
 
-If that destination already exists, compare it before replacing your installed copy. Other agents that support `SKILL.md` can use the same self-contained folder in their own skills directory.
+If that destination already exists, compare it before replacing your installed copy. Other agents that support `SKILL.md` can use the same self-contained folder in their own skills directory. The frontmatter deliberately stays inside the six keys the Agent Skills spec allows, so a Claude Code extension such as `when_to_use` is not used and `tests/test_skill_frontmatter.py` fails if one appears.
+
+The description carries Korean trigger phrases alongside the English sentence, one per branch the skill handles, because its primary user works in Korean. They are additive: the English description still matches an English request.
 
 Connect Linear through your agent's supported connector, MCP, or API client. The skill discovers the available operations; it does not bundle credentials or assume a specific tool name. Python 3.9+ is needed only for the optional record validator; it is tested on 3.9 and 3.13.
 
@@ -72,6 +74,7 @@ The example is **fictional**. Each Mini criterion names the Big criterion it ser
 ## Read more
 
 - [Skill entrypoint](skills/do-the-thing/SKILL.md)
+- [Interview contract](skills/do-the-thing/references/interview.md)
 - [Product spec and implementation boundaries](docs/spec.md)
 - [Method and attribution](docs/method.md)
 - [Fictional demonstration](docs/demo-scenario.md)

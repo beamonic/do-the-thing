@@ -1,5 +1,12 @@
 # Release status
 
+## 0.10 — triggers in the description, portability tested
+
+Changed: the description now carries one Korean trigger per branch the skill handles — delegating an issue, writing the spec, resuming stopped work, checking completion evidence — after the English sentence that already described it. The official field for trigger phrases is `when_to_use`, but that is a Claude Code extension and not among the six keys the Agent Skills spec allows, so using it would break the README's promise that any `SKILL.md` host can run this folder. `license: MIT` was added, which the spec does allow.
+
+`tests/test_skill_frontmatter.py` enforces that: only spec keys, name matching the directory, a description within the 1,536-character listing cap, one distinct trigger per branch, and no broken relative links out of SKILL.md.
+
+
 ## 0.9 — the interview contract ships with the skill
 
 Changed: `references/interview.md` now carries the interview method — the decision tree and its frontier, one round per frontier with a recommended answer attached, transcription into stable question IDs, the rule that the agent finds facts while the user decides, and an ending condition that permits task-level questions to stay open. Earlier revisions called an installed `grilling` skill by name, which meant the method silently degraded to a vague "small coherent batch" wherever that skill was absent. Nothing external is invoked now.
