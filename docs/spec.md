@@ -1,7 +1,7 @@
 # Product specification
 
 Status: Skill implementation available; five runs recorded, two on live Linear issues (see release status 0.13).
-Version: 0.14. Owner: 이정환.
+Version: 0.15. Owner: 이정환.
 Change: Package the approved Big/Mini workflow as an English agent skill with templates and a completion-record validator. The earlier hosted-runtime design remains future work, not an implemented capability.
 
 ## User and outcome
