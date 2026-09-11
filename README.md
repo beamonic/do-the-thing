@@ -56,6 +56,8 @@ The first step is deciding whether to run the rest. An issue that is already cle
 
 An interview is an explicit step, and [its contract](skills/do-the-thing/references/interview.md) ships with the skill. Questions are asked one frontier at a time — every decision whose prerequisites are already settled, together, each with the agent's recommended answer — and the round is transcribed into stable question IDs before anything is acted on. Facts the agent can look up are not interview questions. The interview may end with questions still open when they affect only individual tasks. That discipline is adapted from Matt Pocock's `grilling` skill; nothing needs to be installed alongside this one. A Mini inherits shared rules instead of asking the whole interview again. If a task uncovers a change to the overall promise, revise the Big and review affected work.
 
+If the repository already carries GitHub's Spec Kit, the agent calls its `speckit.*` commands at each of those steps — `clarify` feeds the interview, `specify`, `plan`, and `tasks` write the artifacts, `implement` runs one Mini at a time, `analyze` and `converge` feed verification — as [the Spec Kit contract](skills/do-the-thing/references/speckit.md) maps them. Nothing is installed for you, and the workflow is the same without it.
+
 All Minis passing does not mean the Big passes. Verify the complete user journey before closing the work. A completed agent session is not a completed Linear issue.
 
 ## Check a completion record
@@ -79,6 +81,7 @@ The example is **fictional**. Each Mini criterion names the Big criterion it ser
 
 - [Skill entrypoint](skills/do-the-thing/SKILL.md)
 - [Interview contract](skills/do-the-thing/references/interview.md)
+- [Spec Kit contract](skills/do-the-thing/references/speckit.md)
 - [Product spec and implementation boundaries](docs/spec.md)
 - [Method and attribution](docs/method.md)
 - [Fictional demonstration](docs/demo-scenario.md)
@@ -92,4 +95,4 @@ Run the tests above. For behavioral changes, include a realistic input, the expe
 
 ## License
 
-[MIT](LICENSE). This project is independently authored. It is not affiliated with Linear, OpenAI, Gajae Code, or Matt Pocock. No third-party skill implementation or runtime is bundled or invoked. The interview contract adapts the frontier discipline of the `grilling` skill (MIT, Copyright (c) 2026 Matt Pocock), rewritten here; see [method and attribution](docs/method.md).
+[MIT](LICENSE). This project is independently authored. It is not affiliated with Linear, OpenAI, GitHub, Gajae Code, or Matt Pocock. No third-party skill implementation or runtime is bundled or invoked. The interview contract adapts the frontier discipline of the `grilling` skill (MIT, Copyright (c) 2026 Matt Pocock), rewritten here; see [method and attribution](docs/method.md).
