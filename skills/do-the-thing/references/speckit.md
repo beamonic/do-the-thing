@@ -7,7 +7,7 @@ GitHub's [Spec Kit](https://github.com/github/spec-kit) is a spec-driven develop
 At step 1, check the repository root once:
 
 - `.specify/` exists, and
-- the host's command directory holds `speckit.*` commands (`.claude/commands/speckit.*.md`, `.github/prompts/speckit.*.prompt.md`, or the directory named in `.specify/init-options.json`).
+- the host exposes the `speckit` commands — as command files (`.claude/commands/speckit.*.md`, `.github/prompts/speckit.*.prompt.md`, or the directory named in `.specify/init-options.json`) or as installed skills named `speckit-*`.
 
 Both present: Spec Kit is on, and the rest of this contract applies. Note the `speckit_version` from `init-options.json` in the checkpoint's input revisions.
 
@@ -33,7 +33,7 @@ Pass the Linear identifier through `--short-name` and, when the team numbers fea
 |---|---|---|
 | 1 Read | read `.specify/memory/constitution.md` | The constitution is a source with authority. Extract its rules into the Big's common rules before interviewing; a rule the constitution already fixes is not an interview question. |
 | 1 Read | `/speckit.constitution` | Only when the constitution is still the unfilled template and the issue needs shared rules. Fill it from the sources, then treat it as a source. |
-| 2 Interview | `/speckit.clarify` | Runs after the first interview round. Its questions join the frontier; transcribe each one into a stable question ID, attach your recommended answer, and ask it in the next round. Its answers go into `spec.md` **and** the Big's decision log. Do not let it ask a fact you can look up. |
+| 2 Interview | `/speckit.clarify` | Runs once the first answers are in. Its questions join the frontier; transcribe each one into a stable question ID, attach your recommended answer, and ask them one per round like every other question. Do not let it run its own five-question loop against the user. Its answers go into `spec.md` **and** the Big's decision log. Do not let it ask a fact you can look up. |
 | 2 Big | `/speckit.specify` | Produces `spec.md` from the Big's user scenario, rules, and acceptance criteria. The Big ID, revision, and acceptance IDs go into the spec's header so the two can be diffed. When the Big is revised, re-run and bump both. |
 | 3 Plan | `/speckit.plan` | Produces `plan.md` against the Big's exact revision. The plan critique in step 3 runs on this file. |
 | 3 Critique | `/speckit.analyze`, `/speckit.checklist` | Cross-artifact consistency and the quality checklist are the mechanical half of the critique. Run them before your own critique, fix what they surface, then critique the judgment they cannot make. |

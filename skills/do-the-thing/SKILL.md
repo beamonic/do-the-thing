@@ -28,11 +28,11 @@ Check once for Spec Kit as the contract describes. If it is on, `.specify/memory
 
 ## 2. Interview, then write the Big Painless Spec
 
-Use [the Big template](assets/big-spec.md). First extract answers already present in sources and conversation. Ask only unresolved questions that change the outcome, scope, constraints, behavior, or acceptance criteria. Keep question IDs, answers, evidence, and affected criteria. Ask a small coherent batch, then use the answers before asking more.
+Use [the Big template](assets/big-spec.md). First extract answers already present in sources and conversation. Ask only unresolved questions that change the outcome, scope, constraints, behavior, or acceptance criteria. Keep question IDs, answers, evidence, and affected criteria. Ask one question per round with your recommended answer attached, end the turn on it, and use the answer before asking the next. Never answer for the user: a round without an answer pauses the interview, and nothing downstream — Big, plan, Minis, execution — is built on an assumed answer.
 
-Read [the interview contract](references/interview.md) before the first round. It defines what a coherent batch is: the frontier of decisions whose prerequisites are settled, asked one round at a time with your recommended answer attached, transcribed into stable question IDs, ending when the remaining questions affect only individual tasks. Facts you can look up are not interview questions.
+Read [the interview contract](references/interview.md) before the first round. It defines the frontier of decisions whose prerequisites are settled, the one-question round, the stable question IDs, and the end condition: the remaining questions affect only individual tasks. Facts you can look up are not interview questions.
 
-With Spec Kit on, run `/speckit.clarify` after the first round and fold its questions into the frontier under stable IDs with your recommended answers. Write the Big, then run `/speckit.specify` with the Big's scenario, rules, and acceptance IDs so `spec.md` carries the Big ID and revision in its header. Re-run it whenever the Big is revised.
+With Spec Kit on, run `/speckit.clarify` once the first answers are in and fold its questions into the frontier under stable IDs, still one per round. Write the Big, then run `/speckit.specify` with the Big's scenario, rules, and acceptance IDs so `spec.md` carries the Big ID and revision in its header. Re-run it whenever the Big is revised.
 
 Show the user scenario, common rules, failure/recovery behavior, non-goals, open questions, owner, revision, and acceptance IDs. Mark unconfirmed behavior as unresolved. A material unanswered question blocks its dependent tasks, not unrelated work. Finishing the interview does not grant execution permission.
 
