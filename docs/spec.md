@@ -34,7 +34,7 @@ Keep mechanical actions as checklist items within a Mini. Do not create a new sp
 
 0. Judge suitability. An issue that is already clear, bounded, low-risk, and names its own change is done directly and recorded, without a Big or Minis. Anything whose scope, shared rules, or acceptance criteria are still being guessed at runs the workflow regardless of diff size.
 1. Read sources, revisions, authority, conflicts, and existing Linear records.
-2. Interview explicitly, one frontier of settled-prerequisite decisions per round, following `references/interview.md`. Preserve questions, answers, evidence, and dependent criteria under stable question IDs. Unknown behavior remains unknown.
+2. Interview explicitly, one settled-prerequisite question per round with the turn ending on it, following `references/interview.md`. A question without a user answer pauses the interview; nothing downstream is built on an assumed answer. Preserve questions, answers, evidence, and dependent criteria under stable question IDs. Unknown behavior remains unknown.
 3. Write the Big with owner, revision, user scenario, shared rules, non-goals, exceptions, and acceptance IDs.
 4. Plan and critique. Resolve factual gaps; return product decisions to the relevant interview question.
 5. Split tasks and write Minis referencing the Big. Ask focused follow-up questions, then critique each task plan.

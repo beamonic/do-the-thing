@@ -12,29 +12,39 @@ questions answerable now without assuming an answer you have not heard. A
 question whose answer depends on another question still open in this round
 belongs to a later round, not this one.
 
-Ask the whole frontier at once, then wait. Do not trickle one question at a time:
-the user answers a set, that set reshapes the tree, settled decisions push the
-frontier outward, and you recompute it for the next round.
+Compute the frontier, then ask **one** question from it and stop. A round is
+one question, one answer. The answer reshapes the tree, settled decisions push
+the frontier outward, and you recompute it before the next question. Pick the
+frontier question that unblocks the most of the tree; say how many are still
+waiting behind it so the user can pace themselves.
+
+Do not put the whole frontier in one message. A list of six questions with six
+recommendations reads as a proposal, gets a one-word "as recommended", and
+nothing was actually decided. One question gets an actual answer.
 
 ## Round format
 
-Number each question, give it a title, and state your own recommended answer.
-The recommendation is what makes a round cheap to answer — the user can accept it
-or correct it instead of composing a decision from nothing.
+Give the question a stable ID, a title, the body with its choices, and your
+recommended answer. The recommendation is what makes a round cheap to answer —
+the user can accept it or correct it instead of composing a decision from
+nothing. Then end your turn. The question is the last thing in the message;
+nothing follows it, and nothing is done until the answer arrives.
 
 ```
-Q1 — <question title>: <question body, including any choices>
-    Recommended: <your answer, and why in one line>
-
-Q2 — <question title>: <question body>
-    Recommended: <your answer>
+Q-07 — <question title> (1 of ~4 remaining)
+<question body, including any choices>
+Recommended: <your answer, and why in one line>
 ```
 
-Transcribe each round into the Big template's interview table before acting on
-it: a stable question ID, the answer, the responder, the evidence, and the
-acceptance criteria the answer affects. A round's own numbering is positional and
-does not survive the next round; a question ID must. `Q1` in round two is not
-`Q1` in round one, but `Q-07` stays `Q-07`.
+When the host offers a structured question tool, use it for the round; the
+recommended answer goes first among its options. Otherwise the plain block above
+is the round.
+
+Transcribe the answer into the Big template's interview table before acting on
+it: the question ID, the answer, the responder, the evidence, and the acceptance
+criteria the answer affects. The responder of a decision is the user. An answer
+you supplied yourself is not an answer; it is an open question, and the row
+stays open.
 
 ## Facts are yours, decisions are the user's
 
@@ -49,7 +59,11 @@ questions downstream of it wait; ask the rest of the frontier now.
 
 The decisions themselves are the user's. Put each one to them and wait. Do not
 resolve a product decision by picking your own recommendation when no answer
-came back.
+came back. No answer means the interview is paused, not finished: do not write
+the Big, plan, split, or execute on an assumed answer, and do not report the
+interview as done. If the user says to proceed without answering, record that
+instruction as the answer's evidence and the recommendation as the answer — that
+is the only way a recommendation becomes a decision.
 
 ## When the interview ends
 
@@ -66,7 +80,7 @@ execute, and it does not close the Big.
 ## Mini follow-up
 
 A Mini inherits the Big's answers and shared rules. Do not rerun the interview
-per task. Ask only what the task itself newly exposed, as one small round in the
+per task. Ask only what the task itself newly exposed, one question per round in the
 same format, and record it in that Mini rather than the Big.
 
 If a task's answer would change a shared rule or the scope, it is not a Mini
@@ -76,9 +90,12 @@ rule, and only then continue.
 ## Source
 
 Adapted from Matt Pocock's `grilling` skill — MIT, Copyright (c) 2026 Matt
-Pocock — whose design-tree frontier and one-round-per-frontier discipline this
-contract follows. The wording here is ours and two rules are deliberately
-changed for this workflow: grilling ends when the frontier is empty, while a Big
-may be written with task-level questions still open, and grilling's per-round
-numbering is transcribed here into stable question IDs. See `docs/method.md` in
+Pocock — whose design-tree frontier and recommended-answer discipline this
+contract follows. The wording here is ours and three rules are deliberately
+changed for this workflow: grilling asks the whole frontier per round, while this
+contract asks one question per round and ends the turn on it, because a batched
+frontier with recommendations was answered as a whole or not at all; grilling
+ends when the frontier is empty, while a Big may be written with task-level
+questions still open; and grilling's per-round numbering is transcribed here into
+stable question IDs. See `docs/method.md` in
 the repository for the full attribution.
