@@ -1,5 +1,13 @@
 # Release status
 
+## 0.15 — one question per round, and Spec Kit when it is there
+
+The interview contract now asks one frontier question per round and ends the turn on it. A live run on 2026-09-11 batched six questions with recommended answers into one message and then proceeded as if they were decided; the user never answered one. The contract already said to wait, but a batched list with recommendations reads as a proposal. No answer now pauses the interview — no Big, plan, Minis, or execution on an assumed answer — and a self-supplied answer is recorded as open. "Proceed without answering" is the only way a recommendation becomes a decision, with that instruction as its evidence. This is the third deliberate departure from `grilling`, recorded in `docs/method.md`. (#14)
+
+When a repository already carries GitHub's Spec Kit — `.specify/` plus installed `speckit.*` commands or `speckit-*` skills — the skill calls those commands wherever a step produces the artifact they write: constitution as a source, `clarify` into the frontier one question at a time, `specify`/`plan`/`tasks` for the artifacts, `implement` scoped to one Mini, `analyze` after checks, `converge` as one input to whole-journey verification. `specify init` is never run inside the workflow. Spec Kit's `[X]` marks are not proof; the Mini's own check is. Mapping is in `references/speckit.md`. (#13)
+
+Not yet exercised: a live run under the one-question rule, and any run in a repository with Spec Kit on. Both are the next trials.
+
 ## 0.14 — the description parses again
 
 0.13 moved the Korean triggers to the front of the description, which made the value begin with a double quote. To YAML that is a quoted scalar, and the English text after its closing quote is a parse error in any strict loader; the lenient loaders in use did not object, and the regex-based frontmatter test did not look. A one-word label now precedes the first quote so the value is a plain scalar, and the test asserts the three shapes a plain scalar cannot take: opening quote, colon-space, space-hash. The triggers still sit inside the first 60 characters.
