@@ -7,6 +7,13 @@ Big is still being guessed at.
 
 ## The frontier
 
+First reuse accepted answers from any supplied grill or spec, with their original
+IDs and evidence. Reconcile them with current sources; interview only newly
+unresolved product decisions. A complete handoff can have an empty frontier at
+entry. Do not rerun it just to populate this skill's template. Reversible internal
+details delegated by the user are agent implementation choices; record the
+delegation and choice without inventing a user answer or asking again.
+
 The **frontier** is every decision whose prerequisites are already settled — the
 questions answerable now without assuming an answer you have not heard. A
 question whose answer depends on another question still open in this round

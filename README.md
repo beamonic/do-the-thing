@@ -36,6 +36,15 @@ in the same work context so we can resume later.
 
 ## The workflow
 
+Version 0.16 accepts an existing grill, specification, and plan at the first
+unfinished step. It preserves accepted decisions, IDs, revisions, and execution
+authorization. It does not require another interview or a rewritten spec solely
+to fit its templates. Damaged checkpoints are preserved during recovery; current
+artifacts and every Big criterion still need verification before completion.
+
+Mutation tests now run in a temporary copy and reject zero-test runs. See
+[release status](docs/release-status.md) and [terminal evaluation](docs/terminal-evaluation.md).
+
 ```text
 Does this issue need a spec at all? → no: do the work, record it, stop
   yes:

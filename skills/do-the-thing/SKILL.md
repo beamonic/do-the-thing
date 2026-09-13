@@ -28,6 +28,12 @@ Check once for Spec Kit as the contract describes. If it is on, `.specify/memory
 
 ## 2. Interview, then write the Big Painless Spec
 
+### Accept an existing grill and spec
+
+When the user hands over an existing interview, specification, plan, or checkpoint, enter at the first unfinished step. Read and reconcile it with current sources before deciding what is missing. Preserve its IDs, revision, accepted answers, domain vocabulary, acceptance criteria, and execution authorization. A specification does not need to be renamed or rewritten into the Big template to serve as the Big; map existing criteria to task-level criteria. Reuse a valid plan and task split too. Ask only about material gaps or contradictions newly found. Do not repeat the grill or require fresh approval for execution already authorized.
+
+Separate unresolved product decisions from delegated implementation choices. Within the user's delegated scope, choose reversible implementation details and record them as agent choices, not user answers. A naming choice is not a reason to reopen an accepted spec. Changes to the promised behavior, scope, permissions, or shared rules still need their own decision evidence.
+
 Use [the Big template](assets/big-spec.md). First extract answers already present in sources and conversation. Ask only unresolved questions that change the outcome, scope, constraints, behavior, or acceptance criteria. Keep question IDs, answers, evidence, and affected criteria. Ask one question per round with your recommended answer attached, end the turn on it, and use the answer before asking the next. Never answer for the user: a round without an answer pauses the interview, and nothing downstream — Big, plan, Minis, execution — is built on an assumed answer.
 
 Read [the interview contract](references/interview.md) before the first round. It defines the frontier of decisions whose prerequisites are settled, the one-question round, the stable question IDs, and the end condition: the remaining questions affect only individual tasks. Facts you can look up are not interview questions.
@@ -62,7 +68,9 @@ The optional [record helper](scripts/records.py) validates a local completion re
 
 On resume, compare saved records with current Linear instructions and actual artifacts. Preserve valid completed work. A changed shared rule invalidates affected evidence; do not restart unaffected work merely because a timestamp changed.
 
-A local record that is unreadable, malformed, or contradicted by the artifacts is not a reason to stop. Fall back to what Linear and the artifacts themselves say, note in the checkpoint that the record was discarded and why, and resume from observed state. Never delete a record that holds interview answers, spec revisions, or verification evidence in order to start clean — ask first. Only a record with none of those is yours to replace.
+Recovering a readable work state does not establish completion. Until current artifacts and every Big criterion have been checked, report verification pending even if previous test reports are available. Distinguish what can happen after those checks from what is justified now.
+
+A local record that is unreadable, malformed, or contradicted by the artifacts is not a reason to stop. Fall back to what Linear and the artifacts themselves say, preserve the damaged record, and write a separate recovery checkpoint explaining which claims were disregarded and why. Resume from observed state. An unreadable record may still contain recoverable interview answers, spec revisions, or verification evidence; do not delete or overwrite it to start clean.
 
 After the Minis pass, verify the whole Big user journey and every Big acceptance criterion, including integration gaps. All Minis being complete is necessary but insufficient. With Spec Kit on, `/speckit.converge` is one input to that verification, not a substitute for walking the scenario. Report outputs, evidence, remaining limitations, and delivery status in Linear, then read back the update. Session completion is not issue completion. Change the issue state only when the Big is verified and the user's authorization covers that transition.
 
