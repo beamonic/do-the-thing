@@ -1,6 +1,6 @@
 ---
 name: do-the-thing
-description: 트리거 "리니어 이슈 받아서 작업해", "이 일 스펙부터 써", "중단된 작업 이어서", "완료 증거 확인해" — Linear issue to interviewed Big Painless Spec and task-level Mini Painless Specs, then execute, verify, checkpoint, resume.
+description: 트리거 "두더띵으로 해줘", "리니어 이슈 받아서 작업해", "이 일 스펙부터 써", "중단된 작업 이어서", "완료 증거 확인해" — One entrypoint for context-aware domain clarification, specs, execution, test proof, review, checkpoint, and resume.
 license: MIT
 ---
 
@@ -11,6 +11,23 @@ Run a source-first workflow inside the user's existing agent environment. Linear
 Use the available Linear connector, MCP, or authenticated API client. Read [the Linear contract](references/linear.md) before interacting with Linear, and enumerate the host's actual tool list before trusting any description of it — what the host can do decides how much of the contract you can honour. If no connection is available, prepare local drafts and identify the exact connection needed; do not claim synchronization. This skill does not install an OAuth app or run a background worker.
 
 When the repository carries GitHub's Spec Kit (`.specify/` plus installed `speckit.*` commands), call its commands wherever a step below names one, and read [the Spec Kit contract](references/speckit.md) before the first call. Spec Kit writes the spec, plan, and task files; Linear still holds the decisions and the evidence. Without Spec Kit, every step runs the same way with hand-written artifacts.
+
+## One entrypoint, context-selected methods
+
+The user can invoke only `do-the-thing`. Choose the needed methods yourself; do not ask them to pick a skill or issue another command. This is an agent instruction package, not a new callable API, background worker, or grant of authority. Use tools actually available in the host. A read-only question, diagnosis, or review stays read-only even when a method describes implementation.
+
+Apply the suitability gate below first, then read only the contracts whose conditions arise. They are internal parts of this package, not extra installations or a checklist to run on every task. Preserve accepted answers, revisions, and valid evidence when moving between methods; return to the first unfinished step, not the start of the workflow.
+
+| Current need | Method to use |
+|---|---|
+| Ambiguous domain terms, states, or boundaries change behavior | Read [domain modeling](references/domain-modeling.md), then feed unresolved decisions into the existing one-question interview |
+| Product decisions or acceptance criteria remain open | Use the interview and Big/Mini steps below |
+| Missing knowledge could change a decision | Use the context-learning section below; O'Reilly remains an optional host service |
+| Writing meaningful tests, uncertain coverage, or a bug escaping green tests | Read [test proof](references/test-proof.md); a routine suite rerun does not trigger mutation work |
+| Reviewing code, or closing a meaningful code change | Read [two-axis review](references/code-review.md); a simple wording edit does not require a separate review exercise |
+| Existing plan/checkpoint supplied | Reconcile and resume; activate other methods only for newly found gaps |
+
+Mention a consequential method choice in one sentence, not a menu of skills. Keep its decisions and evidence in existing task artifacts. No new tracker, glossary, ADR, test framework, or external write is authorized merely by selecting a method. The Ponytail principle and completion/permission boundaries below apply throughout.
 
 ## Working principle: less unnecessary work, full outcome responsibility
 

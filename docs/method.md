@@ -30,6 +30,31 @@ integration choices, not claims about the upstream skill.
 
 ## Durable execution
 
+### Internal specialist contracts
+
+Do the Thing selects three bundled, originally worded contracts rather than
+requiring separate skill invocations. `references/domain-modeling.md` adapts
+Matt Pocock's domain-modeling ideas: clarify overloaded concepts with examples,
+reconcile code and intended behavior, and record stable vocabulary. Unlike that
+source, existing glossary locations are preserved and no `CONTEXT.md` is required.
+Read-only requests do not write glossaries or ADRs.
+
+`references/code-review.md` adapts Matt Pocock's separate spec and standards
+review axes. It includes scoped uncommitted work, permits sequential passes when
+independent agents are unavailable, and does not require setup commands or a
+universal smell checklist. Neither axis offsets failures in the other.
+
+Both upstream skills and the MIT license (Copyright (c) 2026 Matt Pocock) were
+read; the reviewed revision is linked in [references](references.md). No upstream
+implementation is copied. `references/test-proof.md` is our adaptation of the
+local test-and-prove method: inspect actual coverage and test a relevant mutation
+in a safe copy. Invalid collection/syntax failures and zero-test runs are not
+behavioral proof. No private account, repository path, or runtime is required.
+
+Method selection does not expand execution authority, add a workflow phase to
+every task, or replace acceptance checks. The normal host tool layer still runs
+searches, tests, and authorized external actions.
+
 A task has a verifiable outcome, not just a list of actions. Record actual outputs, input revisions, verification results, and the next condition in checkpoints. Resume by comparing those records with current instructions and actual artifacts. Stop repeating an attempt when it cannot make progress without a new condition.
 
 Verify the full Big user journey after the Minis pass. Individual outputs can each look correct while their integration fails.

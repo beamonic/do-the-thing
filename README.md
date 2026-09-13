@@ -36,6 +36,15 @@ in the same work context so we can resume later.
 
 ## The workflow
 
+You only need to ask: `두더띵으로 이 일 해줘` (`Use do-the-thing for this task`).
+The agent selects the relevant internal method: domain modeling for conflicting
+terms, test proof for uncertain coverage, and spec/standards review for meaningful
+code changes. These three contracts ship inside the skill folder; no separate
+commands or skill installations are required. It reads only the methods needed
+at the current step, reuses accepted decisions, and skips heavy work for simple
+requests. A request to review or diagnose remains read-only. This is instruction
+routing, not a new API or a background automation service.
+
 Use `do-the-thing` as the single entrypoint. Its Ponytail-inspired principle
 checks necessity and reuse throughout the grill, spec, research, and execution:
 reduce unnecessary work, not outcome responsibility. Prefer an adequate existing
