@@ -26,6 +26,22 @@ Resolve the requested issue, workspace, team, parent/project, description, relev
 
 Check once for Spec Kit as the contract describes. If it is on, `.specify/memory/constitution.md` is a source with authority: extract its rules now, and run `/speckit.constitution` only when the file is still the unfilled template and the issue needs shared rules. If it is off, say so in one line and offer `specify init` as a separate action; do not run it inside the workflow.
 
+## Context learning across the grill, spec, and execution
+
+Do not wait for the user to name a research skill when a knowledge gap could change a decision. If `oreilly-context` is available, read and use it at these points; it is an optional host integration, not a bundled dependency:
+
+- Before the grill: unfamiliar domain vocabulary or missing perspectives would weaken the questions. Learn the relevant concepts first, then ask only the user's unresolved decisions.
+- During the spec and plan: competing approaches, trade-offs, or failure modes need grounding. Use relevant sources to sharpen alternatives and acceptance criteria, not to override accepted requirements.
+- During execution: unfamiliar implementation or repeated failures suggest a missing mental model. Investigate with sources before another unchanged attempt, then test the resulting hypothesis locally.
+
+Skip this research for simple edits and mechanical execution with a known cause and settled approach. Reuse relevant results from the same conversation, naming their search date and actual reading scope; search again only for a new question or stale evidence. Do not restart a completed grill or spec merely to add reading.
+
+State the decision or knowledge gap in one sentence. Search for one primary candidate and at most two supporting candidates using the skill's discovery, authentication, and bounded fallback rules. Search metadata identifies candidates; it does not establish what a book says. When a decision needs body-level support, read the relevant section through an authorized available path and record the chapter or section actually read. If that is unavailable, report the reading limit and use primary documentation or local evidence instead; never invent a book's advice or bypass access controls. Do not send private issue text or credentials in search queries.
+
+For exact API, version, or security behavior, use local `context query` when available, then supplier documentation and repository checks. O'Reilly supplements design understanding; it does not replace these checks. If the optional skill or service is unavailable, report the specific limitation and continue with available evidence where safe. Research never grants new execution or external-write authority.
+
+Keep a compact note with the existing sources or checkpoint: the question; search queries and selected URLs (or reused search date); actual reading scope (metadata only, named sections, or unread); the resulting decision or test and its observed result. Record "no implementation impact" when appropriate. Candidate discovery, reading, and implementation are distinct states; none alone proves completion.
+
 ## 2. Interview, then write the Big Painless Spec
 
 ### Accept an existing grill and spec
@@ -76,4 +92,4 @@ After the Minis pass, verify the whole Big user journey and every Big acceptance
 
 ## Boundaries and attribution
 
-Big/Mini is this project's convention. Painless Functional Specifications informs readable user behavior; Gajae Code inspires interview, plan critique, persistent goals, and recovery; the interview contract adapts the frontier discipline of Matt Pocock's `grilling` skill (MIT). GitHub's Spec Kit is called by name when a repository already carries it, and nothing from it is bundled or required. No other skill pack or runtime is bundled, called by name, or required. Use available specialist skills where helpful, preserving this input/output contract. See the repository's source attribution for details.
+Big/Mini is this project's convention. Painless Functional Specifications informs readable user behavior; Gajae Code inspires interview, plan critique, persistent goals, and recovery; the interview contract adapts the frontier discipline of Matt Pocock's `grilling` skill (MIT). GitHub's Spec Kit and `oreilly-context` are called by name only when available in the host, and neither is bundled or required. No third-party skill implementation or runtime is bundled. Use available specialist skills where helpful, preserving this input/output contract. See the repository's source attribution for details.
