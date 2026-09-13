@@ -1,5 +1,15 @@
 # Release status
 
+## 0.16 — 기존 그릴·스펙 인수와 안전한 재개
+
+승인된 그릴·명세·계획을 인수하면 ID, 판, 수용 기준과 실행 권한을 유지하고 첫 미완료 단계부터 진행한다. 명세를 Big 양식에 맞춰 다시 쓰거나 해결된 질문을 반복하지 않는다. 위임된 내부 구현 선택은 에이전트 선택으로 기록한다.
+
+손상된 체크포인트는 보존하고 별도 복구 기록을 만든다. 상태 복구와 완료 검증을 구분하며, 현재 산출물과 모든 Big 수용 기준을 확인하기 전에는 검증 대기로 보고한다.
+
+변이 검사기는 임시 사본에서 실행한다. 테스트가 0건이거나 기준 실행과 건수가 다르면 통과로 처리하지 않는다. 원본 파일 비변경, 0건 실행, 살아남은 변이를 검사하는 회귀 테스트 3개를 추가했다.
+
+검증: 저장소 테스트 40개 통과, 변이 23개 모두 검출. 별도 Codex CLI 작업에서 승인 명세 인수, 구현, subprocess 테스트 2개, CLI 결과와 손상 기록 보존을 확인했다. 상세 범위와 제한은 [터미널 평가](terminal-evaluation.md)에 기록했다. 실제 Linear 장애, 프로세스 강제 종료와 다중 모델 평가는 이번 검증 범위에 포함하지 않았다.
+
 ## 0.15 — one question per round, and Spec Kit when it is there
 
 The interview contract now asks one frontier question per round and ends the turn on it. A live run on 2026-09-11 batched six questions with recommended answers into one message and then proceeded as if they were decided; the user never answered one. The contract already said to wait, but a batched list with recommendations reads as a proposal. No answer now pauses the interview — no Big, plan, Minis, or execution on an assumed answer — and a self-supplied answer is recorded as open. "Proceed without answering" is the only way a recommendation becomes a decision, with that instruction as its evidence. This is the third deliberate departure from `grilling`, recorded in `docs/method.md`. (#14)
