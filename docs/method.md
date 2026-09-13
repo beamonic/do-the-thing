@@ -10,6 +10,24 @@ Read available sources and extract prior answers. Interview only for unresolved 
 
 A plan critique may uncover a product decision. Reopen that particular question rather than restarting the interview. If the answer changes a shared rule, revise the Big and review affected Minis and evidence.
 
+## Ponytail as a working principle
+
+The [reviewed Ponytail source](https://github.com/DietrichGebert/ponytail/blob/356918eba965ee1eac64bd3a7f0dd02108350de5/skills/ponytail/SKILL.md)
+by DietrichGebert (MIT, Copyright (c) 2026 DietrichGebert) supplies the ideas of
+checking necessity after understanding the problem, reusing adequate existing
+capabilities, and fixing the underlying cause. The full skill and its license
+were read on 2026-09-13. The text in this package is newly written; no third-party
+skill implementation is bundled or invoked.
+
+Our adaptation applies those ideas throughout Do the Thing, including non-code
+work, and judges total operating burden rather than line count. It deliberately
+does not import Ponytail's persistent mode, intensity levels, output limit,
+one-check testing rule, or reduced-version-before-confirmation behavior.
+Explicit requirements, permissions, safety, repository test conventions, and
+whole-Big evidence keep precedence. Goal cancellation must be authorized where
+needed and is never a passing completion record. These are this project's
+integration choices, not claims about the upstream skill.
+
 ## Durable execution
 
 A task has a verifiable outcome, not just a list of actions. Record actual outputs, input revisions, verification results, and the next condition in checkpoints. Resume by comparing those records with current instructions and actual artifacts. Stop repeating an attempt when it cannot make progress without a new condition.

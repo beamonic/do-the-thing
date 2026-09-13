@@ -36,6 +36,14 @@ in the same work context so we can resume later.
 
 ## The workflow
 
+Use `do-the-thing` as the single entrypoint. Its Ponytail-inspired principle
+checks necessity and reuse throughout the grill, spec, research, and execution:
+reduce unnecessary work, not outcome responsibility. Prefer an adequate existing
+solution before adding machinery; consider maintenance and burden shifted to
+others, not only code size. Explicit requirements, safety, and whole-journey
+verification remain intact. Ponytail is adapted here, not an extra command,
+dependency, intensity setting, or persistent mode.
+
 Version 0.16 accepts an existing grill, specification, and plan at the first
 unfinished step. It preserves accepted decisions, IDs, revisions, and execution
 authorization. It does not require another interview or a rewritten spec solely
