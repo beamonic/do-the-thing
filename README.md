@@ -8,6 +8,11 @@ Do the Thing is an installable agent skill that connects source review, intervie
 
 ## Install
 
+Version **0.17** packages the single entrypoint, Ponytail reasoning, optional
+O'Reilly context learning, and internal domain modeling, test proof, and
+spec/standards review. See [Claude Code evaluation](docs/claude-code-evaluation-0.17.md)
+for the actual terminal trial and its limits.
+
 Clone the repository and copy the skill into your agent's skills directory. For Codex:
 
 ```sh

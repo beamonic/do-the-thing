@@ -99,9 +99,13 @@ Reuse Big answers and common rules. Conduct a focused follow-up interview only f
 
 ## 4. Execute one ready Mini
 
+Before writing or strengthening meaningful tests, read [test proof](references/test-proof.md). Before any defect injection, create a separate disposable directory and copy the implementation and tests into it; run the mutated tests there. Never copy a mutant or a baseline implementation back onto the task's source files, even temporarily or with a backup-and-restore plan. If a safe isolated run is unavailable, leave proof pending.
+
 Read current instructions, dependencies, applicable permissions, Big/Mini revisions, and existing results. Proceed with work already authorized. With Spec Kit on, run `/speckit.implement` scoped to the Mini's task IDs or phase — the command wants to run everything in `tasks.md`, so name the scope in its argument and stop when it is done. Persist a checkpoint at meaningful boundaries; keep execution and external delivery distinct. If an external write times out, read the destination before retrying. Do not infer failure from a missing response.
 
 ## 5. Verify and checkpoint
+
+Before declaring a meaningful code change verified, read [the two-axis review contract](references/code-review.md) and apply it to the actual task changes, including uncommitted files. Record Spec and Standards findings separately, plus unreviewed areas. A test pass or completion-record validation does not substitute for this review.
 
 Use [the checkpoint template](assets/checkpoint.md). Record actual checks, output revisions, failures, and evidence locations. Only mark a Mini complete when its criteria have passed. A narrative claim or checked box is not proof — `/speckit.implement`'s `[X]` marks in `tasks.md` included. With Spec Kit on, re-run `/speckit.analyze` after the Mini's checks; a drift it reports is a failed or untested criterion until resolved.
 
@@ -112,6 +116,8 @@ Stop repeating an attempt that is not moving. If a Mini's blocker and evidence a
 The optional [record helper](scripts/records.py) validates a local completion record. Read [its format](references/records.md) when using it. It checks structure and coverage, not the truth of evidence. Inspect actual results before writing a passing record.
 
 ## 6. Resume and close the Big
+
+Keep a damaged checkpoint at its original path and preserve its bytes. Do not move or rename it to make room for a replacement. Write recovery evidence to a different path.
 
 On resume, compare saved records with current Linear instructions and actual artifacts. Preserve valid completed work. A changed shared rule invalidates affected evidence; do not restart unaffected work merely because a timestamp changed.
 
