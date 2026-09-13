@@ -69,6 +69,13 @@ If the repository already carries GitHub's Spec Kit, the agent calls its `specki
 
 All Minis passing does not mean the Big passes. Verify the complete user journey before closing the work. A completed agent session is not a completed Linear issue.
 
+When `oreilly-context` is available, the agent proactively uses it for knowledge
+gaps before the grill, design trade-offs during the spec, and unfamiliar
+implementation or repeated failures during execution. It skips mechanical work,
+reuses relevant searches, and distinguishes candidate metadata, sections actually
+read, and changes verified locally. The integration is optional; no subscription,
+account, or research skill is bundled.
+
 ## Check a completion record
 
 ```sh
@@ -104,4 +111,4 @@ Run the tests above. For behavioral changes, include a realistic input, the expe
 
 ## License
 
-[MIT](LICENSE). This project is independently authored. It is not affiliated with Linear, OpenAI, GitHub, Gajae Code, or Matt Pocock. No third-party skill implementation or runtime is bundled or invoked. The interview contract adapts the frontier discipline of the `grilling` skill (MIT, Copyright (c) 2026 Matt Pocock), rewritten here; see [method and attribution](docs/method.md).
+[MIT](LICENSE). This project is independently authored. It is not affiliated with Linear, OpenAI, GitHub, Gajae Code, or Matt Pocock. No third-party skill implementation or runtime is bundled; host integrations are optional. The interview contract adapts the frontier discipline of the `grilling` skill (MIT, Copyright (c) 2026 Matt Pocock), rewritten here; see [method and attribution](docs/method.md).
