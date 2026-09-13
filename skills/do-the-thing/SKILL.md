@@ -12,6 +12,20 @@ Use the available Linear connector, MCP, or authenticated API client. Read [the 
 
 When the repository carries GitHub's Spec Kit (`.specify/` plus installed `speckit.*` commands), call its commands wherever a step below names one, and read [the Spec Kit contract](references/speckit.md) before the first call. Spec Kit writes the spec, plan, and task files; Linear still holds the decisions and the evidence. Without Spec Kit, every step runs the same way with hand-written artifacts.
 
+## Working principle: less unnecessary work, full outcome responsibility
+
+Use the Ponytail-inspired reasoning below inside this workflow, not as another command, mandatory phase, or persistent mode. Understand the requested outcome and trace the relevant current flow before simplifying it.
+
+Before adding work, identify the acceptance criterion, required control, or observed problem it serves. Reuse an existing answer, artifact, process, or implementation when it meets that need. For code, prefer suitable existing helpers, standard-library or native platform features, and already-installed dependencies before adding custom machinery. For other work, check the existing operating path before creating another report, meeting, tracker, or automation. This is a quick choice among adequate approaches, not a requirement to exhaust every option.
+
+Compare the whole cost: implementation, maintenance, manual handoffs, failure recovery, and burden shifted to other people. Choose the least burdensome approach that still meets the accepted behavior and constraints, not simply the fewest lines or files. Omit speculative additions proposed by the agent; record a meaningful omission and the evidence that would justify revisiting it in the existing plan or checkpoint. Do not silently drop an explicit requirement or ship a reduced substitute and ask permission afterward. If changing scope is necessary, reopen only that decision.
+
+For a bug, trace affected callers and the underlying cause before choosing the smallest adequate fix. Verify the affected paths; do not hide the symptom on one path or use this rule to refactor unrelated code. Preserve security, trust-boundary validation, data-loss prevention, accessibility, required controls, and all Big/Mini criteria. Reuse the repository's test conventions; neither a one-test ceiling nor a short-output limit applies.
+
+Once necessary work is authorized, own the result through execution and verification. A smaller solution, passing Mini, or cheaper workaround is not permission to skip the whole journey or external read-back. Use the existing blocker and recovery rules rather than abandoning hard work or repeating an unchanged attempt. If current evidence shows the goal has disappeared or been superseded, preserve the work and evidence, report a proposed stop and its reason, and obtain any needed scope/state authorization; cancellation is not verified completion.
+
+An explicit user cancellation already settles whether to stop: stop the canceled execution without asking for the same decision again, preserve evidence, and report canceled rather than complete. Only a separate action not covered by that instruction, such as changing an external tracker state, may need its own authorization.
+
 ## 0. Decide whether this workflow applies
 
 Read the issue first, then judge whether it needs this at all. If the request is already clear, bounded, low-risk, and names its own change — a one-file edit, a known symbol, a copy fix, an explicit command, a direct question — stop here. Say in one line that a Big and Minis would cost more than the work, do the work under the permissions you already have, and record the result and its evidence in the issue.

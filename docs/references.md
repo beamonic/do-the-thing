@@ -2,6 +2,8 @@
 
 These sources inform the design. They are not bundled dependencies or endorsements.
 
+- [Ponytail — DietrichGebert, reviewed revision](https://github.com/DietrichGebert/ponytail/blob/356918eba965ee1eac64bd3a7f0dd02108350de5/skills/ponytail/SKILL.md) — MIT, Copyright (c) 2026 DietrichGebert. Full skill and license read on 2026-09-13; necessity, reuse, and root-cause reasoning are adapted in our own wording. Not bundled or invoked.
+
 - [Painless Functional Specifications, Part 2 — Joel Spolsky](https://www.joelonsoftware.com/2000/10/03/painless-functional-specifications-part-2-whats-a-spec/)
 - [Painless Functional Specifications, Part 4 — Joel Spolsky](https://www.joelonsoftware.com/2000/10/15/painless-functional-specifications-part-4-tips/)
 - [Cucumber Example Mapping](https://cucumber.io/docs/bdd/example-mapping/)
