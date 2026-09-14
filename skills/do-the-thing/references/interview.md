@@ -34,8 +34,8 @@ nothing was actually decided. One question gets an actual answer.
 Give the question a stable ID, a title, the body with its choices, and your
 recommended answer. The recommendation is what makes a round cheap to answer —
 the user can accept it or correct it instead of composing a decision from
-nothing. Then end your turn. The question is the last thing in the message;
-nothing follows it, and nothing is done until the answer arrives.
+nothing. Then wait for the answer using the host-specific lifecycle below.
+Do not advance the interview or begin dependent work before the answer arrives.
 
 ```
 Q-07 — <question title> (1 of ~4 remaining)
@@ -43,9 +43,35 @@ Q-07 — <question title> (1 of ~4 remaining)
 Recommended: <your answer, and why in one line>
 ```
 
-When the host offers a structured question tool, use it for the round; the
-recommended answer goes first among its options. Otherwise the plain block above
-is the round.
+### Host-specific question lifecycle
+
+Inspect the actual tool contract and current mode. A tool name or a successful
+submission does not prove that a question panel appeared. Prefer a structured
+question tool that is callable under the current host's rules; put the
+recommended answer first. Do not change modes or invent a tool to force a UI.
+
+- **Blocking question tool** (for example Claude Code `AskUserQuestion`, or
+  Codex `request_user_input` when permitted): call it with one question and use
+  the returned user answer. Do not replace the tool call with printed JSON or a
+  prose imitation. An empty result is not an answer.
+- **Nonblocking question tool** (for example Codex
+  `request_user_input_async`): submit once, then keep the turn active while
+  waiting for the user message. Do not send a final response immediately after
+  submission: some hosts only render the interactive question while the turn
+  is in progress. Use an available interruptible wait in bounded intervals
+  (at most 60 seconds per call, respecting host limits); do not busy-poll or
+  repeat the question. No answer, timeout, preselected option, or
+  `accepted: true` result counts as a user decision. If the user steers or
+  cancels the work, handle that message before continuing the interview.
+- **Plain-text fallback**: only when no permitted structured question path is
+  available, explain that specific limitation, ask the single question using
+  the format above, and end the turn. Do not claim a panel was shown.
+
+The wait is for user input, not permission to perform speculative work. If the
+host cannot sustain an asynchronous wait, report the limitation and leave the
+question unresolved; never silently switch to an assumed answer. Report UI
+submission and observed UI display as separate states. If the user says the
+question appeared as plain text, inspect the lifecycle before retrying.
 
 Transcribe the answer into the Big template's interview table before acting on
 it: the question ID, the answer, the responder, the evidence, and the acceptance
@@ -100,7 +126,7 @@ Adapted from Matt Pocock's `grilling` skill — MIT, Copyright (c) 2026 Matt
 Pocock — whose design-tree frontier and recommended-answer discipline this
 contract follows. The wording here is ours and three rules are deliberately
 changed for this workflow: grilling asks the whole frontier per round, while this
-contract asks one question per round and ends the turn on it, because a batched
+contract asks one question per round and waits using the host-specific lifecycle, because a batched
 frontier with recommendations was answered as a whole or not at all; grilling
 ends when the frontier is empty, while a Big may be written with task-level
 questions still open; and grilling's per-round numbering is transcribed here into
