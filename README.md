@@ -8,10 +8,11 @@ Do the Thing is an installable agent skill that connects source review, intervie
 
 ## Install
 
-Version **0.17** packages the single entrypoint, Ponytail reasoning, optional
-O'Reilly context learning, and internal domain modeling, test proof, and
-spec/standards review. See [Claude Code evaluation](docs/claude-code-evaluation-0.17.md)
-for the actual terminal trial and its limits.
+Version **0.18** makes native answer-waiting the default interview path and
+records actual Codex and Claude Code terminal question/answer trials.
+See [release notes](docs/release-status.md#018--네이티브-질문-대기와-두-터미널-검증)
+and [terminal proof and limits](docs/terminal-question-proof.md).
+Desktop sidebar “Needs input” display remains unverified.
 
 Clone the repository and copy the skill into your agent's skills directory. For Codex:
 
