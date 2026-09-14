@@ -43,35 +43,40 @@ Q-07 — <question title> (1 of ~4 remaining)
 Recommended: <your answer, and why in one line>
 ```
 
-### Host-specific question lifecycle
+### Blocking interview and host capability
 
-Inspect the actual tool contract and current mode. A tool name or a successful
-submission does not prove that a question panel appeared. Prefer a structured
-question tool that is callable under the current host's rules; put the
-recommended answer first. Do not change modes or invent a tool to force a UI.
+For this decision interview, use a native question tool that waits for the
+user's answer before returning. Ask one question with the recommended option
+first. In Claude Code this is `AskUserQuestion`; in Codex it is
+`request_user_input` when the current mode permits it. Discover the actual tool
+contract rather than assuming availability from the host name.
 
-- **Blocking question tool** (for example Claude Code `AskUserQuestion`, or
-  Codex `request_user_input` when permitted): call it with one question and use
-  the returned user answer. Do not replace the tool call with printed JSON or a
-  prose imitation. An empty result is not an answer.
-- **Nonblocking question tool** (for example Codex
-  `request_user_input_async`): submit once, then keep the turn active while
-  waiting for the user message. Do not send a final response immediately after
-  submission: some hosts only render the interactive question while the turn
-  is in progress. Use an available interruptible wait in bounded intervals
-  (at most 60 seconds per call, respecting host limits); do not busy-poll or
-  repeat the question. No answer, timeout, preselected option, or
-  `accepted: true` result counts as a user decision. If the user steers or
-  cancels the work, handle that message before continuing the interview.
-- **Plain-text fallback**: only when no permitted structured question path is
-  available, explain that specific limitation, ask the single question using
-  the format above, and end the turn. Do not claim a panel was shown.
+Do not replace a blocking interview with `request_user_input_async` followed by
+sleep or polling. A mid-turn question and an outstanding native input request
+are different states; keeping a turn running does not establish the sidebar's
+"Needs input" state. Do not print JSON or a prose imitation of a tool call.
 
-The wait is for user input, not permission to perform speculative work. If the
-host cannot sustain an asynchronous wait, report the limitation and leave the
-question unresolved; never silently switch to an assumed answer. Report UI
-submission and observed UI display as separate states. If the user says the
-question appeared as plain text, inspect the lifecycle before retrying.
+If Codex exposes the blocking tool only in Plan mode and the current mode does
+not permit it, stop before submitting the product question and state the exact
+prerequisite: switch this conversation to Plan mode, then resume at the same
+unanswered question ID. Do not claim to switch modes yourself, launch another
+task, alter app flags, or invoke a restricted tool. A request to proceed is not
+permission to override the host's tool restrictions.
+
+If no supported blocking route exists, explain that limitation and preserve the
+unanswered question. Use an asynchronous or plain-text interview only if the
+user explicitly accepts that alternative. No answer, timeout, preselected
+option, or `accepted: true` result is a decision. A native request's automatic
+resolution is not evidence of a human answer: verify response provenance.
+
+A sidebar label is rendered by the host, not by this skill. Record tool
+submission, outstanding input state, user response, and observed sidebar label
+separately. Some app versions hide the label on the selected task. Do not
+promise that a blocking call alone makes the label visible everywhere.
+
+After a real answer, record it and ask the next unresolved question through the
+same blocking route. Do not end the turn just to claim that a question appeared.
+If the user cancels or redirects the work, handle that instruction first.
 
 Transcribe the answer into the Big template's interview table before acting on
 it: the question ID, the answer, the responder, the evidence, and the acceptance

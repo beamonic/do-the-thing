@@ -1,4 +1,13 @@
-# 비동기 인터뷰 질문 수명 검증 — 2026-09-14
+# 인터뷰 질문 수명 검증 — 2026-09-14
+
+## 후속 정정: 답변 요청 상태가 요구사항
+
+PR #21의 비동기 대기는 이후 두 번의 구조화 선택 응답을 수신했다. 이는 질문 UI 왕복의 증거이며, 사이드바 답변 요청 표시의 증거는 아니다. Owner는 질문 후 네이티브 답변 요청 상태를 원한다고 명시했다. 현재 지침은 blocking 도구를 기본으로 하고, async+sleep 대체를 금지한다. Codex에서 해당 도구가 Plan 모드 전용이면 모드 전환이 선행 조건이며 스킬이 강제로 바꾸지 않는다. 실제 blocking 호출·사이드바 표시 검증은 미완료다. 아래 기록은 PR #21 당시 이력이다.
+
+원본 비교: [grill-me](https://github.com/mattpocock/skills/blob/3cca18b368ae95cdbdebbff572ccafa662551015/skills/productivity/grill-me/SKILL.md)는 grilling 호출 진입점이다. [grilling](https://github.com/mattpocock/skills/blob/3cca18b368ae95cdbdebbff572ccafa662551015/skills/productivity/grilling/SKILL.md)은 질문과 응답 대기를 설명하지만 특정 질문 도구를 명시하지 않는다. AskUserQuestion을 강제하는 다른 저자의 변형을 원본과 혼동하지 않는다. 두 파일 본문을 직접 확인했다.
+
+검토 기준: blocking 가능 → 질문 하나와 실제 반환 답변; 현재 모드 제한 → 제한과 전환 조건을 알리고 동일 질문 ID 보존; async만 가능 → 자동 대체하지 않음; 빈 응답·자동 해소 → 사용자 결정으로 기록하지 않음; 사이드바 → 별도 표시 검증.
+
 
 ## 문제와 수정
 
