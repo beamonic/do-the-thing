@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="96" viewBox="0 0 520 96" role="img" aria-label="Do the Thing — Work, with receipts.">
+  <style>
+    .n{font:700 44px/1 ui-sans-serif,-apple-system,"Segoe UI",Inter,Helvetica,Arial,sans-serif;fill:#1a1a1a;letter-spacing:-0.5px}
+    .t{font:500 18px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:#5c5c5c}
+    @media (prefers-color-scheme:dark){.n{fill:#f2f2f2}.t{fill:#a8a8a8}.chk{stroke:#f2f2f2}}
+  </style>
+  <rect x="4" y="16" width="64" height="64" rx="12" fill="none" stroke="#1a1a1a" stroke-width="4" class="chk"/>
+  <path d="M20 49 l12 12 l22 -26" fill="none" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" class="chk"/>
+  <text x="88" y="52" class="n">Do the Thing</text>
+  <text x="90" y="82" class="t">Work, with receipts.</text>
+</svg>

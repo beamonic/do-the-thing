@@ -1,5 +1,61 @@
 # Release status
 
+## 0.16 — contracts for the methods, and a mutation gate that cannot reach the source
+
+The mutation gate no longer edits the file it is testing. It copied `records.py`
+over itself, ran the suite, and restored the original in a `finally` — a kill
+between those two steps left a mutant in the working tree. Each run now copies
+`skills`, `tests`, `examples`, and `scripts` into a temporary directory and
+mutates the copy, so the source is never written to at all. The runner also
+reads `Ran N tests` from each run and counts a mutation as survived when the
+count differs from the baseline, not only when the suite passes: deleting a test
+used to leave the gate green, and now it does not. A zero-test baseline is a
+failure rather than a pass. `tests/test_mutation_runner.py` covers the runner
+itself. 40 unit tests, 23 mutations, 0 survived.
+
+SKILL.md gained a routing table for the methods a task actually needs —
+[domain modeling](../skills/do-the-thing/references/domain-modeling.md),
+[test proof](../skills/do-the-thing/references/test-proof.md), and
+[two-axis review](../skills/do-the-thing/references/code-review.md) ship as
+contracts inside the package rather than as a checklist run on every task. A
+working principle was added: identify the criterion a piece of work serves before
+adding it, reuse what already exists, and still own the outcome through
+verification. A section on accepting an existing grill and spec says to enter at
+the first unfinished step, keep the handed-over IDs and revisions, and treat
+reversible internal choices inside a delegated scope as the agent's rather than
+questions for the user.
+
+The interview contract now names the host lifecycle it needs. One question per
+round was already the rule; what was missing was that the agent must wait through
+a *native blocking question tool* — `AskUserQuestion` in Claude Code,
+`request_user_input` in Codex where the mode permits it. An asynchronous question
+followed by sleep is not the same state, a preselected option is not an answer,
+and an automatic resolution is not a human response. Where no blocking route
+exists, the question is preserved unanswered rather than resolved by the agent.
+
+Context learning was connected to the workflow. Where a knowledge gap could
+change a decision — before the grill, during the spec, during repeated execution
+failures — the agent uses `oreilly-context` when the host has it, records the
+question, the queries, the scope actually read, and the resulting decision, and
+keeps candidate discovery separate from reading and from implementation. It stays
+an optional host service; `context query` and supplier documentation remain first
+for exact API, version, and security behavior.
+
+README's claim about the validator was corrected: a passing record establishes
+structural coverage, not that the checks behind it were run.
+`docs/terminal-evaluation.md` records the 2026-09-13 terminal evaluation that
+produced these changes — five behavior cases compared before and after, on one
+evaluation model, one run each. That is too small a sample to state a success
+rate, and the note says so.
+
+Not yet exercised: the behavior cases are recorded as prose, not as a re-runnable
+suite, so no change since this release can be scored against them — that is
+BIG-EV-001's work. `claude plugin eval`, whose `--ablation` would supply the
+no-skill control this project has never had, is gated behind early access on this
+account. A run in a repository carrying Spec Kit, a native Linear comment thread,
+crash-simulated resume, a concurrent writer, and forced network failure all
+remain untested.
+
 ## 0.15 — one question per round, and Spec Kit when it is there
 
 The interview contract now asks one frontier question per round and ends the turn on it. A live run on 2026-09-11 batched six questions with recommended answers into one message and then proceeded as if they were decided; the user never answered one. The contract already said to wait, but a batched list with recommendations reads as a proposal. No answer now pauses the interview — no Big, plan, Minis, or execution on an assumed answer — and a self-supplied answer is recorded as open. "Proceed without answering" is the only way a recommendation becomes a decision, with that instruction as its evidence. This is the third deliberate departure from `grilling`, recorded in `docs/method.md`. (#14)

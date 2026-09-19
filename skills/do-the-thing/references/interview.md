@@ -7,6 +7,13 @@ Big is still being guessed at.
 
 ## The frontier
 
+First reuse accepted answers from any supplied grill or spec, with their original
+IDs and evidence. Reconcile them with current sources; interview only newly
+unresolved product decisions. A complete handoff can have an empty frontier at
+entry. Do not rerun it just to populate this skill's template. Reversible internal
+details delegated by the user are agent implementation choices; record the
+delegation and choice without inventing a user answer or asking again.
+
 The **frontier** is every decision whose prerequisites are already settled — the
 questions answerable now without assuming an answer you have not heard. A
 question whose answer depends on another question still open in this round
@@ -27,8 +34,8 @@ nothing was actually decided. One question gets an actual answer.
 Give the question a stable ID, a title, the body with its choices, and your
 recommended answer. The recommendation is what makes a round cheap to answer —
 the user can accept it or correct it instead of composing a decision from
-nothing. Then end your turn. The question is the last thing in the message;
-nothing follows it, and nothing is done until the answer arrives.
+nothing. Then wait for the answer using the host-specific lifecycle below.
+Do not advance the interview or begin dependent work before the answer arrives.
 
 ```
 Q-07 — <question title> (1 of ~4 remaining)
@@ -36,9 +43,40 @@ Q-07 — <question title> (1 of ~4 remaining)
 Recommended: <your answer, and why in one line>
 ```
 
-When the host offers a structured question tool, use it for the round; the
-recommended answer goes first among its options. Otherwise the plain block above
-is the round.
+### Blocking interview and host capability
+
+For this decision interview, use a native question tool that waits for the
+user's answer before returning. Ask one question with the recommended option
+first. In Claude Code this is `AskUserQuestion`; in Codex it is
+`request_user_input` when the current mode permits it. Discover the actual tool
+contract rather than assuming availability from the host name.
+
+Do not replace a blocking interview with `request_user_input_async` followed by
+sleep or polling. A mid-turn question and an outstanding native input request
+are different states; keeping a turn running does not establish the sidebar's
+"Needs input" state. Do not print JSON or a prose imitation of a tool call.
+
+If Codex exposes the blocking tool only in Plan mode and the current mode does
+not permit it, stop before submitting the product question and state the exact
+prerequisite: switch this conversation to Plan mode, then resume at the same
+unanswered question ID. Do not claim to switch modes yourself, launch another
+task, alter app flags, or invoke a restricted tool. A request to proceed is not
+permission to override the host's tool restrictions.
+
+If no supported blocking route exists, explain that limitation and preserve the
+unanswered question. Use an asynchronous or plain-text interview only if the
+user explicitly accepts that alternative. No answer, timeout, preselected
+option, or `accepted: true` result is a decision. A native request's automatic
+resolution is not evidence of a human answer: verify response provenance.
+
+A sidebar label is rendered by the host, not by this skill. Record tool
+submission, outstanding input state, user response, and observed sidebar label
+separately. Some app versions hide the label on the selected task. Do not
+promise that a blocking call alone makes the label visible everywhere.
+
+After a real answer, record it and ask the next unresolved question through the
+same blocking route. Do not end the turn just to claim that a question appeared.
+If the user cancels or redirects the work, handle that instruction first.
 
 Transcribe the answer into the Big template's interview table before acting on
 it: the question ID, the answer, the responder, the evidence, and the acceptance
@@ -93,7 +131,7 @@ Adapted from Matt Pocock's `grilling` skill — MIT, Copyright (c) 2026 Matt
 Pocock — whose design-tree frontier and recommended-answer discipline this
 contract follows. The wording here is ours and three rules are deliberately
 changed for this workflow: grilling asks the whole frontier per round, while this
-contract asks one question per round and ends the turn on it, because a batched
+contract asks one question per round and waits using the host-specific lifecycle, because a batched
 frontier with recommendations was answered as a whole or not at all; grilling
 ends when the frontier is empty, while a Big may be written with task-level
 questions still open; and grilling's per-round numbering is transcribed here into

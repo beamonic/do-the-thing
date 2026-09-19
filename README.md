@@ -1,8 +1,10 @@
 # Do the Thing
 
-**Give your AI a Linear issue. Get the work back with evidence.**
+**Work, with receipts.**
 
-Do the Thing is an installable agent skill that connects source review, interviews, Big and Mini Painless Specs, plan critique, execution, and recovery. The name comes from the Korean phrase for “do some work.”
+Give your AI a Linear issue. It comes back with the work and the evidence — what was asked, what was decided, what was checked — written into the issue itself, not into a chat message that says "done."
+
+Do the Thing is an installable agent skill for developers who run agents against Linear issues and have been burned by a "done" that wasn't. It reads the sources, interviews you on the decisions still open, writes a Big Painless Spec and task-level Mini specs, then executes, verifies, and checkpoints. Its completion-record validator is mutation-tested in CI; a passing record establishes structural coverage, while actual checks and evidence still require independent inspection. The name is a nod to the Korean 일 좀 해 — go get some work done.
 
 **Available now:** the skill package with its interview contract, Big/Mini/checkpoint templates, a completion-record validator whose suite is mutation-tested in CI, and fictional examples. Use it with an agent that already has access to Linear. This is not a hosted app, OAuth integration, background worker, or autonomous webhook service. Five runs so far, two of them on live Linear issues — one closed to Done with the whole journey verified and resume exercised, one still in progress. Native comment threads and crash-simulated resume are untested. See [release status](docs/release-status.md).
 
@@ -36,6 +38,14 @@ in the same work context so we can resume later.
 
 ## The workflow
 
+Already completed a grill and spec? Hand them over with their IDs, revisions,
+accepted answers, criteria, plan, and execution authorization. The skill checks
+them against current sources and enters at the first unfinished step. It reuses
+your specification as the Big without reformatting it or interviewing you again.
+Reversible internal choices within delegated scope stay with the agent. On
+recovery, damaged records are preserved and a separate checkpoint records the
+observed state.
+
 ```text
 Does this issue need a spec at all? → no: do the work, record it, stop
   yes:
@@ -54,7 +64,7 @@ Sources → Interview → Big Painless Spec → Plan and critique → Split task
 
 The first step is deciding whether to run the rest. An issue that is already clear, bounded, low-risk, and names its own change gets done directly, with the result recorded in the issue — no Big, no Minis. The workflow's likeliest failure is ceremony on a task that never needed one, not a missing spec.
 
-An interview is an explicit step, and [its contract](skills/do-the-thing/references/interview.md) ships with the skill. Questions are asked one at a time from the frontier — the decisions whose prerequisites are already settled — each with the agent's recommended answer, and the agent's turn ends on the question. An answer is transcribed under a stable question ID before anything is acted on; a question nobody answered stays open, and nothing is built on it. Facts the agent can look up are not interview questions. The interview may end with questions still open when they affect only individual tasks. The frontier discipline is adapted from Matt Pocock's `grilling` skill, which asks a whole frontier per round; this skill asks one question per round because a batched list with recommendations was getting answered as a whole or not at all. Nothing needs to be installed alongside this one. A Mini inherits shared rules instead of asking the whole interview again. If a task uncovers a change to the overall promise, revise the Big and review affected work.
+An interview is an explicit step, and [its contract](skills/do-the-thing/references/interview.md) ships with the skill. Questions are asked one at a time from the frontier — the decisions whose prerequisites are already settled — each with the agent's recommended answer, and the agent waits through a permitted native blocking question tool. Codex requires a mode that permits `request_user_input`; asynchronous questions plus sleep are not a substitute for a pending input request. An answer is transcribed under a stable question ID before anything is acted on; a question nobody answered stays open, and nothing is built on it. Facts the agent can look up are not interview questions. The interview may end with questions still open when they affect only individual tasks. The frontier discipline is adapted from Matt Pocock's `grilling` skill, which asks a whole frontier per round; this skill asks one question per round because a batched list with recommendations was getting answered as a whole or not at all. Nothing needs to be installed alongside this one. A Mini inherits shared rules instead of asking the whole interview again. If a task uncovers a change to the overall promise, revise the Big and review affected work.
 
 If the repository already carries GitHub's Spec Kit, the agent calls its `speckit.*` commands at each of those steps — `clarify` feeds the interview, `specify`, `plan`, and `tasks` write the artifacts, `implement` runs one Mini at a time, `analyze` and `converge` feed verification — as [the Spec Kit contract](skills/do-the-thing/references/speckit.md) maps them. Nothing is installed for you, and the workflow is the same without it.
 
@@ -78,6 +88,10 @@ The gate deletes each of the validator's guards in turn and requires the suite t
 The example is **fictional**. Each Mini criterion names the Big criterion it serves, and a Big criterion counts as covered only when a Mini criterion aimed at it actually passes. The validator checks coverage, declared revisions, and evidence fields; it cannot prove that the evidence is true. It never contacts Linear or changes an issue's state. It does warn when a record still carries the example's `fictional` flag or placeholder evidence, but a warning does not fail the record: read the warnings before trusting a pass.
 
 ## Read more
+
+Mutation checks run in a temporary copy, never in the source checkout. A zero-test
+baseline or a changed test count fails the gate. See the local
+[terminal evaluation](docs/terminal-evaluation.md) for the scope and results.
 
 - [Skill entrypoint](skills/do-the-thing/SKILL.md)
 - [Interview contract](skills/do-the-thing/references/interview.md)

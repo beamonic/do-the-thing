@@ -10,39 +10,53 @@ or removed, which needs the list updated on purpose rather than silently.
 """
 import json
 import pathlib
+import re
+import shutil
 import subprocess
 import sys
+import tempfile
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 TARGET = ROOT / 'skills/do-the-thing/scripts/records.py'
 MUTATIONS = ROOT / 'tests/mutations.json'
 
 
-def run_suite():
-    return subprocess.run(
+def run_suite(root):
+    result = subprocess.run(
         [sys.executable, '-m', 'unittest', 'discover', '-s', 'tests'],
-        cwd=ROOT, capture_output=True, text=True,
-    ).returncode
+        cwd=root, capture_output=True, text=True,
+    )
+    match = re.search(r'Ran (\d+) tests?', result.stderr)
+    count = int(match.group(1)) if match else 0
+    return result.returncode, count
 
 
 def main():
     mutations = json.loads(MUTATIONS.read_text(encoding='utf-8'))
     original = TARGET.read_text(encoding='utf-8')
-    if run_suite() != 0:
-        print('The suite fails before any mutation; fix that first.', file=sys.stderr)
-        return 2
     survived, absent = [], []
-    try:
+    with tempfile.TemporaryDirectory(prefix='do-the-thing-mutations-') as temporary:
+        root = pathlib.Path(temporary)
+        for name in ('skills', 'tests', 'examples', 'scripts'):
+            shutil.copytree(ROOT / name, root / name,
+                            ignore=shutil.ignore_patterns('__pycache__', '*.pyc'))
+        code, baseline_count = run_suite(root)
+        if code != 0 or baseline_count == 0:
+            print('Baseline failed or ran zero tests; fix that first.', file=sys.stderr)
+            return 2
+        target = root / TARGET.relative_to(ROOT)
         for mutation in mutations:
             name, find = mutation['name'], mutation['find']
             if find not in original:
                 absent.append(name)
                 continue
-            TARGET.write_text(original.replace(find, mutation['replace'], 1), encoding='utf-8')
-            if run_suite() == 0:
+            target.write_text(original.replace(find, mutation['replace'], 1), encoding='utf-8')
+            # Same-size edits within one clock tick must not reuse stale bytecode.
+            shutil.rmtree(target.parent / '__pycache__', ignore_errors=True)
+            code, count = run_suite(root)
+            print(f'{name}: {count} tests, exit {code}')
+            if code == 0 or count != baseline_count:
                 survived.append(name)
-    finally:
-        TARGET.write_text(original, encoding='utf-8')
     for name in absent:
         print(f'pattern gone: {name}', file=sys.stderr)
     for name in survived:
