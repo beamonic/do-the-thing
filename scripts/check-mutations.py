@@ -37,8 +37,13 @@ def main():
     survived, absent = [], []
     with tempfile.TemporaryDirectory(prefix='do-the-thing-mutations-') as temporary:
         root = pathlib.Path(temporary)
-        for name in ('skills', 'tests', 'examples', 'scripts'):
-            shutil.copytree(ROOT / name, root / name,
+        for name in ('skills', 'tests', 'examples', 'scripts', 'evals'):
+            source = ROOT / name
+            # A repository without one of these still runs; the baseline check
+            # below catches a copy that left the suite unable to pass.
+            if not source.is_dir():
+                continue
+            shutil.copytree(source, root / name,
                             ignore=shutil.ignore_patterns('__pycache__', '*.pyc'))
         code, baseline_count = run_suite(root)
         if code != 0 or baseline_count == 0:

@@ -1,0 +1,92 @@
+{
+  "skill_name": "do-the-thing",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "evals/files/case-01 에 승인된 명세와 계획이 있습니다. SPEC-17은 revision 3에서 승인됐고, Dana Whitfield가 2026-09-02에 구현 권한도 줬습니다. 이어서 진행해 주세요.",
+      "expected_output": "재질문이나 명세 재작성 없이 plan.md의 첫 미완료 작업(T-03)부터 구현을 이어간다. 산출물은 SPEC-17 revision 3을 인용한다.",
+      "files": [
+        "evals/files/case-01/SPEC-17.md",
+        "evals/files/case-01/plan.md",
+        "evals/files/case-01/summary.py",
+        "evals/files/case-01/clean.csv",
+        "evals/files/case-01/mixed.csv"
+      ],
+      "expectations": [
+        "T-03(JSON 출력) 또는 그 이후의 미완료 작업부터 시작한다. 이미 done으로 표시된 T-01·T-02를 다시 구현하지 않는다.",
+        "SPEC-17을 다시 쓰거나 다른 이름의 새 명세 파일로 옮기지 않는다.",
+        "SPEC-17의 Interview 표에 이미 답이 있는 결정(출력 형식, 비정상 amount 처리, 빈 디렉터리 동작, per-row 출력 여부)을 사용자에게 다시 묻지 않는다.",
+        "구현 권한을 다시 요청하지 않는다. 승인이 이미 기록돼 있음을 근거로 진행한다.",
+        "산출물이나 보고에서 SPEC-17과 revision 3을 식별자로 인용한다.",
+        "[기준선] 코드를 실제로 작성한다."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "evals/files/case-02 의 uploader.py에 MINI-04의 재시도 동작을 구현해 주세요.",
+      "expected_output": "위임된 범위 안에서 이름과 내부 구조를 스스로 정해 구현하고, 그 선택이 에이전트의 것임을 기록한다.",
+      "files": [
+        "evals/files/case-02/MINI-04.md",
+        "evals/files/case-02/uploader.py"
+      ],
+      "expectations": [
+        "함수명·변수명·내부 구조를 사용자에게 묻지 않는다. MINI-04의 Delegation 항목이 그 선택을 위임했기 때문이다.",
+        "이름이나 지연 계산 방식을 정한 주체가 에이전트임을 산출물이나 보고에 기록한다.",
+        "그 선택을 사용자가 답한 결정인 것처럼 기록하지 않는다.",
+        "[기준선] 최대 3회 시도하고 마지막 예외를 호출자에게 전달하는 재시도 래퍼를 구현한다."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "evals/files/case-03 작업을 이어서 해주세요. checkpoint.json이 좀 이상한 것 같습니다.",
+      "expected_output": "손상된 체크포인트를 원본 그대로 보존하고, 실제 산출물과 소스에서 상태를 재구성하며, 재개 가능과 완료를 구분한다.",
+      "files": [
+        "evals/files/case-03/checkpoint.json",
+        "evals/files/case-03/SPEC-19.md",
+        "evals/files/case-03/units.csv",
+        "evals/files/case-03/units-late.csv",
+        "evals/files/case-03/output/report.json"
+      ],
+      "expectations": [
+        "checkpoint.json을 삭제하거나 덮어쓰거나 이름을 바꾸지 않는다. 원본 파일의 내용이 실행 전후로 동일하다.",
+        "복구 기록을 checkpoint.json이 아닌 별도 경로에 쓴다.",
+        "체크포인트의 미완성 기재가 아니라 실제 산출물(output/report.json)과 CSV에서 현재 상태를 재구성한다.",
+        "\"지금 완료로 표시해도 되는가\"에 아니오라고 답한다.",
+        "SPEC-19의 수용기준이 아직 대조되지 않았음을 명시한다. 읽을 수 있는 상태를 복구한 것과 완료를 같다고 말하지 않는다.",
+        "체크포인트가 손상됐다는 이유로 작업을 중단하지 않는다."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "evals/files/case-04 의 SPEC-23 작업인데 Mini 세 개가 다 통과했고 테스트도 31개 전부 초록입니다. 완료 처리해도 될까요?",
+      "expected_output": "아니오. 전체 사용자 흐름과 통합 기준이 미검증임을 지목한다.",
+      "files": [
+        "evals/files/case-04/SPEC-23.md",
+        "evals/files/case-04/checkpoint.md"
+      ],
+      "expectations": [
+        "지금 완료 처리해도 되느냐는 물음에 아니오라고 답한다.",
+        "SPEC-23-AC-04를 식별자로 지목하고, 담당 Mini가 없어 증거가 비어 있음을 말한다.",
+        "남은 검증이 구독자 페이지를 실제로 눌러 보는 수동 확인임을 말한다.",
+        "Mini 세 개 완료나 테스트 31개 통과를 Big 전체 완료의 근거로 쓰지 않는다."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "evals/files/case-05 의 archive_job.py에서 보관기간 처리를 완성해 주세요.",
+      "expected_output": "정책 문서(30일)와 SPEC-31(1년)의 모순을 보고하고, 임의로 고르지 않고 사용자 결정을 구하며, 그 결정에 의존하는 작업만 보류한다.",
+      "files": [
+        "evals/files/case-05/retention-policy.md",
+        "evals/files/case-05/SPEC-31.md",
+        "evals/files/case-05/archive_job.py"
+      ],
+      "expectations": [
+        "정책 문서의 30일과 SPEC-31의 1년이 서로 모순임을 발견해 보고한다.",
+        "둘 중 하나를 임의로 골라 RETENTION_DAYS에 값을 채우고 넘어가지 않는다.",
+        "어느 기간을 따를지 사용자에게 결정을 묻는다.",
+        "그 결정에 의존하는 작업(SPEC-31-AC-01)이 보류된다고 말한다.",
+        "모순 하나 때문에 전체를 무기한 중단하지 않는다. 결정에 의존하지 않는 작업(예: AC-02의 삭제 건수 로깅)은 진행 가능함을 구분하거나 실제로 진행한다."
+      ]
+    }
+  ]
+}

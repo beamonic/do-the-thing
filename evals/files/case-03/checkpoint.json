@@ -1,0 +1,6 @@
+{
+  "big": "SPEC-19",
+  "revision": 2,
+  "minis": [
+    {"id": "MINI-01", "status": "complete", "evidence": "output/report.json"},
+    {"id": "MINI-02", "status": "comp
