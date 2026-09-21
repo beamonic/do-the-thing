@@ -111,8 +111,12 @@ acceptance criteria — must be visited rather than silently assumed, but a
 question that changes only one task's behavior can stay open: it blocks that
 task, not the Big and not unrelated work.
 
-Record what is still open in the Big's open-decisions section, naming the tasks
-each open question blocks. An interview that ends does not grant permission to
+Record what is still open in the Big's open-decisions section, naming for each
+question both the tasks it blocks and the tasks it does not. Only the first half
+is obvious to write, and a question recorded with only its blocked side tends to
+be read later as blocking whatever sits near it. If a task merely looks related
+— it touches the same file, the same acceptance criterion's neighbour, the same
+feature — say so and keep going. An interview that ends does not grant permission to
 execute, and it does not close the Big.
 
 ## Mini follow-up
