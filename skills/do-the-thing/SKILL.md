@@ -1,6 +1,6 @@
 ---
 name: do-the-thing
-description: 트리거 "두더띵으로 해줘", "리니어 이슈 받아서 작업해", "이 일 스펙부터 써", "중단된 작업 이어서", "완료 증거 확인해" — One entrypoint for context-aware domain clarification, specs, execution, test proof, review, checkpoint, and resume.
+description: Triggers "do the thing" "spec this out first" "take this issue and work it" "resume the stopped work" "check the completion evidence" "두더띵으로 해줘" "이 일 스펙부터 써" "중단된 작업 이어서" — one entrypoint that turns a request into interview, Big and Mini specs, execution, test proof, two-axis review, checkpoint, and resume, with evidence behind every claim.
 license: MIT
 ---
 
