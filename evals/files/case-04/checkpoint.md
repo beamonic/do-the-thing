@@ -7,5 +7,3 @@
 | MINI-03 | complete | `test_export.py::test_utf8_roundtrip` passed 2026-09-18 |
 
 Suite: 31 passed, 0 failed, 2026-09-18.
-
-SPEC-23-AC-04 has no Mini assigned and no recorded evidence.

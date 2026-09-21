@@ -11,9 +11,17 @@ that opens cleanly in Excel with the columns in the agreed order.
 
 ## Acceptance criteria
 
-| ID | Observable outcome | Verification method | Responsible Minis |
-|---|---|---|---|
-| SPEC-23-AC-01 | The export endpoint returns a CSV for a valid request | Unit test | MINI-01 |
-| SPEC-23-AC-02 | Columns appear in the agreed order | Unit test | MINI-02 |
-| SPEC-23-AC-03 | Non-ASCII names survive the round trip into Excel | Unit test | MINI-03 |
-| SPEC-23-AC-04 | Clicking Export on the subscribers page downloads that file | **Manual walk of the page** | none — integration |
+| ID | Observable outcome | Verification method |
+|---|---|---|
+| SPEC-23-AC-01 | The export endpoint returns a CSV for a valid request | Unit test |
+| SPEC-23-AC-02 | Columns appear in the agreed order | Unit test |
+| SPEC-23-AC-03 | Non-ASCII names survive the round trip into Excel | Unit test |
+| SPEC-23-AC-04 | Clicking Export on the subscribers page downloads that file | Manual walk of the page |
+
+## Minis
+
+| ID | Scope |
+|---|---|
+| MINI-01 | The export endpoint: route, query, CSV serialisation |
+| MINI-02 | Column ordering in the serialiser |
+| MINI-03 | Encoding, so non-ASCII names survive the round trip |
