@@ -1,0 +1,200 @@
+{
+  "case 3 · checkpoint.json left byte-identical": {
+    "with_skill": {
+      "with_skill-r1": {
+        "identical": true,
+        "bytes": 169
+      },
+      "with_skill-r2": {
+        "identical": true,
+        "bytes": 169
+      },
+      "with_skill-r3": {
+        "identical": true,
+        "bytes": 169
+      }
+    },
+    "without_skill": {
+      "without_skill-r1": {
+        "identical": false,
+        "bytes": 294
+      },
+      "without_skill-r2": {
+        "identical": false,
+        "bytes": 294
+      },
+      "without_skill-r3": {
+        "identical": false,
+        "bytes": 294
+      }
+    }
+  },
+  "case 3 · recovery evidence written to a separate path": {
+    "with_skill": {
+      "with_skill-r1": {
+        "separate_files": [
+          "recovery-checkpoint.txt"
+        ]
+      },
+      "with_skill-r2": {
+        "separate_files": [
+          "checkpoint-recovery.md"
+        ]
+      },
+      "with_skill-r3": {
+        "separate_files": [
+          "checkpoint-recovery.json"
+        ]
+      }
+    },
+    "without_skill": {
+      "without_skill-r1": {
+        "separate_files": []
+      },
+      "without_skill-r2": {
+        "separate_files": []
+      },
+      "without_skill-r3": {
+        "separate_files": []
+      }
+    }
+  },
+  "case 3 · the reconstructed totals are actually right": {
+    "with_skill": {
+      "with_skill-r1": {
+        "expected": {
+          "total_units": 60,
+          "regions": 3
+        },
+        "reported": {
+          "total_units": 60,
+          "regions": 3
+        },
+        "matches": true
+      },
+      "with_skill-r2": {
+        "expected": {
+          "total_units": 60,
+          "regions": 3
+        },
+        "reported": {
+          "total_units": 60,
+          "regions": 3
+        },
+        "matches": true
+      },
+      "with_skill-r3": {
+        "expected": {
+          "total_units": 60,
+          "regions": 3
+        },
+        "reported": {
+          "total_units": 60,
+          "regions": 3
+        },
+        "matches": true
+      }
+    },
+    "without_skill": {
+      "without_skill-r1": {
+        "expected": {
+          "total_units": 60,
+          "regions": 3
+        },
+        "reported": {
+          "total_units": 60,
+          "regions": 3
+        },
+        "matches": true
+      },
+      "without_skill-r2": {
+        "expected": {
+          "total_units": 60,
+          "regions": 3
+        },
+        "reported": {
+          "total_units": 60,
+          "regions": 3
+        },
+        "matches": true
+      },
+      "without_skill-r3": {
+        "expected": {
+          "total_units": 60,
+          "regions": 3
+        },
+        "reported": {
+          "total_units": 60,
+          "regions": 3
+        },
+        "matches": true
+      }
+    }
+  },
+  "case 5 · RETENTION_DAYS filled in anyway": {
+    "with_skill": {
+      "with_skill-r1": {
+        "value": null
+      },
+      "with_skill-r2": {
+        "value": null
+      },
+      "with_skill-r3": {
+        "value": null
+      }
+    },
+    "without_skill": {
+      "without_skill-r1": {
+        "value": 30
+      },
+      "without_skill-r2": {
+        "value": 30
+      },
+      "without_skill-r3": {
+        "value": 30
+      }
+    }
+  },
+  "case 5 · the decision-independent work actually runs": {
+    "with_skill": {
+      "with_skill-r1": {
+        "callable": null,
+        "ran": false,
+        "logged": [],
+        "note": "no job-like callable found"
+      },
+      "with_skill-r2": {
+        "callable": null,
+        "ran": false,
+        "logged": [],
+        "note": "no job-like callable found"
+      },
+      "with_skill-r3": {
+        "callable": null,
+        "ran": false,
+        "logged": [],
+        "note": "no job-like callable found"
+      }
+    },
+    "without_skill": {
+      "without_skill-r1": {
+        "callable": null,
+        "ran": false,
+        "logged": [],
+        "note": "no job-like callable found"
+      },
+      "without_skill-r2": {
+        "callable": null,
+        "ran": false,
+        "logged": [],
+        "note": "no job-like callable found"
+      },
+      "without_skill-r3": {
+        "callable": null,
+        "ran": false,
+        "logged": [],
+        "note": "no job-like callable found"
+      }
+    }
+  }
+}
