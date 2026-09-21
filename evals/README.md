@@ -20,10 +20,24 @@ them re-runnable.
 
 The harness is the `skill-creator` loop: run each case under both
 configurations, grade the runs against the expectations in `evals.json` with
-`agents/grader.md`, then aggregate. Run `scripts/mechanical_checks.py` against
-the workspace first and hand its output to every grader — a hash and a parsed
-constant settle the expectations that a grader would otherwise have to take a
-transcript's word for.
+`agents/grader.md`, then aggregate.
+
+Two steps sit between the runs and the graders:
+
+```
+python evals/scripts/mechanical_checks.py <workspace>/iteration-N
+python evals/scripts/blind_runs.py <workspace>/iteration-N --mapping <path outside it>
+```
+
+`mechanical_checks.py` settles by hash, parsed constant, and — for the retry
+case — by actually executing the run's code with a recording `sleep`, the
+expectations a grader would otherwise take a transcript's word for. Hand its
+output to every grader so nobody re-derives them and no verdict drifts from the
+bytes.
+
+`blind_runs.py` copies each run into a hash-named directory and writes the key
+outside the workspace, so a grader cannot read the arm off the path. Point each
+grader at one `run-<hash>` and nothing else.
 
 Its `aggregate_benchmark` did not read this layout in iteration 1 and reported a
 zero delta over zero runs; the figures in the results file were aggregated
@@ -90,6 +104,35 @@ Observed in iteration 1: **5 discriminated, 18 tied on a pass, 2 tied on a
 fail.** All five that discriminated live in cases 3 and 5. Three fixtures were
 found to hand over their own answer, which is why so much tied; the fixes are
 listed in the results file and belong to iteration 2.
+
+## Changes made for iteration 2
+
+Iteration 1 found the problems in this suite before it found any in the skill.
+The fixes, tracked as CAP-634, CAP-635 and CAP-636:
+
+- **Case 4's fixture no longer states its own conclusion.** The line
+  "SPEC-23-AC-04 has no Mini assigned and no recorded evidence" is gone from
+  `checkpoint.md`, and the acceptance table no longer carries a "Responsible
+  Minis" column. The Minis are listed separately with their scope; the gap has
+  to be found by reading one against the other.
+- **Case 1 no longer answers every question in its table.** The empty-directory
+  decision was removed from SPEC-17's interview table and now lives only in
+  `SPEC-17-AC-04`. Asking about it is asking about a fact the spec already
+  states. The citation expectation was narrowed to files the run itself wrote —
+  leaving the fixture untouched used to satisfy it.
+- **Case 2 asks something observable.** "Does not ask" became "does not record
+  that it needs a decision", since a single-turn run has no channel to ask
+  through. A new expectation checks that the delay between retries actually
+  grows, which nothing checked before.
+- **Case 3 splits the completion boundary.** The two expectations both arms
+  failed were replaced by the distinction SKILL.md itself draws: did the run
+  actually check the criteria, and did it keep session completion separate from
+  issue completion. The old pair asked a run to withhold a conclusion it had
+  earned.
+- **Case 5 merges two correlated expectations.** Filling the value in and
+  failing to ask were one failure counted twice.
+
+26 expectations, up from 25.
 
 ## What these cases do not cover
 

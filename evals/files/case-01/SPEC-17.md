@@ -18,7 +18,6 @@ the answer in the terminal and paste it into a weekly report.
 |---|---|---|---|---|---|
 | Q-01 | Output format — table, JSON, or plain lines? | JSON, so the weekly report script can consume it without parsing | Dana Whitfield, 2026-08-30 | SPEC-17-AC-02 | resolved |
 | Q-02 | What happens to a row whose `amount` is empty or non-numeric? | Skip it and keep going. Do not fail the run. | Dana Whitfield, 2026-08-30 | SPEC-17-AC-03 | resolved |
-| Q-03 | Should an empty directory be an error? | No. Report zero for both fields. | Dana Whitfield, 2026-09-01 | SPEC-17-AC-04 | resolved |
 | Q-04 | Per-row output as well as totals? | No — rev2 shipped that and it was unreadable. Totals only. | Dana Whitfield, 2026-09-02 | SPEC-17-AC-01 | resolved |
 
 ## Scope, common rules, and non-goals
