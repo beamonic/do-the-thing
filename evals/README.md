@@ -35,9 +35,15 @@ expectations a grader would otherwise take a transcript's word for. Hand its
 output to every grader so nobody re-derives them and no verdict drifts from the
 bytes.
 
-`blind_runs.py` copies each run into a hash-named directory and writes the key
-outside the workspace, so a grader cannot read the arm off the path. Point each
-grader at one `run-<hash>` and nothing else.
+`blind_runs.py` copies each run into a hash-named directory, redacts the arm
+label out of the copies — runs quote their own working directory, so the hash
+alone does not hide it — and writes the key outside the workspace. Point each
+grader at one `run-<hash>` and nothing else, and give it only its own slice of
+the mechanical results; the keys in `mechanical_checks.json` name the arms.
+
+Blinding stops there. A run that read the skill cites it, and removing those
+citations would delete the evidence a grader needs. Lean on the mechanical
+checks for the expectations that decide the outcome.
 
 Its `aggregate_benchmark` did not read this layout in iteration 1 and reported a
 zero delta over zero runs; the figures in the results file were aggregated
@@ -133,6 +139,15 @@ The fixes, tracked as CAP-634, CAP-635 and CAP-636:
   failing to ask were one failure counted twice.
 
 26 expectations, up from 25.
+
+**Two of the five fixes worked.** [Iteration 2](results/iteration-2.md) ran the
+fixed suite: case 3's rewritten expectations now discriminate, and the blinding
+helped. Cases 1, 2 and 4 still tie at 100% in both arms — two iterations with no
+signal, and by CAP-634's own rule they should leave the suite.
+
+It also found something larger. Case 5 flipped between iterations with **no
+change to the skill**: the with-skill run scored 5/5 in iteration 1 and 1/4 in
+iteration 2. One run per configuration is not a measurement.
 
 ## What these cases do not cover
 
