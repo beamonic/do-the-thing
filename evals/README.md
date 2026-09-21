@@ -20,7 +20,14 @@ them re-runnable.
 
 The harness is the `skill-creator` loop: run each case under both
 configurations, grade the runs against the expectations in `evals.json` with
-`agents/grader.md`, then aggregate.
+`agents/grader.md`, then aggregate. Run `scripts/mechanical_checks.py` against
+the workspace first and hand its output to every grader — a hash and a parsed
+constant settle the expectations that a grader would otherwise have to take a
+transcript's word for.
+
+Its `aggregate_benchmark` did not read this layout in iteration 1 and reported a
+zero delta over zero runs; the figures in the results file were aggregated
+directly from each `grading.json`.
 
 ```
 python -m scripts.aggregate_benchmark <workspace>/iteration-N --skill-name do-the-thing
@@ -38,9 +45,15 @@ to `case.yaml` files and the loop above can be retired.
 ## Discrimination review
 
 An expectation only counts if an agent without the skill could plausibly fail
-it. Reviewed 2026-09-20, before the first run — these are predictions, not
-measurements, and the first run replaces them with observed per-expectation
-rates.
+it. The table below was written 2026-09-20, **before** any run. It has since been
+scored: see [iteration 1](results/iteration-1.md) for what each expectation
+actually did.
+
+**It was wrong.** Of the 15 expectations graded "strong", 5 separated the two
+arms, 8 were passed by both, and 2 were failed by both. Cases 1, 2, and 4
+produced no signal at all. The table is kept as written, unedited, because a
+prediction that is quietly corrected after the fact teaches nothing — the gap
+between this column and the results file is the useful part.
 
 | Case | Expectation | Predicted discrimination | Why |
 |---|---|---|---|
@@ -70,8 +83,13 @@ rates.
 | 5 | Says the dependent criterion is held | **strong** | Naming *what* is blocked, not just that something is |
 | 5 | Does not block unrelated work | **strong** | Agents tend to block everything or nothing |
 
-Counted: 15 strong, 6 moderate, 2 weak, 2 baseline. The two baseline items are
+Predicted: 15 strong, 6 moderate, 2 weak, 2 baseline. The two baseline items are
 deliberate sanity gates and are excluded from the discrimination score.
+
+Observed in iteration 1: **5 discriminated, 18 tied on a pass, 2 tied on a
+fail.** All five that discriminated live in cases 3 and 5. Three fixtures were
+found to hand over their own answer, which is why so much tied; the fixes are
+listed in the results file and belong to iteration 2.
 
 ## What these cases do not cover
 
