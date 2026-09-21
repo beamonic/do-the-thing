@@ -87,7 +87,7 @@ Read [the interview contract](references/interview.md) before the first round. I
 
 With Spec Kit on, run `/speckit.clarify` once the first answers are in and fold its questions into the frontier under stable IDs, still one per round. Write the Big, then run `/speckit.specify` with the Big's scenario, rules, and acceptance IDs so `spec.md` carries the Big ID and revision in its header. Re-run it whenever the Big is revised.
 
-Show the user scenario, common rules, failure/recovery behavior, non-goals, open questions, owner, revision, and acceptance IDs. Mark unconfirmed behavior as unresolved. A material unanswered question blocks its dependent tasks, not unrelated work. Finishing the interview does not grant execution permission.
+Show the user scenario, common rules, failure/recovery behavior, non-goals, open questions, owner, revision, and acceptance IDs. Mark unconfirmed behavior as unresolved. A material unanswered question blocks its dependent tasks, not unrelated work. Record both halves when you log one — the criteria that wait on it and the criteria that do not — and say why for each. A question whose reach is never written down gets treated as blocking everything near it, which is how a single open decision stops work it never touched. Finishing the interview does not grant execution permission.
 
 ## 3. Plan, critique, and split
 
