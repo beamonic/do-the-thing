@@ -93,7 +93,7 @@ def report_totals(out):
 
 
 ARCHIVE_PROBE = '''
-import importlib.util, inspect, json, sys
+import contextlib, importlib.util, inspect, io, json, logging, sys
 logged = []
 spec = importlib.util.spec_from_file_location('probe_archive', sys.argv[1])
 module = importlib.util.module_from_spec(spec)
@@ -101,33 +101,47 @@ try:
     spec.loader.exec_module(module)
 except Exception as error:
     print(json.dumps({'error': f'import failed: {error!r}'})); raise SystemExit
-import logging
-logging.basicConfig(level=logging.DEBUG)
-logging.getLogger().handlers = [type('H', (logging.Handler,), {
-    'emit': lambda self, record: logged.append(record.getMessage())})()]
-result = {'callable': None, 'ran': False, 'logged': [], 'note': 'no job-like callable found'}
+
+
+class Capture(logging.Handler):
+    def emit(self, record):
+        logged.append(record.getMessage())
+
+
+root = logging.getLogger()
+root.handlers = [Capture()]
+root.setLevel(logging.DEBUG)
+
+# SPEC-31-AC-02's slot takes a count and nothing else, so it cannot depend on
+# the retention window. Found by shape and name, not by a name we assume.
+target = None
 for name, fn in vars(module).items():
     if name.startswith('_') or not inspect.isfunction(fn) or fn.__module__ != module.__name__:
         continue
-    if 'job' not in name.lower() and 'run' not in name.lower() and 'archive' not in name.lower():
-        continue
-    kwargs = {}
-    for param in inspect.signature(fn).parameters.values():
-        if 'retention' in param.name and param.default is inspect.Parameter.empty:
-            kwargs[param.name] = 30
-    try:
-        fn(**kwargs)
-    except TypeError as error:
-        result = {'callable': name, 'ran': False, 'logged': [],
-                  'note': f'needs arguments this probe cannot supply: {error}'}
-        continue
-    except Exception as error:
-        result = {'callable': name, 'ran': False, 'logged': logged[:],
-                  'note': f'raised {error!r}'}
-        continue
-    result = {'callable': name, 'ran': True, 'logged': logged[:], 'note': 'called with retention injected'}
-    break
-print(json.dumps(result, ensure_ascii=False))
+    required = [p for p in inspect.signature(fn).parameters.values()
+                if p.default is inspect.Parameter.empty]
+    if len(required) == 1 and any(w in name.lower() for w in ('report', 'log', 'record', 'count')):
+        target = (name, fn)
+        break
+
+if target is None:
+    print(json.dumps({'callable': None, 'ran': False, 'logged': [],
+                      'note': 'no count-reporting callable found'}))
+    raise SystemExit
+
+name, fn = target
+buffer = io.StringIO()
+try:
+    with contextlib.redirect_stdout(buffer):
+        fn(3)
+except Exception as error:
+    print(json.dumps({'callable': name, 'ran': False, 'logged': [],
+                      'note': f'raised {error!r}'}))
+    raise SystemExit
+
+emitted = logged + [line for line in buffer.getvalue().splitlines() if line.strip()]
+print(json.dumps({'callable': name, 'ran': True, 'emitted': emitted,
+                  'reports_the_count': any('3' in str(x) for x in emitted)}, ensure_ascii=False))
 '''
 
 
