@@ -13,6 +13,12 @@ across iterations with **no change to the skill**; one run per arm cannot tell a
 coin from an effect. Before reading any delta as an effect, check that it is
 larger than the spread within a configuration.
 
+[Iteration 3](results/iteration-3.md) is the first run where it was: delta
+**+0.357** against a largest within-arm stddev of **0.094**, roughly four times
+the noise. It also produced the first finding about the skill rather than about
+the suite — every with-skill run refused to decide a question that was the
+user's to answer, and then held work that did not depend on that answer.
+
 The suite is two cases and 12 expectations. It was five and 26 until iteration 2
 measured three of them separating the arms zero times twice running — those live
 in [`retired/`](retired/README.md) with the reasoning and how to bring one back.

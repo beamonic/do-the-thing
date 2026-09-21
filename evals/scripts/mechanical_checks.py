@@ -27,8 +27,24 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None
 
 
-def out(case, arm):
-    return WS / case / arm / 'outputs'
+def arm_dirs(case):
+    """One directory per replicate: `with_skill`, or `with_skill-r1`, `-r2`...
+
+    A single run per arm was how iterations 1 and 2 ran, and it could not tell a
+    coin from an effect. Both layouts are accepted so the older workspaces still
+    read.
+    """
+    base = WS / case
+    found = {}
+    if not base.is_dir():
+        return found
+    for path in sorted(base.iterdir()):
+        if not path.is_dir():
+            continue
+        for arm in ARMS:
+            if path.name == arm or path.name.startswith(f'{arm}-r'):
+                found.setdefault(arm, []).append(path)
+    return found
 
 
 def checks():
@@ -157,9 +173,15 @@ def retention_value(path):
 report = {}
 for label, case, fn in checks():
     report[label] = {}
+    dirs = arm_dirs(case)
     for arm in ARMS:
-        d = out(case, arm)
-        report[label][arm] = fn(d) if d.is_dir() else 'run directory missing'
+        results = [fn(d / 'outputs') for d in dirs.get(arm, []) if (d / 'outputs').is_dir()]
+        if not results:
+            report[label][arm] = 'run directory missing'
+        elif len(results) == 1:
+            report[label][arm] = results[0]
+        else:
+            report[label][arm] = {d.name: r for d, r in zip(dirs[arm], results)}
 
 print(json.dumps(report, ensure_ascii=False, indent=2))
 (WS / 'mechanical_checks.json').write_text(
