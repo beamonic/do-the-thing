@@ -14,12 +14,15 @@ npx skills add beamonic/do-the-thing
 
 That is the whole install for any agent the [skills CLI](https://skills.sh) supports.
 
-Version **0.19** adds `evals/` — a re-runnable suite that scores the skill against
-the same work done without it, so a change to the rules can be shown to help or
-hurt instead of asserted. Six rounds have run; each one found a fault in the
-measurement before it found one in the skill.
-See [release notes](docs/release-status.md#019--스킬이-실제로-효과가-있는지-재는-장치)
-and [what the numbers do and do not support](evals/results/iteration-6.md).
+Version **0.20** makes the tracker optional — the workflow runs unchanged
+without one — and it is the first change whose pass criteria were committed
+before the runs that judged it. `evals/` holds that loop: a re-runnable suite
+that scores the skill against the same work done without it, so a rule change
+can be shown to help or hurt instead of asserted. Seven rounds have run, and
+each of the first six found a fault in the measurement before it found one in
+the skill.
+See [release notes](docs/release-status.md#020--트래커-없이도-돌고-설치가-한-줄이다)
+and [what the numbers do and do not support](evals/results/iteration-7.md).
 
 To place the folder by hand instead — for Codex:
 
