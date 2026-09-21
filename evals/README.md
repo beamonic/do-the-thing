@@ -4,9 +4,18 @@ These cases measure whether an agent carrying this skill **follows its rules**,
 not whether the skill's description gets it loaded. Trigger accuracy is a
 different measurement and is not covered here.
 
-Each case is run twice — once with the skill available, once without — and the
-two configurations are compared. A case's value is the difference between the
+Each case is run **three times per configuration** — with the skill available and
+without — and the two are compared. A case's value is the difference between the
 arms, so an expectation that both arms satisfy measures nothing.
+
+Three runs, not one. Iteration 2 found the same case scoring 5/5 and then 1/4
+across iterations with **no change to the skill**; one run per arm cannot tell a
+coin from an effect. Before reading any delta as an effect, check that it is
+larger than the spread within a configuration.
+
+The suite is two cases and 12 expectations. It was five and 26 until iteration 2
+measured three of them separating the arms zero times twice running — those live
+in [`retired/`](retired/README.md) with the reasoning and how to bring one back.
 
 ## Source
 
@@ -142,12 +151,20 @@ The fixes, tracked as CAP-634, CAP-635 and CAP-636:
 
 **Two of the five fixes worked.** [Iteration 2](results/iteration-2.md) ran the
 fixed suite: case 3's rewritten expectations now discriminate, and the blinding
-helped. Cases 1, 2 and 4 still tie at 100% in both arms — two iterations with no
-signal, and by CAP-634's own rule they should leave the suite.
+helped. Cases 1, 2 and 4 still tied at 100% in both arms — two iterations with no
+signal — and have since been retired.
 
 It also found something larger. Case 5 flipped between iterations with **no
 change to the skill**: the with-skill run scored 5/5 in iteration 1 and 1/4 in
-iteration 2. One run per configuration is not a measurement.
+iteration 2. One run per configuration is not a measurement, which is why the
+suite now runs three.
+
+Both surviving cases gained an expectation that checks the *outcome* rather than
+the process — whether the reconstructed totals are actually right, and whether
+the work claimed as decision-independent actually runs. A grader pointed out that
+every expectation in the retired cases watched how a run behaved and none watched
+whether it produced the correct thing, so a broken implementation could have
+passed them all.
 
 ## What these cases do not cover
 
