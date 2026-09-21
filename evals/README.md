@@ -19,6 +19,13 @@ the noise. It also produced the first finding about the skill rather than about
 the suite — every with-skill run refused to decide a question that was the
 user's to answer, and then held work that did not depend on that answer.
 
+[Iteration 4](results/iteration-4.md) is what the suite is for. A fix for that
+over-blocking was written, and against an unchanged control case it moved the
+skill's best behaviour from **3/3 to 0/3** — with-skill runs began deciding the
+question for the user. The criterion had been written before the run, so the fix
+was rejected and never merged. The change looks harmless in a diff; only the
+measurement caught it.
+
 The suite is two cases and 12 expectations. It was five and 26 until iteration 2
 measured three of them separating the arms zero times twice running — those live
 in [`retired/`](retired/README.md) with the reasoning and how to bring one back.
