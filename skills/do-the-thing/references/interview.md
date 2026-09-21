@@ -87,7 +87,7 @@ stays open.
 ## Facts are yours, decisions are the user's
 
 Finding facts is your job, never the user's. Step 1 of this skill — the issue,
-its sources, existing Linear records — is that fact-finding, which is why the
+its sources, what the work record already holds — is that fact-finding, which is why the
 interview runs after it and not before. A question the environment can answer is
 not an interview question; look it up.
 
