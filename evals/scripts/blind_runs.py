@@ -67,16 +67,18 @@ def main():
 
     mapping = {}
     for case in sorted(p for p in ws.glob('eval-*') if p.is_dir()):
-        for arm in ARMS:
-            source = case / arm
-            if not source.is_dir():
+        for source in sorted(p for p in case.iterdir() if p.is_dir()):
+            arm = next((a for a in ARMS
+                        if source.name == a or source.name.startswith(f'{a}-r')), None)
+            if arm is None:
                 continue
-            token = hashlib.sha256(f'{args.salt}:{case.name}:{arm}'.encode()).hexdigest()[:8]
+            token = hashlib.sha256(f'{args.salt}:{case.name}:{source.name}'.encode()).hexdigest()[:8]
             target = blind / f'run-{token}'
             shutil.copytree(source, target,
                             ignore=shutil.ignore_patterns('__pycache__', '*.pyc'))
             redacted = redact(target)
             mapping[f'run-{token}'] = {'case': case.name, 'configuration': arm,
+                                       'replicate': source.name,
                                        'files_redacted': redacted}
 
     if not mapping:
