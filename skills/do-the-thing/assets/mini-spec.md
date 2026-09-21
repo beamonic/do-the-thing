@@ -5,7 +5,7 @@
 - Status: Draft
 - Owner: Unassigned
 - Big: BIG-001, revision 1
-- Linear task: <URL>
+- Work record entry (tracker task, or file section): <URL or path>
 - Dependencies: <IDs or none>
 
 ## Task scenario, inputs, and outputs

@@ -1,6 +1,6 @@
 # Checkpoint
 
-- Work / Linear ID:
+- Work / issue ID:
 - Big ID and revision:
 - Mini ID and revision:
 - Plan revision:
@@ -10,7 +10,7 @@
 - Checks performed and evidence:
 - Failed or untested criteria:
 - External changes: requested / confirmed / uncertain
-- Latest Linear read-back:
+- Latest work-record read-back:
 - Remaining work and next condition:
 
 On resume, compare this record with current instructions and actual artifacts before acting.

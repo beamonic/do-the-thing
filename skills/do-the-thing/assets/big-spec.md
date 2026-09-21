@@ -4,7 +4,7 @@
 - Revision: 1
 - Status: Draft
 - Owner: Unassigned
-- Linear issue/project: <URL>
+- Work record (tracker issue/project, or file): <URL or path>
 - Change from previous revision: Initial draft
 
 ## User story and scenario

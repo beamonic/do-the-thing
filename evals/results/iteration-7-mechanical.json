@@ -1,0 +1,120 @@
+{
+  "case 3 · checkpoint.json left byte-identical": {
+    "with_skill": {
+      "with_skill-r1": {
+        "identical": true,
+        "bytes": 169
+      },
+      "with_skill-r2": {
+        "identical": true,
+        "bytes": 169
+      },
+      "with_skill-r3": {
+        "identical": true,
+        "bytes": 169
+      }
+    },
+    "without_skill": "run directory missing"
+  },
+  "case 3 · recovery evidence written to a separate path": {
+    "with_skill": {
+      "with_skill-r1": {
+        "separate_files": [
+          "checkpoint-recovery.md"
+        ]
+      },
+      "with_skill-r2": {
+        "separate_files": [
+          "checkpoint-recovery.txt"
+        ]
+      },
+      "with_skill-r3": {
+        "separate_files": [
+          "checkpoint-recovery.json"
+        ]
+      }
+    },
+    "without_skill": "run directory missing"
+  },
+  "case 3 · the reconstructed totals are actually right": {
+    "with_skill": {
+      "with_skill-r1": {
+        "expected": {
+          "total_units": 60,
+          "regions": 3
+        },
+        "reported": {
+          "total_units": 60,
+          "regions": 3
+        },
+        "matches": true
+      },
+      "with_skill-r2": {
+        "expected": {
+          "total_units": 60,
+          "regions": 3
+        },
+        "reported": {
+          "total_units": 60,
+          "regions": 3
+        },
+        "matches": true
+      },
+      "with_skill-r3": {
+        "expected": {
+          "total_units": 60,
+          "regions": 3
+        },
+        "reported": {
+          "total_units": 60,
+          "regions": 3
+        },
+        "matches": true
+      }
+    },
+    "without_skill": "run directory missing"
+  },
+  "case 5 · RETENTION_DAYS filled in anyway": {
+    "with_skill": {
+      "with_skill-r1": {
+        "value": null
+      },
+      "with_skill-r2": {
+        "value": null
+      },
+      "with_skill-r3": {
+        "value": null
+      }
+    },
+    "without_skill": "run directory missing"
+  },
+  "case 5 · the decision-independent work actually runs": {
+    "with_skill": {
+      "with_skill-r1": {
+        "callable": "report_removed",
+        "ran": true,
+        "emitted": [
+          "Nightly transcript archive job removed 3 transcript(s)"
+        ],
+        "reports_the_count": true
+      },
+      "with_skill-r2": {
+        "callable": "report_removed",
+        "ran": true,
+        "emitted": [
+          "archive_job: removed 3 transcript(s)"
+        ],
+        "reports_the_count": true
+      },
+      "with_skill-r3": {
+        "callable": "report_removed",
+        "ran": true,
+        "emitted": [
+          "archive_job: removed 3 expired transcript(s)"
+        ],
+        "reports_the_count": true
+      }
+    },
+    "without_skill": "run directory missing"
+  }
+}

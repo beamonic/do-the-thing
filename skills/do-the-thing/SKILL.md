@@ -6,11 +6,13 @@ license: MIT
 
 # Do the Thing
 
-Run a source-first workflow inside the user's existing agent environment. Linear holds the work, questions, decisions, and results. Local records support recovery; they do not override current Linear instructions.
+Run a source-first workflow inside the user's existing agent environment. The **work record** holds the work, its questions, decisions, and results — a tracker when one is connected, and a file the user can find when none is. Whichever it is, it carries the current instructions; local scratch records support recovery and do not override it.
 
-Use the available Linear connector, MCP, or authenticated API client. Read [the Linear contract](references/linear.md) before interacting with Linear, and enumerate the host's actual tool list before trusting any description of it — what the host can do decides how much of the contract you can honour. If no connection is available, prepare local drafts and identify the exact connection needed; do not claim synchronization. This skill does not install an OAuth app or run a background worker.
+When a tracker is connected, it is the work record. Linear is the one this skill carries a contract for: use the available connector, MCP, or authenticated API client, read [the Linear contract](references/linear.md) before interacting with it, and enumerate the host's actual tool list before trusting any description of it — what the host can do decides how much of the contract you can honour. Another tracker works the same way; the contract's rules about IDs, read-back, and evidence carry over even though its tool names do not.
 
-When the repository carries GitHub's Spec Kit (`.specify/` plus installed `speckit.*` commands), call its commands wherever a step below names one, and read [the Spec Kit contract](references/speckit.md) before the first call. Spec Kit writes the spec, plan, and task files; Linear still holds the decisions and the evidence. Without Spec Kit, every step runs the same way with hand-written artifacts.
+Without a tracker the workflow runs unchanged, and a file in the repository is the work record — keep it where the user will find it, cite it by the same stable IDs, and name the exact connection that would sync it. Do not claim synchronization you did not perform. This skill does not install an OAuth app or run a background worker.
+
+When the repository carries GitHub's Spec Kit (`.specify/` plus installed `speckit.*` commands), call its commands wherever a step below names one, and read [the Spec Kit contract](references/speckit.md) before the first call. Spec Kit writes the spec, plan, and task files; the work record still holds the decisions and the evidence. Without Spec Kit, every step runs the same way with hand-written artifacts.
 
 ## One entrypoint, context-selected methods
 
@@ -93,7 +95,7 @@ Show the user scenario, common rules, failure/recovery behavior, non-goals, open
 
 Build a plan against the Big's exact revision — `/speckit.plan` when Spec Kit is on. Run `/speckit.analyze` and `/speckit.checklist` first for the mechanical half of the critique, then critique assumptions, missing behavior, scope, dependencies, and verification yourself. Fix evidence-resolvable gaps yourself. Reopen the specific interview question when a product decision is needed.
 
-Split into independently verifiable tasks. Each task gets one Mini Painless Spec using [the Mini template](assets/mini-spec.md). Each Mini references the Big ID, revision, and acceptance IDs it serves. Keep mechanical steps inside its checklist rather than making each step an issue. With Spec Kit on, `/speckit.tasks` writes `tasks.md`; one Mini maps to one task group or user-story phase there, never to a single line item, and each side cites the other's IDs. Leave `/speckit.taskstoissues` off unless the user asks for GitHub issues — Linear already holds the work.
+Split into independently verifiable tasks. Each task gets one Mini Painless Spec using [the Mini template](assets/mini-spec.md). Each Mini references the Big ID, revision, and acceptance IDs it serves. Keep mechanical steps inside its checklist rather than making each step an issue. With Spec Kit on, `/speckit.tasks` writes `tasks.md`; one Mini maps to one task group or user-story phase there, never to a single line item, and each side cites the other's IDs. Leave `/speckit.taskstoissues` off unless the user asks for GitHub issues — the work record already holds the work.
 
 Reuse Big answers and common rules. Conduct a focused follow-up interview only for newly discovered task uncertainties, then critique the Mini's execution plan. A Mini cannot silently change the Big's scope or shared rules: propose a Big revision and review affected Minis first.
 
@@ -119,13 +121,13 @@ The optional [record helper](scripts/records.py) validates a local completion re
 
 Keep a damaged checkpoint at its original path and preserve its bytes. Do not move or rename it to make room for a replacement. Write recovery evidence to a different path.
 
-On resume, compare saved records with current Linear instructions and actual artifacts. Preserve valid completed work. A changed shared rule invalidates affected evidence; do not restart unaffected work merely because a timestamp changed.
+On resume, compare saved records with the work record's current instructions and the actual artifacts. Preserve valid completed work. A changed shared rule invalidates affected evidence; do not restart unaffected work merely because a timestamp changed.
 
 Recovering a readable work state does not establish completion. Until current artifacts and every Big criterion have been checked, report verification pending even if previous test reports are available. Distinguish what can happen after those checks from what is justified now.
 
-A local record that is unreadable, malformed, or contradicted by the artifacts is not a reason to stop. Fall back to what Linear and the artifacts themselves say, preserve the damaged record, and write a separate recovery checkpoint explaining which claims were disregarded and why. Resume from observed state. An unreadable record may still contain recoverable interview answers, spec revisions, or verification evidence; do not delete or overwrite it to start clean.
+A local record that is unreadable, malformed, or contradicted by the artifacts is not a reason to stop. Fall back to what the work record and the artifacts themselves say, preserve the damaged record, and write a separate recovery checkpoint explaining which claims were disregarded and why. Resume from observed state. An unreadable record may still contain recoverable interview answers, spec revisions, or verification evidence; do not delete or overwrite it to start clean.
 
-After the Minis pass, verify the whole Big user journey and every Big acceptance criterion, including integration gaps. All Minis being complete is necessary but insufficient. With Spec Kit on, `/speckit.converge` is one input to that verification, not a substitute for walking the scenario. Report outputs, evidence, remaining limitations, and delivery status in Linear, then read back the update. Session completion is not issue completion. Change the issue state only when the Big is verified and the user's authorization covers that transition.
+After the Minis pass, verify the whole Big user journey and every Big acceptance criterion, including integration gaps. All Minis being complete is necessary but insufficient. With Spec Kit on, `/speckit.converge` is one input to that verification, not a substitute for walking the scenario. Report outputs, evidence, remaining limitations, and delivery status in the work record, then read the update back. Session completion is not issue completion. Change a tracked issue's state only when the Big is verified and the user's authorization covers that transition.
 
 ## Boundaries and attribution
 
