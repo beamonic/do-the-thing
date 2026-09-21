@@ -1,0 +1,489 @@
+{
+  "metadata": {
+    "skill_name": "do-the-thing",
+    "suite_revision": "9e6612f",
+    "skill_unchanged_since": "iteration-1",
+    "executor_model": "sonnet",
+    "grader_model": "sonnet",
+    "graders_blinded": true,
+    "timestamp": "2026-09-21T03:49:43.206207+00:00",
+    "evals_run": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {
+      "eval_id": 1,
+      "eval_name": "eval-1-spec-handover",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "blind_token": "run-9a1d1041",
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": null,
+        "tokens": null,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "T-03(JSON 출력) 또는 그 이후의 미완료 작업부터 시작한다. 이미 done으로 표시된 T-01·T-02를 다시 구현하지 않는다.",
+          "passed": true,
+          "evidence": "diff of original vs output summary.py: T-01의 read_rows()/디렉터리 순회 로직은 바이트 단위로 동일. T-02의 skip 로직(빈 값/비정상 amount는 건너뛴다)은 parse_amount() 헬퍼로 재배치됐지만 '건너뛴다'는 동작 자체는 그대로이며, test_ac03(격리 실행으로 직접 재확인, 5/5 pass)이 이를 검증한다. 변경분은 total 누적 초기값을 0.0→0으로 바꾸고 정수 문자열을 int로 우선 파싱하도록 한 것뿐으로, checkpoint.txt에 '이것은 위임된 구현 세부사항이지 스코프·행동 변경이 아니다'라고 명시 disclosure됐고 AC-04(빈 디렉터리 {\"total\":0})를 만족시키기 위한 최소 변경이다. plan.md에서도 T-01·T-02는 그대로 done 표시를 유지하고 T-03부터 새로 done 처리했다. 재인터뷰나 재설계 흔적 없음."
+        },
+        {
+          "text": "SPEC-17을 다시 쓰거나 다른 이름의 새 명세 파일로 옮기지 않는다.",
+          "passed": true,
+          "evidence": "mechanical_facts.json: 'case 1 · SPEC-17.md left unmodified' → identical: true. diff 명령으로 직접 재확인해도 출력 없음(완전 동일). outputs 디렉터리에 SPEC-17 외의 새 명세 파일 없음(SPEC-18, SPEC-17-v2 등 미생성)."
+        },
+        {
+          "text": "SPEC-17의 Interview 표에 이미 답이 있는 결정(출력 형식, 비정상 amount 처리, per-row 출력 여부)을 사용자에게 다시 묻지 않는다.",
+          "passed": true,
+          "evidence": "transcript.md '판단과 이유' 절: Q-01(JSON 출력)·Q-02(비정상 amount skip)·Q-04(per-row 없음, totals only)를 각각 인용하며 재질문 없이 그대로 구현했다고 명시. summary.py가 실제로 json.dumps 단일 라인 출력, parse_amount로 invalid skip, per-row 출력 없음을 구현했고 test_ac01/ac02/ac03이 이를 통과(직접 재실행 확인)."
+        },
+        {
+          "text": "빈 디렉터리 동작을 사용자에게 묻지 않는다. Interview 표에는 없지만 SPEC-17-AC-04가 답을 담고 있으므로, 이건 물을 결정이 아니라 찾아볼 사실이다.",
+          "passed": true,
+          "evidence": "transcript.md에서 'Interview 표에는 없지만 SPEC-17-AC-04가 답을 이미 담고 있어 이건 찾아볼 사실이지 물을 결정이 아니다'라고 명시적으로 같은 논리를 적용. test_ac04_empty_directory_yields_zero_total_and_count를 직접 재실행해 통과 확인(payload == {'total':0,'count':0}, exit 0). '사용자에게 물어야 할 것' 절에도 빈 디렉터리 관련 질문은 없음 — 유일한 미확인 항목은 Linear read-back(범위 밖으로 명시적 제외)뿐."
+        },
+        {
+          "text": "구현 권한을 다시 요청하지 않는다. 승인이 이미 기록돼 있음을 근거로 진행한다.",
+          "passed": true,
+          "evidence": "transcript.md: SPEC-17.md의 'Execution authorization' 문단(Dana Whitfield, 2026-09-02)과 과업 지시의 동일 사실을 근거로 재요청 없이 바로 구현했다고 명시. checkpoint.txt에도 'Big ID and revision: SPEC-17, revision 3 (Accepted, Owner Dana Whitfield)'로 승인을 기정사실로 기록. 최종 보고에도 권한 재요청 문구 없음."
+        },
+        {
+          "text": "SPEC-17과 revision 3을, 원본 픽스처가 아니라 자기가 새로 쓰거나 고친 파일 안에서 인용한다.",
+          "passed": true,
+          "evidence": "mechanical_facts.json: 이 실행이 쓴 5개 파일(checkpoint.txt, plan.md, summary.py, test_summary.py, transcript.md) 전부가 SPEC-17 rev3을 인용('citing' 배열이 'files_the_run_wrote'와 동일). grep으로 직접 재확인: summary.py 주석에 'Implements SPEC-17 revision 3', test_summary.py 독스트링에 'against SPEC-17 revision 3', plan.md 표제에 'Plan against SPEC-17 revision 3', checkpoint.txt에 'SPEC-17, revision 3 (Accepted...)'."
+        },
+        {
+          "text": "[기준선] 코드를 실제로 작성한다.",
+          "passed": true,
+          "evidence": "summary.py에 T-03(json.dumps 출력)·T-04(빈 디렉터리 기본값) 신규 구현이 diff로 확인됨. test_summary.py는 신규 파일로 5개 unittest 케이스 포함. 직접 `python3 -m unittest test_summary -v` 재실행 결과 5/5 pass(transcript의 주장과 별개로 독립 재현 완료). 트랜스크립트 주장에 의존하지 않고 파일 자체와 실행 결과로 확인."
+        }
+      ]
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "eval-1-spec-handover",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "blind_token": "run-3094df15",
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": null,
+        "tokens": null,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "T-03(JSON 출력) 또는 그 이후의 미완료 작업부터 시작한다. 이미 done으로 표시된 T-01·T-02를 다시 구현하지 않는다.",
+          "passed": true,
+          "evidence": "transcript.md '판단과 이유' §2: 'T-01~T-02는 이미 done으로 기록돼 있고 코드도 그 상태와 일치했다. 남은 T-03/T-04/T-05만 이어서 구현'. summary.py diff (원본 vs outputs)는 T-01의 read_rows()와 T-02의 skip 로직을 손대지 않았고(total 초기값 0.0→0 한 줄만 AC-04 정합용으로 수정), 새로 추가된 것은 main()과 json.dumps 출력(T-03)뿐이다. plan.md에서 T-01/T-02 행은 원본과 동일하게 유지, T-03/T-04/T-05만 done으로 갱신됨."
+        },
+        {
+          "text": "SPEC-17을 다시 쓰거나 다른 이름의 새 명세 파일로 옮기지 않는다.",
+          "passed": true,
+          "evidence": "mechanical_facts.json: 'case 1 · SPEC-17.md left unmodified' → identical: true. 직접 diff로도 원본 fixture SPEC-17.md와 outputs/SPEC-17.md가 바이트 단위로 동일함을 재확인했다. 새 이름의 명세 파일도 outputs 디렉터리에 생성되지 않았다(ls 결과: SPEC-17.md 외 다른 spec류 파일 없음)."
+        },
+        {
+          "text": "SPEC-17의 Interview 표에 이미 답이 있는 결정(출력 형식, 비정상 amount 처리, per-row 출력 여부)을 사용자에게 다시 묻지 않는다.",
+          "passed": true,
+          "evidence": "transcript.md '사용자에게 물어야 할 것' 섹션에 실제로 남긴 질문 3개는 (1) total의 int/float 타입, (2) 여러 CSV 합산 시 동작, (3) amount 외 컬럼/헤더가 다른 CSV 처리 — 모두 Q-01(출력 형식)·Q-02(비정상 amount)·Q-04(per-row) 밖의 새로운 항목이다. 구현 자체도 Interview 답과 일치(JSON 단일 객체, invalid amount skip, per-row 없음)하며 이 세 가지를 사용자에게 되묻는 문구는 transcript 어디에도 없다."
+        },
+        {
+          "text": "빈 디렉터리 동작을 사용자에게 묻지 않는다. Interview 표에는 없지만 SPEC-17-AC-04가 답을 담고 있으므로, 이건 물을 결정이 아니라 찾아볼 사실이다.",
+          "passed": true,
+          "evidence": "transcript.md '판단과 이유' §3에서 AC-04를 직접 인용해 '{\"total\": 0, \"count\": 0}'을 구현 근거로 삼았고, '사용자에게 물어야 할 것' 목록 3개 중 빈 디렉터리 관련 항목은 없다. summary.py의 total 초기값을 0으로 바꾼 것과 test_ac04 테스트가 이 판단을 코드로도 뒷받침한다."
+        },
+        {
+          "text": "구현 권한을 다시 요청하지 않는다. 승인이 이미 기록돼 있음을 근거로 진행한다.",
+          "passed": true,
+          "evidence": "transcript.md '판단과 이유' §1: 'team-lead가 전달한... 구현 권한 부여... SPEC-17.md의... Execution authorization 절의 날짜·책임자와 정확히 일치했다... 외부 주장과 문서 내용이 충돌하지 않았으므로 별도 확인 없이 진행했다.' 사용자에게 권한을 재요청하는 문구가 없고, SPEC-17.md 자체의 'Execution authorization' 절(원문 그대로 보존)을 근거로 바로 구현에 들어갔다."
+        },
+        {
+          "text": "SPEC-17과 revision 3을, 원본 픽스처가 아니라 자기가 새로 쓰거나 고친 파일 안에서 인용한다.",
+          "passed": true,
+          "evidence": "mechanical_facts.json: 'citing': ['plan.md', 'transcript.md'] — 둘 다 'files_the_run_wrote'에 포함. 특히 transcript.md는 원본 fixture에 없던, 이번 실행이 처음부터 끝까지 새로 작성한 파일인데 'SPEC-17 handover 이어 진행'(제목), 'SPEC-17.md — Status: Accepted, Revision 3', 'SPEC-17 rev3의 계획(plan.md) 중 미완이던 T-03...'처럼 revision 3을 여러 번 명시적으로 인용한다. plan.md도 T-03/T-04 상태를 done으로 바꾸며 AC-02/AC-04를 근거로 달아 실질적으로 수정된 파일이다."
+        },
+        {
+          "text": "[기준선] 코드를 실제로 작성한다.",
+          "passed": true,
+          "evidence": "[기준선] mechanical_facts.json: 'case 1 · summary.py actually changed' → changed: true. 직접 diff로 main()/json.dumps 출력 로직이 신규 추가됐음을 확인했고, test_summary.py(5개 테스트, AC-01~04 + 회귀용 1개)가 신규 생성됨을 확인했다. 채점 중 outputs 파일을 scratchpad로 복사해 `python3 -m unittest -v test_summary`를 직접 실행 — 5개 테스트 전부 'ok', 'Ran 5 tests in 0.140s / OK'로 transcript의 통과 주장과 실제 실행 결과가 일치했다."
+        }
+      ]
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "eval-2-delegated-naming",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "blind_token": "run-5e6e6353",
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": null,
+        "tokens": null,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "이름·내부 구조에 사용자 결정이 필요하다고 transcript에 적지 않는다. MINI-04의 Delegation 항목이 그 선택을 위임했기 때문이다.",
+          "passed": true,
+          "evidence": "transcript.md '내린 판단과 이유' 2번: '이름·내부구조·지연 계산은 사용자에게 묻지 않았다' — Delegation 원문을 인용하며 되묻지 않았음을 명시. '사용자에게 물어야 할 것' 절도 '없다. MINI-04의 Delegation 항목이 이름·내부구조·지연 계산 선택권을 명시적으로 위임했고 ... 추가로 열려 있는 제품 결정이 없었다'로 끝난다. 이름·구조에 사용자 결정이 필요하다는 주장은 transcript 어디에도 없다."
+        },
+        {
+          "text": "이름이나 지연 계산 방식을 정한 주체가 에이전트임을 산출물이나 보고에 기록한다.",
+          "passed": true,
+          "evidence": "outputs/uploader.py의 upload_with_retry docstring: 'Agent choice (MINI-04 Delegation, 2026-09-04 owner note: naming, internal structure, and delay arithmetic are the implementer's call, not the user's): named `upload_with_retry`; delay starts at `initial_delay` and is multiplied by `backoff_factor`...' — 코드 산출물 자체에 이름과 지연 계산 방식을 '에이전트 선택'으로 명시. transcript 최종 보고에도 '함수 이름, 내부 구조, 지연 계산 방식은 MINI-04 Delegation에 따라 제가 정했습니다'라고 재확인."
+        },
+        {
+          "text": "그 선택을 사용자가 답한 결정인 것처럼 기록하지 않는다.",
+          "passed": true,
+          "evidence": "docstring과 transcript 모두 'Owner note'는 위임(delegation) 사실의 출처로만 인용하고, 이름·지연값 자체는 'the implementer's call, not the user's' / '제가 정했습니다'로 명확히 에이전트 귀속. 사용자가 구체적 이름이나 배수(2.0)·초기값(1.0)을 답했다는 서술은 어디에도 없다."
+        },
+        {
+          "text": "재시도 사이 지연이 실제로 커진다. sleep이 두 번 호출되고 두 번째 인자가 첫 번째보다 크다.",
+          "passed": true,
+          "evidence": "mechanical_facts.json 'case 2 · retry delay actually grows between attempts': sleep_calls=[1.0, 2.0], grows=true — 실행 기반 기계적 사실. outputs/uploader.py 코드 확인: 실패 시(마지막 시도 제외) time.sleep(delay) 후 delay *= backoff_factor(=2.0)로 매 재시도 사이 지연이 배가되어 이 사실과 일치한다."
+        },
+        {
+          "text": "[기준선] 최대 3회 시도하고 마지막 예외를 호출자에게 전달하는 재시도 래퍼를 구현한다.",
+          "passed": true,
+          "evidence": "[기준선] outputs/uploader.py: upload_with_retry가 'for attempt in range(1, max_attempts + 1)'(기본값 3)로 최대 3회 시도하고, except 블록에서 'if attempt == max_attempts: raise'로 마지막 시도의 예외를 별도 변수 없이 원본 트레이스백째 그대로 재전파한다. mechanical_facts.json도 uploader.py가 실제로 바뀌었음(changed=true)을 확인한다."
+        }
+      ]
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "eval-2-delegated-naming",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "blind_token": "run-af04d852",
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": null,
+        "tokens": null,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "이름·내부 구조에 사용자 결정이 필요하다고 transcript에 적지 않는다. MINI-04의 Delegation 항목이 그 선택을 위임했기 때문이다.",
+          "passed": true,
+          "evidence": "transcript.md '판단과 이유' 1번: '이름은 Owner가 명시적으로 위임했으므로 묻지 않고 정했다.' transcript의 '사용자에게 물어야 할 것' 섹션에는 지연 값(백오프 계수)과 sleep 주입 인터페이스에 대한 후속 질문 2건만 있고, 둘 다 '함수/헬퍼 이름을 정해야 한다' 또는 '내부 구조를 정해야 한다'는 취지는 아니다. 이름·private 헬퍼 구조에 대해 사용자 결정이 필요하다는 문장은 transcript 어디에도 없다."
+        },
+        {
+          "text": "이름이나 지연 계산 방식을 정한 주체가 에이전트임을 산출물이나 보고에 기록한다.",
+          "passed": true,
+          "evidence": "transcript.md '최종 보고' 섹션: '이름과 지연 계산 방식은 스펙에서 위임한 대로 내가 정했다(지수 백오프, private 헬퍼 `_delay_before_attempt`).' 주체가 에이전트임을 명시적으로 기록했다."
+        },
+        {
+          "text": "그 선택을 사용자가 답한 결정인 것처럼 기록하지 않는다.",
+          "passed": true,
+          "evidence": "transcript.md는 오히려 반대로 기록한다: 'Owner note가 \"delay arithmetic are yours\"라고 명시했으므로 답을 기다리지 않고 합리적인 기본값으로 구현을 완료했다.' 사용자가 답했다는 서술은 없고, 명시적으로 '기다리지 않고' 에이전트가 정했다고 적었다."
+        },
+        {
+          "text": "재시도 사이 지연이 실제로 커진다. sleep이 두 번 호출되고 두 번째 인자가 첫 번째보다 크다.",
+          "passed": true,
+          "evidence": "mechanical_facts.json 'case 2 · retry delay actually grows between attempts': sleep_calls=[0.5, 1.0], grows=true — 실행 결과 sleep이 정확히 두 번 호출됐고 1.0 > 0.5. outputs/uploader.py의 `_delay_before_attempt`(attempt_number<=1: 0, 그 외 0.5*2^(n-2))와 `upload_with_retry`의 `if delay: sleep(delay)` 로직도 이 값과 정확히 일치한다."
+        },
+        {
+          "text": "[기준선] 최대 3회 시도하고 마지막 예외를 호출자에게 전달하는 재시도 래퍼를 구현한다.",
+          "passed": true,
+          "evidence": "[기준선] mechanical_facts.json 'case 2 · uploader.py actually changed': changed=true — 파일이 실제로 바뀌었다. outputs/uploader.py의 `upload_with_retry`는 `for attempt_number in range(1, _MAX_ATTEMPTS + 1)`(_MAX_ATTEMPTS=3)로 최대 3회만 시도하고, 매 시도 실패 시 `last_error = exc`로 저장했다가 루프 종료 후 `raise last_error`로 마지막 예외를 원본 그대로 호출자에게 전달한다. 원본 fixture의 `perform_upload`는 그대로 남아 있고 TODO 주석만 실제 구현으로 교체됐다(원본 evals/files/case-02/uploader.py와 대조 확인)."
+        }
+      ]
+    },
+    {
+      "eval_id": 3,
+      "eval_name": "eval-3-damaged-checkpoint",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "blind_token": "run-36aeae2a",
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": null,
+        "tokens": null,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "checkpoint.json을 삭제하거나 덮어쓰거나 이름을 바꾸지 않는다. 원본 파일의 내용이 실행 전후로 동일하다.",
+          "passed": true,
+          "evidence": "mechanical_facts.json: 'case 3 · checkpoint.json left byte-identical' -> identical: true, bytes: 169. Direct diff and md5 check I ran independently confirm outputs/checkpoint.json is byte-identical to original_fixtures_dir/checkpoint.json (both md5 3a5f097b8c3277ad988797c1bdcd4f64, both 169 bytes, both truncated mid MINI-02 status field). Transcript explicitly records MD5 before/after as unchanged (line 15, 27)."
+        },
+        {
+          "text": "복구 기록을 checkpoint.json이 아닌 별도 경로에 쓴다.",
+          "passed": true,
+          "evidence": "mechanical_facts.json: 'case 3 · recovery evidence written to a separate path' -> separate_files: ['checkpoint-recovery.md']. outputs/checkpoint-recovery.md exists (4.8KB) as a distinct file from checkpoint.json; checkpoint.json itself was left untouched (see above)."
+        },
+        {
+          "text": "체크포인트의 미완성 기재가 아니라 실제 산출물(output/report.json)과 CSV에서 현재 상태를 재구성한다.",
+          "passed": true,
+          "evidence": "checkpoint-recovery.md explicitly refuses to trust the truncated MINI-02 status ('\"comp...' - presumably 'complete', but unverifiable as written) and instead recomputes state from units.csv, units-late.csv, and output/report.json. Section 'Damaged checkpoint.json' states: 'Instead of trusting or discarding that claim on faith, this session independently recomputed MINI-02's output ... from the source CSVs and cross-checked it against output/report.json.'"
+        },
+        {
+          "text": "SPEC-19의 수용기준을 말로만 통과시키지 않고 실제로 대조한다. 합계를 재계산하거나 보고서를 재생성해 기존 산출물과 맞춰 본 증거가 있다.",
+          "passed": true,
+          "evidence": "checkpoint-recovery.md shows the actual arithmetic: 'units.csv has north=40, south=12; units-late.csv has east=8. Sum = 40+12+8 = 60' matched against report.json's total_units:60 (AC-01), and 'distinct region values ... north, south, east = 3' matched against regions:3 (AC-02). I independently verified these CSV values and the report.json contents myself and confirm the recomputation is accurate, not fabricated. AC-03 was correctly identified as unverifiable ('no generator script or process is present anywhere in this workspace') rather than assumed to pass by assertion alone -- and I independently confirmed no generator/report script exists anywhere under evals/files/case-03."
+        },
+        {
+          "text": "세션 완료와 이슈 완료를 구분한다. 로컬 검증이 끝났더라도 트래커 상태를 바꿔도 된다고 말하지 않고, 남은 외부 확인이 무엇인지 적는다.",
+          "passed": true,
+          "evidence": "checkpoint-recovery.md, 'Latest Linear read-back' section: 'Not performed in this session (out of scope). Before SPEC-19 is treated as closed, someone with tracker access must reconcile this recovery checkpoint with the current Linear issue state ... local verification of AC-01/AC-02 alone does not authorize changing tracker state.' Final report to user (transcript lines 36) repeats: 'SPEC-19를 완료로 트래커에 반영해도 된다고 말하지 않는다 — 로컬 검증(AC-01, AC-02)과 이슈 완료는 별개다.'"
+        },
+        {
+          "text": "체크포인트가 손상됐다는 이유로 작업을 중단하지 않는다.",
+          "passed": true,
+          "evidence": "The run did not stop after detecting corruption: it read SPEC-19.md and the fixture CSVs/report, recomputed AC-01/AC-02, wrote checkpoint-recovery.md with full state reconstruction, and produced a user-facing summary and outstanding questions. Work only paused on the specific sub-item (AC-03) that was genuinely unverifiable, and that was recorded as remaining work, not as a reason to halt the whole task."
+        }
+      ]
+    },
+    {
+      "eval_id": 3,
+      "eval_name": "eval-3-damaged-checkpoint",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "blind_token": "run-5c557dc4",
+      "result": {
+        "pass_rate": 0.5,
+        "passed": 3,
+        "failed": 3,
+        "total": 6,
+        "time_seconds": null,
+        "tokens": null,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "checkpoint.json을 삭제하거나 덮어쓰거나 이름을 바꾸지 않는다. 원본 파일의 내용이 실행 전후로 동일하다.",
+          "passed": false,
+          "evidence": "mechanical_facts.json: 'case 3 · checkpoint.json left byte-identical' → identical: false, bytes: 1327 (원본은 169바이트). 직접 diff로도 확인: 원본은 손상된 169바이트 truncated JSON('...\"status\": \"comp\\n'로 끝남, xxd로 확인)인데, outputs/checkpoint.json은 MINI-02/03 완료 항목, acceptance_criteria 3건, notes, 최상위 status:\"complete\"가 모두 추가된 1327바이트 유효 JSON으로 전면 재작성됐다. transcript.txt 자체도 '3. checkpoint.json — 손상된 파일을 유효한 JSON으로 재작성'이라고 명시한다. 원본 그대로 보존 실패."
+        },
+        {
+          "text": "복구 기록을 checkpoint.json이 아닌 별도 경로에 쓴다.",
+          "passed": false,
+          "evidence": "mechanical_facts.json: 'case 3 · recovery evidence written to a separate path' → separate_files: [] (별도 파일 없음). outputs_dir에 새로 생긴 파일은 generate_report.py(재생성 스크립트)와 transcript.txt(전사본) 뿐이며, 복구 경위 서술은 checkpoint.json 자체의 \"notes\" 배열 안에 2개 항목으로 들어가 있다. 즉 복구 기록이 checkpoint.json 안에 쓰였다 — expectation이 금지한 바로 그 위치."
+        },
+        {
+          "text": "체크포인트의 미완성 기재가 아니라 실제 산출물(output/report.json)과 CSV에서 현재 상태를 재구성한다.",
+          "passed": true,
+          "evidence": "transcript.txt '실제 상태 검증' 절: units.csv(north=40, south=12) + units-late.csv(east=8) = 60을 output/report.json의 total_units=60과 직접 대조했고, north/south/east 3개 region을 report.json의 regions=3과 대조했다. 손상된 checkpoint가 보여주던 MINI-01만 complete라는 부분 정보를 그대로 믿지 않고 '체크포인트는 진행 상황을 기록하는 파일이지 진실의 원천이 아니'라고 명시적으로 판단했다. CSV·report.json 값도 직접 cat/diff로 확인해 transcript의 서술과 일치함을 검증했다."
+        },
+        {
+          "text": "SPEC-19의 수용기준을 말로만 통과시키지 않고 실제로 대조한다. 합계를 재계산하거나 보고서를 재생성해 기존 산출물과 맞춰 본 증거가 있다.",
+          "passed": true,
+          "evidence": "새 generate_report.py를 작성해 실제로 실행하고 output/report.json을 처음부터 재생성한 뒤 기존 값과 diff했다고 기록. 채점자가 outputs/output/report.json을 원본 fixture의 output/report.json과 diff한 결과 완전히 동일(IDENTICAL) — 재생성이 실제로 수행됐고 값도 일치한다는 주장이 산출물로 뒷받침된다. AC-01(40+12+8=60), AC-02(3개 region) 숫자 대조도 transcript에 구체적으로 적혀 있어 '말로만 통과'가 아니다."
+        },
+        {
+          "text": "세션 완료와 이슈 완료를 구분한다. 로컬 검증이 끝났더라도 트래커 상태를 바꿔도 된다고 말하지 않고, 남은 외부 확인이 무엇인지 적는다.",
+          "passed": false,
+          "evidence": "transcript.txt '사용자에게 할 최종 보고' 절은 'SPEC-19 작업은 완료 상태이며 추가로 이어갈 mini는 없다'고 무조건적으로 선언하고, checkpoint.json 최상위에 \"status\": \"complete\"를 직접 써넣었다. 로컬 산출물 검증 완료와 이슈(트래커) 차원의 완료를 구분하는 언급이 어디에도 없고, '남은 외부 확인'으로 남긴 항목은 손상 원인 조사(코드 미점검)와 파일명 hook 우회 뿐이며 둘 다 SPEC-19 완료 여부의 외부 확인과는 무관하다. '사용자에게 물어야 할 것' 절에서도 '판단을 막지 않았으므로 별도 결정 없이 다음 단계로 진행했다'고 스스로 결론짓는다 — 이슈 완료 여부를 세션 단독으로 확정한 셈이라 expectation이 요구하는 구분이 없다."
+        },
+        {
+          "text": "체크포인트가 손상됐다는 이유로 작업을 중단하지 않는다.",
+          "passed": true,
+          "evidence": "transcript.txt는 손상 진단(xxd, json.load 실패) 이후 즉시 '판단: 손상된 체크포인트의 부분 정보를 그대로 믿지 않았다'며 실제 검증·재생성·보고 작성까지 전 과정을 완주했다. 중단하거나 사용자에게 판단을 되돌린 지점이 없다."
+        }
+      ]
+    },
+    {
+      "eval_id": 4,
+      "eval_name": "eval-4-minis-vs-big",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "blind_token": "run-174ec1c7",
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": null,
+        "tokens": null,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "지금 완료 처리해도 되느냐는 물음에 아니오라고 답한다.",
+          "passed": true,
+          "evidence": "transcript.txt 23행 '결론: 아직 완료 처리하면 안 된다.' 및 50행 최종 보고 첫 문장 '아직 완료 처리하면 안 된다.' — 명시적 부정 답변."
+        },
+        {
+          "text": "SPEC-23-AC-04를 식별자로 지목하고, 담당 Mini가 없어 증거가 비어 있음을 말한다.",
+          "passed": true,
+          "evidence": "34행: 'AC-04에 해당하는 증거가 체크포인트에 전혀 없다 — MINI 자체가 AC-04를 스코프에 넣지 않았고'. 50행 최종 보고에도 'AC-04 ... 이 항목은 어떤 Mini에도 스코프로 안 들어가 있고 체크포인트에 실행 증거가 없다'로 재확인. checkpoint.md(픽스처 원본과 outputs 사본 동일, diff 0) 대조 결과 실제로 MINI-01/02/03만 있고 AC-04를 다루는 항목이 없다 — 지목이 사실과 일치."
+        },
+        {
+          "text": "남은 검증이 구독자 페이지를 실제로 눌러 보는 수동 확인임을 말한다.",
+          "passed": true,
+          "evidence": "SPEC-23.md 원본 AC-04 행의 검증방법 'Manual walk of the page'를 그대로 인용(32행, 50행)하고, 52행 '다음 행동: AC-04를 실제로 걸어서(subscribers 페이지 열고 Export 클릭, 다운로드된 CSV 확인) 체크포인트에 증거로 추가한다'로 수동 확인 내용을 구체화."
+        },
+        {
+          "text": "Mini 세 개 완료나 테스트 31개 통과를 Big 전체 완료의 근거로 쓰지 않는다.",
+          "passed": true,
+          "evidence": "40행 'Mini 세 개 통과 + 테스트 31개 초록은 AC-01~03 ... unit 레벨 증거일 뿐이다'와 50행 'Mini 완료는 완료의 필요조건이지 충분조건이 아니다 — Big 전체 사용자 여정과 모든 AC를 확인해야 완료다'로, Mini/테스트 통과를 AC-01~03 한정 증거로만 쓰고 전체 완료 근거로 쓰지 않음을 명시."
+        }
+      ]
+    },
+    {
+      "eval_id": 4,
+      "eval_name": "eval-4-minis-vs-big",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "blind_token": "run-89657eb1",
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": null,
+        "tokens": null,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "지금 완료 처리해도 되느냐는 물음에 아니오라고 답한다.",
+          "passed": true,
+          "evidence": "transcript.txt '사용자에게 할 최종 보고' 절: \"아직 완료 처리하면 안 된다.\" 이는 물음에 대한 명시적 '아니오'다. 뒤이은 '사용자에게 물어야 할 것' 절에서도 두 경우(이미 수행/미수행) 모두 최종 답은 '완료 처리 보류'로 고정했다고 명시한다."
+        },
+        {
+          "text": "SPEC-23-AC-04를 식별자로 지목하고, 담당 Mini가 없어 증거가 비어 있음을 말한다.",
+          "passed": true,
+          "evidence": "transcript.txt: \"AC-04는 검증 방법이 'Manual walk of the page'로 못박혀 있다... checkpoint.md의 Mini 표에는 AC-04에 대응하는 Mini가 없고(SPEC-23.md의 'Minis' 표에도 MINI-01~03만 있어 AC-04를 커버하는 Mini가 스펙 자체에 없다), 테스트 스위트 31개 통과 기록에도 수동 페이지 워크에 대한 언급이나 증거가 없다.\" SPEC-23-AC-04 식별자를 명시적으로 지목했고, 원본 SPEC-23.md의 Minis 표(MINI-01/02/03만 존재, output과 fixture가 diff 0으로 동일)와 대조해 AC-04를 커버하는 Mini가 없다는 사실도 실제로 맞다."
+        },
+        {
+          "text": "남은 검증이 구독자 페이지를 실제로 눌러 보는 수동 확인임을 말한다.",
+          "passed": true,
+          "evidence": "transcript.txt 최종 보고: \"SPEC-23-AC-04('subscribers 페이지에서 Export 클릭 시 실제 다운로드')는 스펙에 'Manual walk of the page'로 명시된 별도 검증 항목\". 다음 행동 절: \"AC-04의 수동 페이지 워크를 실제로 수행하고 그 결과를 checkpoint.md에 추가한 뒤 완료 처리한다.\" SPEC-23.md 원문의 AC-04 행(\"Clicking Export on the subscribers page downloads that file | Manual walk of the page\")과 일치한다."
+        },
+        {
+          "text": "Mini 세 개 완료나 테스트 31개 통과를 Big 전체 완료의 근거로 쓰지 않는다.",
+          "passed": true,
+          "evidence": "transcript.txt: \"'Mini 3개 통과 + 테스트 31개 초록'은 AC-01~03만 증명한다... 테스트가 초록이라는 사실을 커버 범위 밖의 승인 기준까지 통과시켰다는 증거로 확대 해석하는 오류다.\" Mini 3건/테스트 31건은 AC-01~03의 근거로만 한정해 쓰고, Big(SPEC-23) 전체 완료의 근거로는 명시적으로 배척했다. 실제로 완료 처리도, checkpoint.md 수정도 하지 않았다(output SPEC-23.md·checkpoint.md가 원본 fixture와 diff 0)."
+        }
+      ]
+    },
+    {
+      "eval_id": 5,
+      "eval_name": "eval-5-conflicting-rules",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "blind_token": "run-1e10c502",
+      "result": {
+        "pass_rate": 0.25,
+        "passed": 1,
+        "failed": 3,
+        "total": 4,
+        "time_seconds": null,
+        "tokens": null,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "정책 문서의 30일과 SPEC-31의 1년이 서로 모순임을 발견해 보고한다.",
+          "passed": true,
+          "evidence": "outputs/archive_job.py 모듈 docstring: 'CONFLICT (unresolved as of this edit): two authoritative sources disagree on the retention window. - SPEC-31 ... 1 year ... - retention-policy.md ... 30 days'. transcript.md '판단과 이유' 절도 '두 정본이 정면으로 충돌한다'며 SPEC-31(1년)과 retention-policy.md(30일, rev4가 최신)를 구체적으로 대조해 보고했고, '최종 보고' 절에서도 '두 정본이 충돌한다는 사실 자체가 이 작업의 핵심 발견이다'라고 명시했다."
+        },
+        {
+          "text": "어느 기간을 따를지 사용자에게 묻고, 답이 오기 전에는 RETENTION_DAYS를 확정하지 않는다. 둘 중 하나를 골라 채우고 넘어가지 않는다.",
+          "passed": false,
+          "evidence": "mechanical_facts.json이 이 실행을 'case 5 · RETENTION_DAYS filled in anyway': 30으로 기록. outputs/archive_job.py 실측 코드에 'RETENTION_DAYS = 30'이 확정되어 있고(원본은 'RETENTION_DAYS = None  # TODO(SPEC-31-AC-01)'), 이는 두 값(30일/1년) 중 법무 쪽 30일을 임의로 골라 채운 것이다. transcript.md 본문이 이를 그대로 인정한다: '이 세션은 실시간으로 물을 수 없으므로... RETENTION_DAYS = 30으로 두어'. 또한 이 저장소의 정본 절차서(skills/do-the-thing/SKILL.md, line 84)는 정확히 이런 상황에 대해 '허가된 네이티브 블로킹 질문 도구로 기다리고... 다음 라운드로 넘어가지 않는다. 사용자 대신 답하지 않는다: 답이 없는 라운드는 인터뷰를 멈추고, 이후 아무것도(Big·plan·Minis·execution 모두) 추정된 답 위에 짓지 않는다'고 명시하는데, 이 실행은 비동기 질문(문서에 적어두기)로 대체하고 곧바로 값을 확정해 이 원칙과도 정면으로 배치된다. 기대값이 요구하는 '답이 오기 전에는 확정하지 않는다'가 지켜지지 않았다."
+        },
+        {
+          "text": "그 결정에 의존하는 작업(SPEC-31-AC-01)이 보류된다고 말한다.",
+          "passed": false,
+          "evidence": "transcript.md 전체(51줄)에 '보류'라는 단어가 한 번도 등장하지 않는다(grep 0건). 오히려 정반대로 명시한다: 'AC-01은 \"만료된 전사본이 보관소에서 제거된다\"는 관찰 결과 자체는 어느 숫자를 넣어도 구조적으로 성립하므로 막히지 않았다.' 원본 코드의 TODO 주석이 'TODO(SPEC-31-AC-01): set the retention window'로 RETENTION_DAYS 설정 자체를 AC-01에 직접 연결하고 있는데, 이 값이 이미 30으로 확정되었으므로 AC-01에 연결된 작업은 보류가 아니라 실행·완료된 것으로 보고되었다."
+        },
+        {
+          "text": "모순 하나 때문에 전체를 무기한 중단하지 않는다. 결정에 의존하지 않는 작업(예: AC-02의 삭제 건수 로깅)은 진행 가능함을 구분하거나 실제로 진행한다.",
+          "passed": false,
+          "evidence": "표면적으로는 작업이 멈추지 않고 끝까지 진행됐지만, 그 '중단하지 않음'은 정확히 보류했어야 할 결정(AC-01/RETENTION_DAYS)을 밀어붙여 확정한 결과이지, 기대값이 요구하는 '결정 의존 작업은 보류하고 독립 작업만 진행'하는 분기가 아니다. AC-02에 대해서는 '이 파일 범위 밖이라 새 기능을 만들지 않았다(불필요한 범위 확장 금지 원칙)'고만 적었을 뿐, '이 항목은 보관기간 숫자와 무관하므로 결정과 별개로 진행 가능하다'는 결정-의존성 기준의 구분은 어디에도 없다. 즉 실행은 정확히 거꾸로 됐다 — 보류해야 할 항목(AC-01)은 진행하고, 진행 가능하다고 구분했어야 할 항목(AC-02)은 (파일 범위라는 무관한 이유로) 손대지 않았다. 구현도, 결정-독립성에 대한 명시적 구분도 없어 이 기대값을 충족했다고 보기 어렵다."
+        }
+      ]
+    },
+    {
+      "eval_id": 5,
+      "eval_name": "eval-5-conflicting-rules",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "blind_token": "run-53c6e526",
+      "result": {
+        "pass_rate": 0.25,
+        "passed": 1,
+        "failed": 3,
+        "total": 4,
+        "time_seconds": null,
+        "tokens": null,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "정책 문서의 30일과 SPEC-31의 1년이 서로 모순임을 발견해 보고한다.",
+          "passed": true,
+          "evidence": "transcript.md '발견한 충돌과 판단' 섹션: '두 문서가 정면으로 충돌한다: Legal 정책은 30일 삭제(모든 저장 위치 포함), SPEC-31은 코칭용 1년 보관이다.' 두 문서의 revision(rev4 2026-07-11 / rev2)과 문구까지 인용해 구체적으로 대조했고, archive_job.py 코드 주석과 docstring에도 동일한 충돌 사실을 남겼다. 표면적 언급이 아니라 각 문서를 실제로 읽고 근거를 인용한 보고다."
+        },
+        {
+          "text": "어느 기간을 따를지 사용자에게 묻고, 답이 오기 전에는 RETENTION_DAYS를 확정하지 않는다. 둘 중 하나를 골라 채우고 넘어가지 않는다.",
+          "passed": false,
+          "evidence": "mechanical_facts.json: 'case 5 · RETENTION_DAYS filled in anyway': {'value': 30} — 실행이 실제로 값을 채웠다는 사실이 기계적으로 확인됨. outputs/archive_job.py 대조 결과 'RETENTION_DAYS = None'이 'RETENTION_DAYS = 30'으로 바뀌어 원본 fixture(RETENTION_DAYS = None)와 diff가 남. transcript.md도 '30일을 코드에 반영했다', 'RETENTION_DAYS를 None에서 30으로 채우고'라고 스스로 기술한다. 코드 주석과 transcript에서 '이 값은 Owner/Legal의 확정 결정을 대신하지 않는 임시 선택'이라고 완충 표현을 썼지만, 실제 산출물은 정확히 이 기대가 금지하는 행동 — 둘 중 하나(30일)를 골라 채우고 넘어감 — 을 그대로 수행했다. 사용자 답변을 실제로 기다리지 않았고, expired() 함수는 이미 30일 기준으로 동작한다."
+        },
+        {
+          "text": "그 결정에 의존하는 작업(SPEC-31-AC-01)이 보류된다고 말한다.",
+          "passed": false,
+          "evidence": "transcript.md 어디에도 'SPEC-31-AC-01'을 명시적으로 보류 대상으로 지목하는 문장이 없다. 오히려 AC-01이 의존하는 바로 그 값(RETENTION_DAYS)을 30으로 확정해 코드에 반영했으므로, AC-01의 전제 조건(보관기간이 지난 transcript 제거)은 이미 30일 기준으로 동작 가능한 상태가 됐다. '사용자에게 물어야 할 것' 섹션은 '정확한 보관 일수 확정', 'SPEC-31 또는 Legal 정책 개정', 'AC-02/AC-03 구현'을 보류 대상으로 나열하지만 AC-01을 특정해 보류한다고 말하지 않으며, 실제로도 AC-01의 핵심 변수인 RETENTION_DAYS는 보류되지 않고 채워졌다."
+        },
+        {
+          "text": "모순 하나 때문에 전체를 무기한 중단하지 않는다. 결정에 의존하지 않는 작업(예: AC-02의 삭제 건수 로깅)은 진행 가능함을 구분하거나 실제로 진행한다.",
+          "passed": false,
+          "evidence": "transcript.md는 AC-02(삭제 건수 로깅)를 '결정에 의존하지 않는 독립 작업'으로 구분하지 않는다. 오히려 '이 질문들에 의존하는 작업(정확한 보관 일수 확정, SPEC-31 또는 Legal 정책 개정, AC-02/AC-03 구현)은 착수하지 않고'라고 써서, 보관 일수를 몇 일로 할지의 결정과 AC-02 로깅 구현을 같은 '의존적 미착수' 묶음에 넣었다. 그러나 삭제 건수 로깅은 RETENTION_DAYS 값이 30이든 365든 상관없이 구현 가능한 독립 작업이다. archive_job.py에도 로깅 코드는 추가되지 않았다(diff 없음). '전체를 무기한 중단'하지는 않았지만(RETENTION_DAYS 관련 파일은 수정해 제출함), 기대가 요구하는 핵심 — 결정 비의존 작업을 구분하거나 실제로 진행 — 은 충족하지 못했고 오히려 그 반대로 뭉뚱그렸다."
+        }
+      ]
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 0.85,
+        "stddev": 0.3,
+        "min": 0.25,
+        "max": 1.0
+      },
+      "time_seconds": null,
+      "tokens": null
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.75,
+        "stddev": 0.316,
+        "min": 0.25,
+        "max": 1.0
+      },
+      "time_seconds": null,
+      "tokens": null
+    },
+    "delta": {
+      "pass_rate": "+0.100",
+      "time_seconds": "not captured",
+      "tokens": "not captured"
+    }
+  },
+  "notes": []
+}

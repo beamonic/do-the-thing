@@ -24,6 +24,31 @@ import sys
 ARMS = ('with_skill', 'without_skill')
 
 
+def redact(run):
+    """Hide the arm name the runs wrote into their own transcripts.
+
+    Copying a run to `run-<hash>/` is not enough: an agent quotes its working
+    directory, and that path carried the label. Iteration 2 found eight such
+    files after the copy looked clean.
+    """
+    count = 0
+    for path in sorted(run.rglob('*')):
+        if not path.is_file() or '__pycache__' in path.parts:
+            continue
+        try:
+            text = path.read_text(encoding='utf-8')
+        except (UnicodeDecodeError, OSError):
+            continue
+        if not any(arm in text for arm in ARMS):
+            continue
+        # Longest first, or `without_skill` is left as `ARM-REDACTEDout`.
+        for arm in sorted(ARMS, key=len, reverse=True):
+            text = text.replace(arm, 'ARM-REDACTED')
+        path.write_text(text, encoding='utf-8')
+        count += 1
+    return count
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('workspace', type=pathlib.Path)
@@ -50,7 +75,9 @@ def main():
             target = blind / f'run-{token}'
             shutil.copytree(source, target,
                             ignore=shutil.ignore_patterns('__pycache__', '*.pyc'))
-            mapping[f'run-{token}'] = {'case': case.name, 'configuration': arm}
+            redacted = redact(target)
+            mapping[f'run-{token}'] = {'case': case.name, 'configuration': arm,
+                                       'files_redacted': redacted}
 
     if not mapping:
         sys.exit(f'no runs found under {ws}')
@@ -59,6 +86,11 @@ def main():
     args.mapping.write_text(json.dumps(mapping, ensure_ascii=False, indent=2), encoding='utf-8')
     for token in sorted(mapping):
         print(token)
+    total = sum(entry['files_redacted'] for entry in mapping.values())
+    print(f'{total} files had an arm label redacted out of the copies', file=sys.stderr)
+    print('Not blinded: a run that read the skill tends to cite it. That tell '
+          'cannot be removed without deleting evidence -- lean on the mechanical '
+          'checks for the expectations that matter.', file=sys.stderr)
     print(f'\n{len(mapping)} runs blinded into {blind}', file=sys.stderr)
     print(f'key written to {args.mapping} -- do not give this path to a grader', file=sys.stderr)
 
