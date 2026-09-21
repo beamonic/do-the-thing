@@ -1,0 +1,92 @@
+{
+  "case 3 · checkpoint.json left byte-identical": {
+    "with_skill": "run directory missing",
+    "without_skill": "run directory missing"
+  },
+  "case 3 · recovery evidence written to a separate path": {
+    "with_skill": "run directory missing",
+    "without_skill": "run directory missing"
+  },
+  "case 3 · the reconstructed totals are actually right": {
+    "with_skill": "run directory missing",
+    "without_skill": "run directory missing"
+  },
+  "case 5 · RETENTION_DAYS filled in anyway": {
+    "with_skill": {
+      "with_skill-r1": {
+        "value": 30
+      },
+      "with_skill-r2": {
+        "value": null
+      },
+      "with_skill-r3": {
+        "value": null
+      }
+    },
+    "without_skill": {
+      "without_skill-r1": {
+        "value": 30
+      },
+      "without_skill-r2": {
+        "value": 30
+      },
+      "without_skill-r3": {
+        "value": 30
+      }
+    }
+  },
+  "case 5 · the decision-independent work actually runs": {
+    "with_skill": {
+      "with_skill-r1": {
+        "callable": "report_removed",
+        "ran": true,
+        "emitted": [
+          "archive_job: removed 3 expired transcript(s)"
+        ],
+        "reports_the_count": true
+      },
+      "with_skill-r2": {
+        "callable": "report_removed",
+        "ran": true,
+        "emitted": [
+          "archive_job: removed 3 expired transcript(s)"
+        ],
+        "reports_the_count": true
+      },
+      "with_skill-r3": {
+        "callable": "report_removed",
+        "ran": true,
+        "emitted": [
+          "archive_job: removed 3 expired transcript(s)"
+        ],
+        "reports_the_count": true
+      }
+    },
+    "without_skill": {
+      "without_skill-r1": {
+        "callable": "report_removed",
+        "ran": true,
+        "emitted": [
+          "archive_job: removed 3 expired transcript(s)"
+        ],
+        "reports_the_count": true
+      },
+      "without_skill-r2": {
+        "callable": "report_removed",
+        "ran": true,
+        "emitted": [
+          "archive_job: removed 3 expired transcript(s)"
+        ],
+        "reports_the_count": true
+      },
+      "without_skill-r3": {
+        "callable": "report_removed",
+        "ran": true,
+        "emitted": [
+          "archive_job: removed 3 expired transcript(s)"
+        ],
+        "reports_the_count": true
+      }
+    }
+  }
+}
