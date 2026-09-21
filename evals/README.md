@@ -26,6 +26,12 @@ question for the user. The criterion had been written before the run, so the fix
 was rejected and never merged. The change looks harmless in a diff; only the
 measurement caught it.
 
+[Iteration 5](results/iteration-5.md) split that fix in two and shipped only the
+half that had been asked for. It restored 3/3 and 3/3, confirming which clause
+did the damage — and moved the behaviour it was written for **not at all**. Two
+wording attempts, zero movement on the target, so neither is merged and the next
+attempt will not be a third rewording.
+
 The suite is two cases and 12 expectations. It was five and 26 until iteration 2
 measured three of them separating the arms zero times twice running — those live
 in [`retired/`](retired/README.md) with the reasoning and how to bring one back.
