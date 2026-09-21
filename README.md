@@ -8,13 +8,20 @@ Do the Thing is an installable agent skill that connects source review, intervie
 
 ## Install
 
-Version **0.18** makes native answer-waiting the default interview path and
-records actual Codex and Claude Code terminal question/answer trials.
-See [release notes](docs/release-status.md#018--네이티브-질문-대기와-두-터미널-검증)
-and [terminal proof and limits](docs/terminal-question-proof.md).
-Desktop sidebar “Needs input” display remains unverified.
+```sh
+npx skills add beamonic/do-the-thing
+```
 
-Clone the repository and copy the skill into your agent's skills directory. For Codex:
+That is the whole install for any agent the [skills CLI](https://skills.sh) supports.
+
+Version **0.19** adds `evals/` — a re-runnable suite that scores the skill against
+the same work done without it, so a change to the rules can be shown to help or
+hurt instead of asserted. Six rounds have run; each one found a fault in the
+measurement before it found one in the skill.
+See [release notes](docs/release-status.md#019--스킬이-실제로-효과가-있는지-재는-장치)
+and [what the numbers do and do not support](evals/results/iteration-6.md).
+
+To place the folder by hand instead — for Codex:
 
 ```sh
 git clone https://github.com/beamonic/do-the-thing.git
@@ -24,7 +31,7 @@ cp -R do-the-thing/skills/do-the-thing ~/.codex/skills/
 
 If that destination already exists, compare it before replacing your installed copy. Other agents that support `SKILL.md` can use the same self-contained folder in their own skills directory. The frontmatter deliberately stays inside the six keys the Agent Skills spec allows, so a Claude Code extension such as `when_to_use` is not used and `tests/test_skill_frontmatter.py` fails if one appears.
 
-The description opens with a one-word label and the Korean trigger phrases, one per branch the skill handles, and the English summary follows. The label is there because a YAML value that begins with a quote is a quoted scalar, and strict loaders reject what comes after its closing quote — `tests/test_skill_frontmatter.py` now fails on that shape. The order is deliberate: a host with many skills shortens every description to its first sixty or so characters — measured at 60–64 on a Codex host carrying 154 skills — so whatever must survive goes first. The English still matches an English request.
+The description leads with the trigger phrases rather than the summary. A host carrying many skills shortens every description to roughly its first sixty characters — measured at 60–64 on a Codex host with 154 skills installed — so whatever has to survive that cut goes first, and what has to survive is the matching. English triggers come first and the Korean ones are kept; the skill is used in both. The value stays a plain YAML scalar: a value that begins with a quote is a quoted scalar, and a strict loader rejects whatever follows its closing quote. `tests/test_skill_frontmatter.py` fails on that shape, on a colon-space, and on fewer than four distinct triggers.
 
 Connect Linear through your agent's supported connector, MCP, or API client. The skill discovers the available operations; it does not bundle credentials or assume a specific tool name. Python 3.9+ is needed only for the optional record validator; it is tested on 3.9 and 3.13.
 
