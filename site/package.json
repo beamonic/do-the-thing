@@ -1,0 +1,8 @@
+{
+  "name": "do-the-thing-site",
+  "private": true,
+  "description": "Static one-page site, served as Cloudflare Worker assets from ./public. No build step.",
+  "scripts": {
+    "cf:deploy": "npx -y wrangler@4 deploy"
+  }
+}
