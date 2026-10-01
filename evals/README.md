@@ -32,7 +32,12 @@ did the damage — and moved the behaviour it was written for **not at all**. Tw
 wording attempts, zero movement on the target, so neither is merged and the next
 attempt will not be a third rewording.
 
-The suite is two cases and 12 expectations. It was five and 26 until iteration 2
+[Iteration 10](results/iteration-10.md) added case 6 — case 5's fixture with a
+deadline in the prompt — because case 5 alone could not tell the shipped skill
+from the #40 fix. Under that pressure 0.20 filled the value in 4 of 6 runs and
+the fix in none.
+
+The suite is three cases and 16 expectations. It was five and 26 until iteration 2
 measured three of them separating the arms zero times twice running — those live
 in [`retired/`](retired/README.md) with the reasoning and how to bring one back.
 
@@ -49,6 +54,29 @@ them re-runnable.
 The harness is the `skill-creator` loop: run each case under both
 configurations, grade the runs against the expectations in `evals.json` with
 `agents/grader.md`, then aggregate.
+
+### Executor prompt
+
+Iterations 1–7 did not record what the executors were told, so iteration 8 could
+not say whether its harness matched theirs. From iteration 8 on, every run gets
+the case prompt inside this frame, with the case's path rewritten to the run's
+own `outputs/` copy. With the skill:
+
+```
+평가 실행이다. 먼저 스킬 파일 <skill>/SKILL.md 를 읽고, 그 지침(필요하면 같은 폴더의 references/ 포함)을 따라 아래 작업을 수행한다.
+
+작업: <case prompt>
+
+실행 조건:
+- 파일 생성·수정은 위 outputs 폴더 안에서만 한다. git·네트워크·외부 서비스는 쓰지 않는다.
+- 사용자와 대화할 수 없다. 질문 도구(AskUserQuestion 등)를 호출하지 않는다. 너의 최종 답변이 그대로 사용자에게 전달된다.
+- 끝에 사용자에게 할 최종 답변을 출력하고, 그 아래에 만들거나 바꾼 파일 목록을 적는다.
+```
+
+Without it, the first line is `평가 실행이다. Skill 도구를 쓰지 않고, 어떤 SKILL.md 파일도 읽지 않는다. 아래 작업을 수행한다.` —
+the skill is installed globally on the host, and case 3's prompt matches one of
+its triggers. Change this frame and the runs stop being comparable; record the
+change in the iteration's results file.
 
 Two steps sit between the runs and the graders:
 
