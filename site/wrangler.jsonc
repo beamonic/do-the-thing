@@ -1,0 +1,10 @@
+{
+	// Static assets only, no Worker script. The account comes from CLOUDFLARE_ACCOUNT_ID at deploy time.
+	"name": "do-the-thing",
+	"compatibility_date": "2026-09-01",
+	"workers_dev": true,
+	"preview_urls": false,
+	"assets": {
+		"directory": "./public"
+	}
+}

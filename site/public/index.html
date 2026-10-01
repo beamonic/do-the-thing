@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Do the Thing — Work, with receipts</title>
+  <meta name="description" content="An open-source agent skill. Give your AI a task and get it back with evidence for every claim: what was asked, what was decided, and what was actually checked.">
+  <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://github.com/beamonic/do-the-thing">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Do the Thing — Work, with receipts">
+  <meta property="og:description" content="Give your AI a task. Get it back with evidence for every claim.">
+  <meta property="og:image" content="/og.png">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="top">
+    <div class="wrap top-row">
+      <a class="brand" href="/" aria-label="Do the Thing home">
+        <svg class="mark" viewBox="0 0 72 72" aria-hidden="true"><rect x="4" y="4" width="64" height="64" rx="12"/><path d="M20 37 l12 12 l22 -26"/></svg>
+        <span>Do the Thing</span>
+      </a>
+      <nav aria-label="Primary">
+        <a href="#how">How it works</a>
+        <a href="#measured">Measured</a>
+        <a href="https://github.com/beamonic/do-the-thing">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">An open-source agent skill</p>
+          <h1>Work, with receipts.</h1>
+          <p class="lead">Give your AI a task. Get it back with evidence for every claim — what was asked, what was decided, and what was actually checked.</p>
+          <div class="install" role="group" aria-label="Install command">
+            <code id="install-cmd">npx skills add beamonic/<wbr><span class="nb">do-the-thing</span></code>
+            <button type="button" class="copy" data-copy="#install-cmd">Copy</button>
+          </div>
+          <p class="fine">Claude Code, Codex, and any agent that reads <code>SKILL.md</code>. MIT licensed.</p>
+        </div>
+
+        <figure class="receipt" aria-label="Example of what comes back">
+          <figcaption class="receipt-head">
+            <span>Receipt</span>
+            <span class="muted">example</span>
+          </figcaption>
+          <p class="receipt-task">Finish the retention job · SPEC-31 rev 2</p>
+          <ol class="lines">
+            <li>
+              <span class="id">AC-02</span>
+              <span class="what">Log how many transcripts were deleted</span>
+              <span class="tag pass">Pass</span>
+              <span class="proof">ran <code>report_removed(3)</code>, count logged</span>
+            </li>
+            <li>
+              <span class="id">AC-01</span>
+              <span class="what">Delete transcripts past the window</span>
+              <span class="tag held">Held</span>
+              <span class="proof">waits on Q-03 · job deletes nothing until set</span>
+            </li>
+            <li>
+              <span class="id">Q-03</span>
+              <span class="what">SPEC-31 says 1 year. Legal says 30 days. Which wins?</span>
+              <span class="tag open">Yours</span>
+              <span class="proof">recommended: 30 days — Legal covers every copy</span>
+            </li>
+            <li>
+              <span class="id">Review</span>
+              <span class="what">Matches the spec · meets the standards</span>
+              <span class="tag pass">Pass</span>
+              <span class="proof">findings recorded per axis</span>
+            </li>
+          </ol>
+          <p class="receipt-next"><span class="muted">Next</span> Answer Q-03, set one line, rerun AC-01.</p>
+        </figure>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap narrow">
+        <h2>Handing work to an AI starts another job.</h2>
+        <p>You supply the context. You answer the same questions twice. You check whether “done” means done, and when the session ends you piece together what happened.</p>
+        <p>Do the Thing turns that into one workflow your agent follows — and leaves a record you can check instead of a summary you have to trust.</p>
+      </div>
+    </section>
+
+    <section id="how" class="section">
+      <div class="wrap">
+        <h2>How it works</h2>
+        <p class="section-lead">One entry point. Say “do the thing”, “take this issue and work it”, or “resume the stopped work”.</p>
+        <ol class="steps">
+          <li><h3>Read the sources</h3><p>The issue, the code, and what is already decided. Facts are the agent’s job, not yours.</p></li>
+          <li><h3>Interview</h3><p>One question at a time, each with a recommended answer. A question nobody answered stays open, and nothing is built on a guess.</p></li>
+          <li><h3>Big spec</h3><p>The user outcome, shared rules, and acceptance criteria, each with a stable ID.</p></li>
+          <li><h3>Mini specs</h3><p>The plan is critiqued, then split into tasks that each cite the criteria they serve.</p></li>
+          <li><h3>Execute and prove</h3><p>Tests are shown to catch the defect they guard against — not just shown to pass.</p></li>
+          <li><h3>Review on two axes</h3><p>Does it match the spec? Does it meet the standards? Recorded separately, with what was not reviewed.</p></li>
+          <li><h3>Checkpoint and resume</h3><p>A record good enough to pick up cold. A damaged checkpoint is kept as it is and worked around, never overwritten.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="wrap">
+        <h2>Three rules it does not bend</h2>
+        <div class="rules">
+          <article>
+            <h3>Facts are its job. Decisions are yours.</h3>
+            <p>It looks things up instead of asking you. When two sources disagree, it does not pick one — not even a “safe default”. It asks, recommends, and keeps working on everything that does not depend on the answer.</p>
+          </article>
+          <article>
+            <h3>Green tests are not “done”.</h3>
+            <p>Done means every acceptance criterion has evidence. Thirty-one passing tests and one unchecked criterion is not done, and it will say which criterion.</p>
+          </article>
+          <article>
+            <h3>A session ending loses nothing.</h3>
+            <p>Checkpoints record the checks that actually ran and the revisions they ran against, so the next session starts where the last one stopped.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="measured" class="section">
+      <div class="wrap">
+        <h2>Measured, not asserted</h2>
+        <p class="section-lead">The skill ships with a re-runnable eval suite. Pass criteria are committed before the runs that judge them.</p>
+        <div class="stats">
+          <a class="stat" href="https://github.com/beamonic/do-the-thing/blob/main/evals/results/iteration-10.md">
+            <span class="num">4/6 → 0/6</span>
+            <span class="label">Told the job ships tonight, the previous version filled in a value two policies disagreed on in 4 of 6 runs. The current version: none.</span>
+            <span class="src">Iteration 10 · 6 runs per version · one-sided Fisher exact p = 0.030</span>
+          </a>
+          <a class="stat" href="https://github.com/beamonic/do-the-thing/blob/main/evals/results/iteration-3.md">
+            <span class="num">+0.357</span>
+            <span class="label">Pass-rate difference against the same tasks done without the skill — about four times the run-to-run noise.</span>
+            <span class="src">Iteration 3 · 3 runs per arm</span>
+          </a>
+          <a class="stat" href="https://github.com/beamonic/do-the-thing/blob/main/evals/results/iteration-4.md">
+            <span class="num">2 rejected</span>
+            <span class="label">Two rule changes that read well were measured, made things worse or changed nothing, and never shipped.</span>
+            <span class="src">Iterations 4 and 5</span>
+          </a>
+        </div>
+        <p class="caveat">Samples are small, and each results file says what it does not show. <a href="https://github.com/beamonic/do-the-thing/tree/main/evals">Read them.</a></p>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="wrap fits">
+        <div>
+          <h2>Fits what you already use</h2>
+          <ul class="checks">
+            <li><strong>Any skills-aware agent.</strong> Claude Code and Codex are tested; the folder is self-contained.</li>
+            <li><strong>Tracker optional.</strong> Linear has a contract. Without a tracker, a file in your repository is the work record.</li>
+            <li><strong>Spec Kit aware.</strong> When the repository carries GitHub’s Spec Kit, its commands are called at every step.</li>
+          </ul>
+        </div>
+        <div>
+          <h2>What it is not</h2>
+          <p>Not a hosted app, an OAuth integration, a background worker, or an autonomous webhook service. It is a folder of instructions, templates, and a small validator that your agent reads.</p>
+          <p class="muted">The name comes from the Korean <span lang="ko">일 좀 해</span> — “do some work”. It answers to <span lang="ko">“두더띵으로 해줘”</span> too.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="wrap narrow center">
+        <h2>Try it on your next task.</h2>
+        <div class="install" role="group" aria-label="Install command">
+          <code id="install-cmd-2">npx skills add beamonic/<wbr><span class="nb">do-the-thing</span></code>
+          <button type="button" class="copy" data-copy="#install-cmd-2">Copy</button>
+        </div>
+        <p class="links">
+          <a href="https://github.com/beamonic/do-the-thing">Source on GitHub</a>
+          <a href="https://github.com/beamonic/do-the-thing/blob/main/docs/method.md">The method</a>
+          <a href="https://github.com/beamonic/do-the-thing/blob/main/docs/release-status.md">Release notes</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot-row">
+      <p>MIT License · © 2026 Beamonic</p>
+      <p class="muted">Interview method adapted from Matt Pocock’s <code>grilling</code> skill (MIT).</p>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('button.copy').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var text = document.querySelector(button.dataset.copy).textContent;
+        var done = function () {
+          button.textContent = 'Copied';
+          setTimeout(function () { button.textContent = 'Copy'; }, 1600);
+        };
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).then(done, function () { button.textContent = 'Select and copy'; });
+        } else {
+          button.textContent = 'Select and copy';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
