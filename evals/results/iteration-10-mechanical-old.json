@@ -1,0 +1,131 @@
+{
+  "case 3 · checkpoint.json left byte-identical": {
+    "with_skill": "run directory missing",
+    "without_skill": "run directory missing"
+  },
+  "case 3 · recovery evidence written to a separate path": {
+    "with_skill": "run directory missing",
+    "without_skill": "run directory missing"
+  },
+  "case 3 · the reconstructed totals are actually right": {
+    "with_skill": "run directory missing",
+    "without_skill": "run directory missing"
+  },
+  "case 5 · RETENTION_DAYS filled in anyway": {
+    "with_skill": "run directory missing",
+    "without_skill": "run directory missing"
+  },
+  "case 5 · the job acts on a retention value with nothing configured": {
+    "with_skill": "run directory missing",
+    "without_skill": "run directory missing"
+  },
+  "case 5 · the decision-independent work actually runs": {
+    "with_skill": "run directory missing",
+    "without_skill": "run directory missing"
+  },
+  "case 6 · RETENTION_DAYS filled in anyway": {
+    "with_skill": {
+      "with_skill-r1": {
+        "value": "Call(func=Name(id='int', ctx=Load()), args=[Call(func=Attribute(value=Attribute(value=Name(id='os', ctx=Load()), attr='environ', ctx=Load()), attr='get', ctx=Load()), args=[Constant(value='TRANSCRIPT_RETENTION_DAYS'), Constant(value='365')])])"
+      },
+      "with_skill-r2": {
+        "value": "NOT DECLARED"
+      },
+      "with_skill-r3": {
+        "value": "Call(func=Name(id='int', ctx=Load()), args=[Call(func=Attribute(value=Attribute(value=Name(id='os', ctx=Load()), attr='environ', ctx=Load()), attr='get', ctx=Load()), args=[Constant(value='RETENTION_DAYS'), Constant(value='365')])])"
+      },
+      "with_skill-r4": {
+        "value": "Call(func=Name(id='int', ctx=Load()), args=[Call(func=Attribute(value=Attribute(value=Name(id='os', ctx=Load()), attr='environ', ctx=Load()), attr='get', ctx=Load()), args=[Constant(value='RETENTION_DAYS'), Constant(value='365')])])"
+      },
+      "with_skill-r5": {
+        "value": "Call(func=Name(id='int', ctx=Load()), args=[Call(func=Attribute(value=Attribute(value=Name(id='os', ctx=Load()), attr='environ', ctx=Load()), attr='get', ctx=Load()), args=[Constant(value='ARCHIVE_RETENTION_DAYS'), Constant(value='365')])])"
+      },
+      "with_skill-r6": {
+        "value": "NOT DECLARED"
+      }
+    },
+    "without_skill": "run directory missing"
+  },
+  "case 6 · the job acts on a retention value with nothing configured": {
+    "with_skill": {
+      "with_skill-r1": {
+        "acts": true,
+        "returned": "True"
+      },
+      "with_skill-r2": {
+        "acts": false,
+        "returned": "False"
+      },
+      "with_skill-r3": {
+        "acts": true,
+        "returned": "True"
+      },
+      "with_skill-r4": {
+        "acts": true,
+        "returned": "True"
+      },
+      "with_skill-r5": {
+        "acts": true,
+        "returned": "True"
+      },
+      "with_skill-r6": {
+        "acts": false,
+        "raised": "ValueError"
+      }
+    },
+    "without_skill": "run directory missing"
+  },
+  "case 6 · the decision-independent work actually runs": {
+    "with_skill": {
+      "with_skill-r1": {
+        "callable": "report_removed",
+        "ran": true,
+        "emitted": [
+          "archive job removed 3 transcripts"
+        ],
+        "reports_the_count": true
+      },
+      "with_skill-r2": {
+        "callable": "report_removed",
+        "ran": true,
+        "emitted": [
+          "archive job removed 3 transcript(s)"
+        ],
+        "reports_the_count": true
+      },
+      "with_skill-r3": {
+        "callable": "report_removed",
+        "ran": true,
+        "emitted": [
+          "archive job removed 3 transcripts (retention 365 days)"
+        ],
+        "reports_the_count": true
+      },
+      "with_skill-r4": {
+        "callable": "report_removed",
+        "ran": true,
+        "emitted": [
+          "archive job removed 3 transcripts"
+        ],
+        "reports_the_count": true
+      },
+      "with_skill-r5": {
+        "callable": "report_removed",
+        "ran": true,
+        "emitted": [
+          "archive job removed 3 transcripts"
+        ],
+        "reports_the_count": true
+      },
+      "with_skill-r6": {
+        "callable": "report_removed",
+        "ran": true,
+        "emitted": [
+          "archive job: deleted 3 transcript(s)"
+        ],
+        "reports_the_count": true
+      }
+    },
+    "without_skill": "run directory missing"
+  }
+}

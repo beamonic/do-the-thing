@@ -32,7 +32,12 @@ did the damage — and moved the behaviour it was written for **not at all**. Tw
 wording attempts, zero movement on the target, so neither is merged and the next
 attempt will not be a third rewording.
 
-The suite is two cases and 12 expectations. It was five and 26 until iteration 2
+[Iteration 10](results/iteration-10.md) added case 6 — case 5's fixture with a
+deadline in the prompt — because case 5 alone could not tell the shipped skill
+from the #40 fix. Under that pressure 0.20 filled the value in 4 of 6 runs and
+the fix in none.
+
+The suite is three cases and 16 expectations. It was five and 26 until iteration 2
 measured three of them separating the arms zero times twice running — those live
 in [`retired/`](retired/README.md) with the reasoning and how to bring one back.
 
