@@ -2,6 +2,8 @@
 
 **Give your AI a task. Get it back with evidence for every claim.**
 
+[Site](https://do-the-thing.tight-heart-e77e.workers.dev/) · [한국어](https://do-the-thing.tight-heart-e77e.workers.dev/ko/)
+
 Do the Thing is an installable agent skill that connects source review, interviews, Big and Mini Painless Specs, plan critique, execution, and recovery. The name comes from the Korean phrase for “do some work.”
 
 **Available now:** the skill package with its interview contract, Big/Mini/checkpoint templates, a completion-record validator whose suite is mutation-tested in CI, fictional examples, and `evals/` — a re-runnable suite that scores the skill against the same work done without it. A tracker is optional — Linear has a contract here, another tracker follows the same rules, and without one a file in the repository is the work record. The measured benefit was produced with no tracker connected. This is not a hosted app, OAuth integration, background worker, or autonomous webhook service. Five runs so far, two of them on live Linear issues — one closed to Done with the whole journey verified and resume exercised, one still in progress. Native comment threads and crash-simulated resume are untested. See [release status](docs/release-status.md).
