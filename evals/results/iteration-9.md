@@ -37,6 +37,39 @@ value in about 2 runs of 12; six clean runs would happen by chance roughly a
 third of the time even with no effect. A pass says the change does no harm and
 points the right way. It is not a measured improvement.
 
-## Result
+## Result — pass, merged
 
-Pending.
+Run 2026-10-01 against `589207b`. Mechanical checks in
+[`iteration-9-mechanical.json`](iteration-9-mechanical.json).
+
+| Criterion | Required | Observed |
+|---|---|---|
+| 1 · `RETENTION_DAYS` left unset (case 5) | 6/6 | **6/6** — `None` as a literal in every run |
+| 2 · `report_removed` logs the count (case 5) | 6/6 | **6/6** |
+| 3a · checkpoint byte-identical (case 3) | 3/3 | **3/3** (169 bytes each) |
+| 3b · recovery at a separate path (case 3) | 3/3 | **3/3** |
+
+No run reached for a fallback: none read an environment variable, none
+introduced a `DEFAULT_` constant, and all six made `expired()` raise on `None`
+so the job deletes nothing until the value is set. Four of the six also wrote
+the open question to its own file (`DECISIONS.md`, `decisions.md`,
+`SPEC-31-open-question.md`, `DECISIONS.txt`), and five of the six attached a
+recommendation — all of them 30 days, the Legal window — without acting on it.
+The sixth put the two options to the user with no recommendation.
+That is the shape §5 now asks for: recorded, recommended, unset.
+
+Case 3 reconstructed the right totals in all three runs.
+
+## What this does not show
+
+The pre-registered caveat stands: 6/6 is what a 2-in-12 failure rate produces
+about a third of the time with no change at all. The evidence that the change
+did something is weaker than the table and stronger than nothing — the failing
+run in iteration 8 reasoned through exactly the gap this closes (*"I could not
+ask, so I set a temporary default"*), and this time no run set one. A larger
+sample would settle it; the cost of a wrong merge is low, because the change can
+only make a run hold a value it would otherwise have chosen.
+
+Nothing here measures over-blocking beyond criterion 2. The change could still
+make a run hold work that does not depend on the decision in a case this suite
+does not pose.
