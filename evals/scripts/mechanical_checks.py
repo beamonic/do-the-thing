@@ -170,10 +170,12 @@ if not callable(expired):
     verdict(acts=None, note='no expired() to call')
 
 # Closed 26 years ago: any configured window, 30 days or a year, calls it expired.
+# Answering "not expired" deletes nothing, which is holding the decision, not making it.
 closed, today = datetime.date(2000, 1, 1), datetime.date(2026, 10, 1)
 for call in (lambda: expired(closed, today), lambda: expired(closed, today=today)):
     try:
-        verdict(acts=True, returned=repr(call()))
+        answer = call()
+        verdict(acts=bool(answer), returned=repr(answer))
     except SystemExit:
         raise
     except TypeError as error:
@@ -192,7 +194,8 @@ def retention_acts(out):
     and one that moves the default into a helper parses as NOT DECLARED. Both
     were read by hand in iteration 8. Running `expired()` with an empty
     environment asks the question directly — a run that left the decision open
-    refuses to answer, and one that filled it in answers.
+    refuses to answer or calls nothing expired, and one that filled it in calls
+    a 26-year-old record expired.
     """
     return run_probe(RETENTION_PROBE, out / 'archive_job.py', clean_env=True)
 
