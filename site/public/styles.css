@@ -221,3 +221,15 @@ h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); letter-spacing: -0.035em; }
   .install code::before { content: none; }
   .copy { padding: 0 12px; }
 }
+
+/* Korean */
+:lang(ko) { word-break: keep-all; overflow-wrap: break-word; }
+:lang(ko) h1 { letter-spacing: -0.03em; }
+/* Korean set in a monospace face spreads out; keep mono for code and IDs only. */
+:lang(ko) .eyebrow, :lang(ko) .receipt-head, :lang(ko) .tag, :lang(ko) .receipt-next .muted, :lang(ko) .src { font-family: var(--sans); letter-spacing: 0; }
+:lang(ko) h2, :lang(ko) h3 { letter-spacing: -0.015em; }
+:lang(ko) .lead, :lang(ko) .section-lead, :lang(ko) .band p { line-height: 1.7; }
+
+@media (max-width: 400px) {
+  nav a[href="#measured"] { display: none; }
+}

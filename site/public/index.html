@@ -9,7 +9,11 @@
   <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="canonical" href="https://do-the-thing.tight-heart-e77e.workers.dev/">
+  <link rel="alternate" hreflang="en" href="https://do-the-thing.tight-heart-e77e.workers.dev/">
+  <link rel="alternate" hreflang="ko" href="https://do-the-thing.tight-heart-e77e.workers.dev/ko/">
+  <link rel="alternate" hreflang="x-default" href="https://do-the-thing.tight-heart-e77e.workers.dev/">
   <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
   <meta property="og:title" content="Do the Thing — Work, with receipts">
   <meta property="og:description" content="Give your AI a task. Get it back with evidence for every claim.">
   <meta property="og:url" content="https://do-the-thing.tight-heart-e77e.workers.dev/">
@@ -32,6 +36,7 @@
         <a href="#how">How it works</a>
         <a href="#measured">Measured</a>
         <a href="https://github.com/beamonic/do-the-thing">GitHub</a>
+        <a href="/ko/" hreflang="ko" lang="ko">한국어</a>
       </nav>
     </div>
   </header>
@@ -197,21 +202,6 @@
     </div>
   </footer>
 
-  <script>
-    document.querySelectorAll('button.copy').forEach(function (button) {
-      button.addEventListener('click', function () {
-        var text = document.querySelector(button.dataset.copy).textContent;
-        var done = function () {
-          button.textContent = 'Copied';
-          setTimeout(function () { button.textContent = 'Copy'; }, 1600);
-        };
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText(text).then(done, function () { button.textContent = 'Select and copy'; });
-        } else {
-          button.textContent = 'Select and copy';
-        }
-      });
-    });
-  </script>
+  <script src="/copy.js"></script>
 </body>
 </html>

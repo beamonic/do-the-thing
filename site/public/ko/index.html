@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Do the Thing — 일하고, 영수증까지</title>
+  <meta name="description" content="오픈소스 에이전트 스킬. AI에게 일을 맡기면 모든 주장에 근거를 붙여 돌려받습니다. 무엇을 물었고, 무엇을 정했고, 실제로 무엇을 확인했는지 남습니다.">
+  <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://do-the-thing.tight-heart-e77e.workers.dev/ko/">
+  <link rel="alternate" hreflang="en" href="https://do-the-thing.tight-heart-e77e.workers.dev/">
+  <link rel="alternate" hreflang="ko" href="https://do-the-thing.tight-heart-e77e.workers.dev/ko/">
+  <link rel="alternate" hreflang="x-default" href="https://do-the-thing.tight-heart-e77e.workers.dev/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:title" content="Do the Thing — 일하고, 영수증까지">
+  <meta property="og:description" content="AI에게 일을 맡기세요. 모든 주장에 근거를 붙여 돌려받습니다.">
+  <meta property="og:url" content="https://do-the-thing.tight-heart-e77e.workers.dev/ko/">
+  <meta property="og:image" content="https://do-the-thing.tight-heart-e77e.workers.dev/og-ko.png">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">본문으로 건너뛰기</a>
+
+  <header class="top">
+    <div class="wrap top-row">
+      <a class="brand" href="/ko/" aria-label="Do the Thing 홈">
+        <svg class="mark" viewBox="0 0 72 72" aria-hidden="true"><rect x="4" y="4" width="64" height="64" rx="12"/><path d="M20 37 l12 12 l22 -26"/></svg>
+        <span>Do the Thing</span>
+      </a>
+      <nav aria-label="주 메뉴">
+        <a href="#how">작동 방식</a>
+        <a href="#measured">측정</a>
+        <a href="https://github.com/beamonic/do-the-thing">GitHub</a>
+        <a href="/" hreflang="en" lang="en">English</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">오픈소스 에이전트 스킬</p>
+          <h1>일하고, 영수증까지.</h1>
+          <p class="lead">AI에게 일을 맡기세요. 모든 주장에 근거를 붙여 돌려받습니다. 무엇을 물었고, 무엇을 정했고, 실제로 무엇을 확인했는지 남습니다.</p>
+          <div class="install" role="group" aria-label="설치 명령">
+            <code id="install-cmd">npx skills add beamonic/<wbr><span class="nb">do-the-thing</span></code>
+            <button type="button" class="copy" data-copy="#install-cmd" data-label="복사" data-done="복사됨" data-fail="직접 선택해 복사">복사</button>
+          </div>
+          <p class="fine">Claude Code, Codex, 그리고 <code>SKILL.md</code>를 읽는 모든 에이전트. MIT 라이선스.</p>
+        </div>
+
+        <figure class="receipt" aria-label="돌려받는 결과 예시">
+          <figcaption class="receipt-head">
+            <span>영수증</span>
+            <span class="muted">예시</span>
+          </figcaption>
+          <p class="receipt-task">보관 작업 마무리 · SPEC-31 rev 2</p>
+          <ol class="lines">
+            <li>
+              <span class="id">AC-02</span>
+              <span class="what">삭제한 전사본 수를 로그로 남긴다</span>
+              <span class="tag pass">통과</span>
+              <span class="proof"><code>report_removed(3)</code> 실행, 건수 기록 확인</span>
+            </li>
+            <li>
+              <span class="id">AC-01</span>
+              <span class="what">보관기간이 지난 전사본을 삭제한다</span>
+              <span class="tag held">보류</span>
+              <span class="proof">Q-03 답을 기다림 · 값이 정해지기 전엔 아무것도 지우지 않음</span>
+            </li>
+            <li>
+              <span class="id">Q-03</span>
+              <span class="what">SPEC-31은 1년, 법무는 30일. 어느 쪽인가?</span>
+              <span class="tag open">결정 필요</span>
+              <span class="proof">추천: 30일 — 법무 정책이 모든 사본에 적용됨</span>
+            </li>
+            <li>
+              <span class="id">리뷰</span>
+              <span class="what">스펙과 일치 · 기준 충족</span>
+              <span class="tag pass">통과</span>
+              <span class="proof">축별 지적 사항 기록</span>
+            </li>
+          </ol>
+          <p class="receipt-next"><span class="muted">다음</span> Q-03에 답하면 한 줄을 채우고 AC-01을 다시 돌립니다.</p>
+        </figure>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap narrow">
+        <h2>AI에게 일을 맡기면 일이 하나 더 생깁니다.</h2>
+        <p>맥락을 설명하고, 같은 질문에 두 번 답하고, “끝났다”는 말이 정말 끝난 건지 확인합니다. 세션이 끝나면 무슨 일이 있었는지 다시 맞춰 봐야 합니다.</p>
+        <p>Do the Thing은 이 일을 에이전트가 따르는 하나의 흐름으로 바꿉니다. 믿어야 하는 요약 대신, 확인할 수 있는 기록을 남깁니다.</p>
+      </div>
+    </section>
+
+    <section id="how" class="section">
+      <div class="wrap">
+        <h2>작동 방식</h2>
+        <p class="section-lead">입구는 하나입니다. “두더띵으로 해줘”, “이 일 스펙부터 써”, “중단된 작업 이어서”라고 말하면 됩니다.</p>
+        <ol class="steps">
+          <li><h3>소스 읽기</h3><p>이슈, 코드, 이미 정해진 것을 먼저 읽습니다. 사실 확인은 사용자가 아니라 에이전트의 일입니다.</p></li>
+          <li><h3>인터뷰</h3><p>한 번에 한 질문만 하고, 질문마다 추천 답을 붙입니다. 답이 없는 질문은 열린 채로 남고, 추측 위에는 아무것도 짓지 않습니다.</p></li>
+          <li><h3>Big 스펙</h3><p>사용자가 얻을 결과, 공통 규칙, 수용 기준을 씁니다. 기준마다 고정 ID가 붙습니다.</p></li>
+          <li><h3>Mini 스펙</h3><p>계획을 비판적으로 검토한 뒤 작업으로 나눕니다. 작업마다 자기가 맡은 기준을 밝힙니다.</p></li>
+          <li><h3>실행과 증명</h3><p>테스트가 통과하는 것만 보지 않습니다. 막으려는 결함을 테스트가 실제로 잡는지 보여 줍니다.</p></li>
+          <li><h3>두 축 리뷰</h3><p>스펙과 맞는가, 기준을 지켰는가를 따로 기록합니다. 리뷰하지 않은 범위도 적습니다.</p></li>
+          <li><h3>체크포인트와 재개</h3><p>맥락 없이도 이어받을 수 있게 기록합니다. 손상된 체크포인트는 덮어쓰지 않고 그대로 둔 채 우회합니다.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="wrap">
+        <h2>굽히지 않는 원칙 세 가지</h2>
+        <div class="rules">
+          <article>
+            <h3>사실은 에이전트가, 결정은 사용자가.</h3>
+            <p>물어보기 전에 직접 찾아봅니다. 두 문서가 서로 다르면 한쪽을 고르지 않고, “안전한 기본값”도 넣지 않습니다. 추천 답을 붙여 묻고, 그 답과 무관한 일은 계속합니다.</p>
+          </article>
+          <article>
+            <h3>테스트 통과는 완료가 아닙니다.</h3>
+            <p>완료는 모든 수용 기준에 근거가 있다는 뜻입니다. 테스트 31개가 통과해도 확인하지 않은 기준이 하나 남았다면 끝난 것이 아니고, 그 기준이 무엇인지 말합니다.</p>
+          </article>
+          <article>
+            <h3>세션이 끝나도 잃는 것이 없습니다.</h3>
+            <p>체크포인트는 실제로 돌린 검사와 그 대상 리비전을 기록합니다. 다음 세션은 지난 세션이 멈춘 곳에서 시작합니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="measured" class="section">
+      <div class="wrap">
+        <h2>주장 말고 측정</h2>
+        <p class="section-lead">이 스킬에는 다시 돌릴 수 있는 평가 스위트가 들어 있습니다. 합격 기준은 판정할 실행보다 먼저 커밋합니다.</p>
+        <div class="stats">
+          <a class="stat" href="https://github.com/beamonic/do-the-thing/blob/main/evals/results/iteration-10.md">
+            <span class="num">4/6 → 0/6</span>
+            <span class="label">“오늘 밤 배포”라고 재촉하자, 이전 버전은 두 정책이 충돌하는 값을 6번 중 4번 임의로 채웠습니다. 지금 버전은 한 번도 채우지 않았습니다.</span>
+            <span class="src">10회차 · 버전별 6회 · 단측 Fisher 정확검정 p = 0.030</span>
+          </a>
+          <a class="stat" href="https://github.com/beamonic/do-the-thing/blob/main/evals/results/iteration-3.md">
+            <span class="num">+0.357</span>
+            <span class="label">같은 작업을 스킬 없이 했을 때와 비교한 통과율 차이입니다. 실행마다 생기는 편차의 약 4배입니다.</span>
+            <span class="src">3회차 · 조건별 3회</span>
+          </a>
+          <a class="stat" href="https://github.com/beamonic/do-the-thing/blob/main/evals/results/iteration-4.md">
+            <span class="num">2건 기각</span>
+            <span class="label">그럴듯해 보인 규칙 변경 두 건을 측정했습니다. 하나는 결과를 나쁘게 했고 하나는 아무것도 바꾸지 못해, 둘 다 내보내지 않았습니다.</span>
+            <span class="src">4·5회차</span>
+          </a>
+        </div>
+        <p class="caveat">표본은 작습니다. 결과 파일마다 무엇을 보여 주지 못하는지 적혀 있습니다. <a href="https://github.com/beamonic/do-the-thing/tree/main/evals">직접 읽어 보세요(영문).</a></p>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="wrap fits">
+        <div>
+          <h2>지금 쓰는 도구에 맞습니다</h2>
+          <ul class="checks">
+            <li><strong>스킬을 읽는 에이전트면 됩니다.</strong> Claude Code와 Codex에서 검증했습니다. 폴더 하나로 완결됩니다.</li>
+            <li><strong>트래커는 선택입니다.</strong> Linear용 계약이 들어 있습니다. 트래커가 없으면 저장소 안의 파일이 작업 기록이 됩니다.</li>
+            <li><strong>Spec Kit을 인식합니다.</strong> 저장소에 GitHub Spec Kit이 있으면 단계마다 그 명령을 부릅니다.</li>
+          </ul>
+        </div>
+        <div>
+          <h2>이것이 아닙니다</h2>
+          <p>호스팅 앱, OAuth 연동, 백그라운드 워커, 자동 웹훅 서비스가 아닙니다. 에이전트가 읽는 지침, 템플릿, 작은 검증 도구가 든 폴더입니다.</p>
+          <p class="muted">이름은 “일 좀 해”라는 말에서 왔습니다. “두더띵으로 해줘”라고 불러도 됩니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="wrap narrow center">
+        <h2>다음 작업에 써 보세요.</h2>
+        <div class="install" role="group" aria-label="설치 명령">
+          <code id="install-cmd-2">npx skills add beamonic/<wbr><span class="nb">do-the-thing</span></code>
+          <button type="button" class="copy" data-copy="#install-cmd-2" data-label="복사" data-done="복사됨" data-fail="직접 선택해 복사">복사</button>
+        </div>
+        <p class="links">
+          <a href="https://github.com/beamonic/do-the-thing">GitHub 소스</a>
+          <a href="https://github.com/beamonic/do-the-thing/blob/main/docs/method.md">방법론(영문)</a>
+          <a href="https://github.com/beamonic/do-the-thing/blob/main/docs/release-status.md">릴리스 노트</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot-row">
+      <p>MIT 라이선스 · © 2026 Beamonic</p>
+      <p class="muted">인터뷰 방식은 Matt Pocock의 <code>grilling</code> 스킬(MIT)을 바탕으로 했습니다.</p>
+    </div>
+  </footer>
+
+  <script src="/copy.js"></script>
+</body>
+</html>
